@@ -1,0 +1,198 @@
+POKEYS 100 DAYS GONE — PROJECT MANAGER PROMPT
+For GPT-6.1 Sol Ultra
+
+Act as my project manager and technical integration lead for a Project Zomboid survival multiplayer modpack named “Pokeys 100 Days Gone.” Turn the vision below into an achievable 1.0 release, organize the work, investigate existing mods, and guide me through implementation and testing in small, reviewable steps.
+
+I will collaborate throughout, proofread code and documentation, and run in-game tests with friends. Reduce the work I must hold in my head. Bring recommendations, evidence, exact next actions, and clear expected results. Keep an accurate distinction between what you researched, inspected in code, tested yourself, and still need me to test.
+
+1. THE SPIRIT OF THE PROJECT
+
+We begin about 100 days after the outbreak. People have already adapted. Factions have occupied places, made alliances and enemies, and survived earlier crises. Players enter an existing society and influence what happens next. The server should support ongoing play across repeated sessions.
+
+The experience centers on players, foreshadowing, encounters, and consequences. Zombies put pressure on human life. Survival systems support interesting decisions and group activity. Project Viewpoint and credible gunplay are central to how our group experiences this world.
+
+Our guiding phrase is “It’s show business.” Use inexpensive, consistent systems to create the believable impression of a living world. A faction can have a persistent identity, a camp, radio messages, and a few convincing encounters without simulating every member continuously. A horde can follow an abstract route off-screen and become physical near players. Players should see enough cause and effect to understand and influence the situation.
+
+Keep the technical documentation candid about these abstractions. The illusion must survive ordinary observation: no obvious spawning in view, contradictory radio reports, disappearing consequences, or enemies that magically know every player’s location.
+
+2. THE BOUNDED 1.0 PRODUCT
+
+Plan initially for a small private dedicated server with 2–8 players; this is a planning assumption, not a tested capacity claim. Confirm our actual player count and hardware early. Include my Linux client in the compatibility requirements; determine the friends’ platforms and exact Viewpoint installation method. Verify the installed game build and branch rather than assuming what “current Build 42” means.
+
+The release must deliver these outcomes:
+
+A. A reliable survival and presentation foundation.
+The group can install, join, reconnect, and play the same supported build and mod configuration. Project Viewpoint works during ordinary exploration and combat. One selected firearm system provides understandable aiming, recoil, and damage. Record the real behavior of hits against zombies, human NPCs, and players separately. Full skeletal ballistics is not automatically a requirement; believable, consistent shooting is. Preserve the survival stakes and avoid turning the pack into unlimited ammunition and effortless rewards.
+
+B. A world with an established human presence.
+Use existing locations and a minimal cast, provisionally three recognizable groups representing neutral, allied, and hostile relationships. Provide at least one usable contact or supply favor and one hostile human encounter. Radio contacts and simple persistent standing are acceptable. Player choices must produce at least one visible relationship change with a concrete result, such as access, assistance, a different contract, or hostility. Start with group-wide standing for the cooperating players unless we identify a reason for individual reputation. Recruitment, base workers, elaborate dialogue, territorial warfare, and autonomous diplomacy are optional candidates, not mandatory infrastructure.
+
+C. A recurring migration / horde event.
+Scientists or observers broadcast an approaching horde, its approximate direction, and an arrival window. Players can prepare, evacuate, or attempt a limited diversion. The event must affect both players and a faction location or faction state. An off-screen faction consequence may be abstract, but it must have a visible aftermath or changed interaction. Use one horde system with bounded population and recovery time between events. Make rules for empty servers and offline settlements explicit; the initial default is no destructive attacks on offline player bases.
+
+D. A recognizable horde leader.
+One leader has a readable appearance or sound and one testable coordination effect. For example, while alive it periodically rallies nearby event zombies toward a selected approach point. Its death stops that coordination; existing zombies remain dangerous. Begin with one effect supported by verified hooks. A timed stat bonus alone does not meet the promise that the leader directs the horde. Defer advanced flanking, structural analysis, unique animations, and custom zombie pathfinding.
+
+E. A first example of optional active play.
+Add one short interaction that rewards attention with a bounded advantage while preserving a useful baseline action. The preferred candidate is radio or sensor calibration: baseline operation gives an actionable warning; a successful brief tuning task improves the forecast. Prototype roughly 10–20 seconds, then tune from player feedback. An existing compatible minigame can substitute if it satisfies the same outcome more cheaply. Lockpicking and fishing mods are research leads, not additional mandatory features.
+
+F. A repeatable loop.
+Exploration and supply work lead to faction encounters and preparation, then forecasts, horde pressure, aftermath, rewards, and recovery. Jobs and threats recur with limits. Late joiners need a route into useful play. Avoid escalation that inevitably makes the server unplayable, and avoid constant maintenance chores. “Ongoing play” means a sustainable recurring loop, not a promise of infinite unique authored content.
+
+STRETCH: faction abundances and scarcities.
+Only after the core works, give each faction one simple surplus and one shortage. Use these to generate a few supply requests and trade opportunities. Prefer small tables, cooldowns, and existing item delivery over a simulated market. This does not block 1.0 and must not expand into supply-chain AI.
+
+Explicitly defer a county-wide economy, continuous simulation of all NPCs, custom rendering, a new firearm engine, a full map overhaul, many competing zombie directors, a generic quest platform, and a minigame for every chore. Add nothing to the mandatory scope without stating what it replaces or how it changes the release goal.
+
+3. VERIFY THE CHAT’S ASSUMPTIONS
+
+The earlier conversation was brainstorming, not a compatibility certification. Do not repeat its confident claims as facts. In particular:
+
+- A Workshop multiplayer tag does not establish that a mod works on our dedicated server or with our other mods.
+- A mod called “factions” may only provide encounter presets. Check whether persistent allegiance, reputation, and player consequences actually exist.
+- Viewpoint camera aiming, projectile collision, head/body damage multipliers, human injury locations, and multiplayer damage synchronization are separate things.
+- Do not infer skeletal hit detection or reliable PvP/NPC damage from a description that mentions headshots or reports “head/body/legs.”
+- Do not assume per-zombie AI changes are exposed to Lua, network correctly, or survive unloading and reloading.
+- Verify what vanilla fishing already offers on our exact build before planning a replacement.
+
+Use current author documentation, changelogs, source repositories, and the installed files as primary evidence. Cite the source and date for material compatibility claims. Where the code is available, trace the specific hook or behavior we would depend on. Do not claim you inspected unavailable code. If you cannot browse or run the game, say precisely what remains unresolved and give me a short way to resolve it.
+
+For every included mod, record its purpose, exact supported version, dependencies, relevant settings, overlapping systems, and the hooks or files a patch would touch. Keep this in one compact integration table. Inspect the paths relevant to our behavior; do not turn discovery into an exhaustive reverse-engineering project. Drop dependencies that contribute nothing to the agreed release.
+
+These are research leads from our conversation, not an approved stack. Read their current requirements and choose the smallest working subset:
+
+- Project Viewpoint: https://steamcommunity.com/sharedfiles/filedetails/?id=3809306528
+- Viewpoint Recoil & ADS, if needed: https://steamcommunity.com/sharedfiles/filedetails/?id=3812612054
+- Advanced Trajectory’s Realistic Overhaul, firearm candidate: https://steamcommunity.com/sharedfiles/filedetails/?id=3036878362
+- Advanced Trajectory Build 42 Port, an alternative to investigate: https://steamcommunity.com/sharedfiles/filedetails/?id=3777026775
+- B42 Bandits NPC: https://steamcommunity.com/sharedfiles/filedetails/?id=3268487204
+- NPC Crew, only if its multiplayer ownership model serves our group: https://steamcommunity.com/sharedfiles/filedetails/?id=3800132623
+- Kane NPC Pack, optional encounter content: https://steamcommunity.com/sharedfiles/filedetails/?id=3594821036
+- Horde Nights, one event-system candidate: https://steamcommunity.com/sharedfiles/filedetails/?id=3782615002
+- Hark’s Horde Night Revamped, an alternative: https://steamcommunity.com/sharedfiles/filedetails/?id=3713005182
+- Neat Lockpicking, a reference for interactive actions: https://steamcommunity.com/sharedfiles/filedetails/?id=3783535220
+
+Do not enable competing firearm, NPC, or horde frameworks together just to see what happens. Select one owner for each behavior. If no current pack meets our requirements, recommend a minimal curated collection with a small companion mod. A giant collection is not evidence of a coherent product.
+
+4. THE SIMPLICITY RULE
+
+Use this order for every requirement:
+1. Existing game or mod setting.
+2. An existing supported integration or maintained mod.
+3. A small compatibility add-on using the available hooks.
+4. A small custom feature, only for the remaining gap.
+
+Before proposing custom code, identify the exact missing behavior, the alternatives checked, the smallest workable change, and how we will test it. Avoid building an abstraction for a hypothetical second use. A few explicit data tables and event handlers are fine. No service backend, external database, AI dialogue service, plugin architecture, generic workflow engine, or elaborate configuration system without a demonstrated requirement and my agreement to expand scope.
+
+Use idiomatic Lua and the structures expected by our verified build. Keep patches separate from upstream mods where possible. Do not copy or redistribute mod code or assets without the required permission. A public Workshop upload is not automatically an open-source license. Prefer an add-on that lists the original as a dependency. Record licenses or permission requirements before a release plan depends on a fork.
+
+Change one behavior at a time. Use version control for our own code, configuration, and documentation. Make small commits with readable diffs. Avoid editing core game files or adding Java/injection dependencies unless a required capability demonstrably needs them. Account for dependencies Viewpoint already requires before proposing any additional ones.
+
+Write meaningful tests for persistent state, duplicate rewards, and multiplayer rules where useful. Do not build a testing framework or tests that merely mirror trivial code. Use focused in-game checks for behavior that requires the engine.
+
+5. MULTIPLAYER ENGINEERING RULES
+
+Keep campaign state, schedules, faction standing, event identity, and reward decisions authoritative on the server. Existing engine/mod ownership of physical zombies and NPCs still applies: verify how it works rather than assuming the dedicated server can directly drive every entity. Route authoritative decisions through the supported ownership and networking model.
+
+Clients may present UI and submit actions. Validate inventory requirements, distance, timing, cooldowns, and duplicate completion on the server. A timing minigame cannot become perfectly cheat-proof merely because the client sends a score; use reasonable checks for a private cooperative server and document the trust boundary.
+
+Persist only necessary state. Handle reconnects, restarts, leader death, leader unloading, and an owning client disconnecting. Rewards must not pay twice after retries. Define what happens to an active event when its target leaves. Broadcast only what other clients need.
+
+Track which entities belong to an event so cleanup cannot remove unrelated world zombies or NPCs. Define which consequences remain afterward and what happens when a faction site is destroyed. Recovery and replacement contacts must leave an ongoing path to play.
+
+Bound work by active event and nearby area. Avoid scanning the whole map or every zombie every frame. Cap active event zombies across the server, not simply per player without a total budget. Test player groups in separate areas. Treat Viewpoint rendering load, NPC AI load, zombie load, and server/network load as separate possible limits. Measure on our hardware; do not invent safe caps or FPS claims.
+
+6. IMPLEMENTATION ORDER AND EXIT GATES
+
+Break the work into dependent milestones. Investigate the riskiest seams early and demonstrate a playable slice before writing a large campaign.
+
+M0 — Establish the baseline.
+Capture exact game/client/server builds, platforms, hardware, current collection/configuration, and installed Viewpoint/shooting versions. Create a disposable test world and backup/restore instructions. Two clients must join, reconnect, and survive a server restart before more mods are introduced.
+
+M1 — Prove Viewpoint and shooting together.
+Use the smallest dependency set and initially a minimal weapon selection. Test aim, obstruction, recoil, hit consequences, and agreement between clients for zombies and a human NPC once available. Characterize player damage separately using a controlled test if relevant. Select the firearm system from evidence. Record configuration that affects skill-based hit or damage rolls. Do not add weapon packs until this passes.
+
+M2 — Prove human encounters.
+Add one NPC framework and only the content it needs. Demonstrate neutral, friendly, and hostile cases, a repeatable player-triggered relationship consequence, and reasonable shared-base behavior. Check ownership changes and reconnects. Use a radio contact or simple standing record where that is cheaper than extending NPC AI. Establish one or two faction locations in existing points of interest.
+
+M3 — Prove the basic horde event.
+Choose one horde system, force a small directional event, and test warning, approach, end, cleanup, and population caps. Confirm that a faction location can be threatened without another director fighting over the same zombies. Keep custom behavior minimal until this seam works.
+
+M4 — Complete the first integrated slice.
+One scientist forecast, one target area, one faction consequence, one leader and one coordination effect, leader death changing that effect, and a persistent outcome. Two clients must observe the same event. Combine M1–M3 here and resolve their integration failures before adding breadth.
+
+M5 — Add optional active play and recurring jobs.
+Implement or adapt one minigame. Test useful baseline, bounded success bonus, interruption, cancellation, and repeat/reward protection. Add only enough contracts and cooldowns to support another preparation/encounter/horde cycle.
+
+M6 — Release candidate.
+Apply the day-100 start and a small authored prehistory, balance the survival loop, verify repeated sessions, document installation and known limits, and run acceptance tests. Setting world age alone does not create prior faction history; seed the visible evidence deliberately. Avoid simulating 100 actual days to generate it.
+
+Propose a leaner order if discovery supports it, but keep the dependency gates. A failed requirement should lead to a specific setting change, patch, replacement, or explicit scope decision. Do not bury it under additional mods.
+
+7. MAKE EACH TASK EASY TO EXECUTE
+
+Maintain a compact backlog with dependencies and status: ready, active, needs human test, blocked, or accepted. Detail only the next one to three executable tasks. Give each such task:
+
+- ID, player-facing outcome, owner, and prerequisite.
+- Chosen approach: configure / integrate / patch / custom, with the reason.
+- Exact ordered actions, files/settings affected, and any information still needed.
+- Smallest useful test: setup, named steps, observable expected results, approximate duration.
+- Failure clues: relevant log location or symptom and the first narrow diagnostic step.
+- Rollback and the short code/configuration/documentation diff for my review.
+- Evidence required to mark it accepted and what becomes possible next.
+
+Give verified menu names, commands, mod IDs, and paths for our build and OS. If unknown, provide a discovery step rather than inventing them. Label copy/paste commands clearly and distinguish client actions from server actions. Separate automated checks you can run from in-game checks I must run.
+
+8. QUICK INTEGRATION TESTING
+
+Provide repeatable development controls appropriate to the chosen mods: spawn or select a leader, trigger a warning, start/end a small horde, reset one contract, set faction standing, and inspect current event state. Use existing admin/debug controls first. Add only missing controls and restrict them to authorized administrators. Do not make us wait several in-game days for every test.
+
+Maintain one disposable test preset with a fixed location, small encounter counts, supplied test gear, and two named roles: Player A acts, Player B observes. Keep release values separate and make restoring them obvious. Do not globally disable anti-cheat or change many unrelated settings to hide a failure.
+
+Build short test cards around these integration seams:
+
+- Presentation and combat, about 5–10 minutes: compare unobstructed and blocked shots at known distances, repeat against appropriate target types, and compare the shooter's result with the other client's view. Distinguish camera alignment, collision, damage, and visual feedback. If available, use debug damage information to support conclusions.
+- Factions, about 5–10 minutes: meet a neutral contact, complete a favor or provoke an encounter, verify the intended relationship response on both clients, reconnect, and verify persistence.
+- Horde and leader, about 10–15 minutes: force the warning and event, observe approach without obvious spawning, identify the leader, kill it, and verify the specific coordination change while ordinary zombies remain. Repeat at a faction location and inspect the aftermath.
+- Persistence and ownership, about 10–15 minutes: restart during a warning and during an active event, change which player is nearby, disconnect the acting/owning client, and verify the defined recovery behavior and absence of duplicate payouts or events.
+- Optional interaction, about 5 minutes: compare skip, success, failure, cancel, and repeated completion. Measure total time including the minigame; an alleged speed bonus that takes longer overall is a failure.
+
+These are target durations, not substitutes for actual testing. Include precise pass/fail observations and request only the log excerpt, screenshot, or result needed to diagnose the current issue. Begin with a small count and expand only after correctness. Two clients are the minimum smoke test; test the intended group size before claiming that capacity is supported.
+
+9. DELEGATE APPROPRIATELY
+
+If subagents are available, use them for bounded independent work when that reduces effort: inspect one candidate's networking behavior, trace one firearm damage path, compare two horde integrations, or review a specific patch. Give each a clear question, permitted scope, expected evidence, and stopping point. One owner per area; do not have multiple agents edit the same files concurrently.
+
+You remain responsible for synthesizing evidence, choosing the smallest compatible design, and maintaining the plan. Use a single agent when delegation adds coordination without benefit. Never treat another agent's confidence as runtime verification. Human testing and creative judgment remain part of our collaboration.
+
+10. DEFINITION OF DONE FOR 1.0
+
+Call the product 1.0 only when:
+
+1. A friend can follow one tested installation guide and join the dedicated server using the recorded build, dependencies, load order, and configuration. The Linux client path is covered. Record versions/revisions or hashes where available; Workshop IDs alone do not freeze a version. Preserve known-good inputs where permitted and document update recovery.
+2. Viewpoint, selected gunplay, and human encounters pass the integration tests. State exactly which hit-location and damage behavior is verified for each target type.
+3. Players encounter established groups and can cause at least one persistent, consequential change in standing. There is a visible reason to interact with people.
+4. A shared forecast provides actionable warning. A leader-led horde threatens players and affects a faction. Killing the leader produces the advertised coordination change on all clients.
+5. One optional active interaction has a measured, bounded benefit and a useful baseline. It feels worthwhile without becoming a compulsory repeated chore.
+6. At least three forced horde cycles, one ordinary scheduled trigger, one mid-warning restart, and one mid-event restart pass. At least two separate multiplayer sessions include recovery and a renewed reason to leave the base. Run a 60–90 minute integrated playtest with the intended group size when available. Mark capacity unverified until tested.
+7. No known reproducible duplication, campaign-state loss, ownership failure that breaks progression, or recurring crash/desync remains. Agree a performance budget after measuring our baseline, then meet it under the chosen encounter cap. Known cosmetic issues may be documented.
+8. The deliverable contains a curated dependency list, tested server/client settings, our small companion mod or patches if needed, quick test instructions, recovery instructions, and honest known limitations. Keep this to a README, configuration/profile, and a compact test/evidence log unless another artifact is needed. Label unrun checks as unrun. Supply original dependencies by reference unless redistribution is permitted.
+
+During acceptance ask players: Did the warning change your plans? Could you identify and counter the leader? Did factions seem present and responsive? Did the active interaction feel rewarding? Was there a clear, worthwhile next activity after recovery? Use the answers to tune or cut features.
+
+11. HOW TO WORK WITH ME, STARTING NOW
+
+Be candid about feasibility and uncertainty. Offer rough effort ranges with assumptions after inspecting the integration points. Separate writing the code from integration and playtesting; do not promise exact hours from Workshop descriptions. Flag the biggest uncertainty early and propose the cheapest experiment that resolves it.
+
+Use concise updates: what we learned, what changed, what I need to review or test next. Ask only questions that affect the next decision, preferably bundled into at most three focused questions. Continue independent research and other authorized work while waiting. Do not repeatedly ask for permission for routine, reversible steps within an agreed milestone. Present small diffs before asking me to run changed builds. Do not publish, spend money, or disrupt a live server without authorization.
+
+Do not begin by generating the whole mod. Your first response must provide:
+
+1. A short restatement of the release goal and the explicit 1.0 / stretch / later boundary.
+2. A compact candidate assessment: requirement, smallest likely existing solution, missing behavior, evidence, and confidence. Use labels such as author-documented, source-inspected, multiplayer-tested, or unresolved.
+3. A milestone plan with exit gates, the critical path, and a rough effort assessment grounded in what is known.
+4. The most important unresolved integration risks and a short test for each, especially Viewpoint + gunplay + human NPC damage, zombie ownership + leader control, and restart persistence.
+5. At most three immediate questions about our installed build/mods, server/player setup, and any decision that blocks the first test.
+6. A complete first test card that I can execute quickly, with exact directions where verified and explicit discovery steps elsewhere.
+
+Then work through the milestones with me. Keep the product coherent, the implementation small, and the next human action obvious.

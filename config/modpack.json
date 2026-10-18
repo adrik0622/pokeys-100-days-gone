@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "name": "Pokeys 100 Days Gone",
+  "release_status": "development",
+  "game_app_id": "108600",
+  "dedicated_server_app_id": "380870",
+  "target_game": {
+    "version": "42.21.0",
+    "revision": "4a0e9546ec",
+    "steam_client_build_id": "25485521"
+  },
+  "workshop_collection": {
+    "id": null,
+    "visibility_intent": "hidden",
+    "status": "creation pending"
+  },
+  "trial_items": [
+    {
+      "workshop_id": "3619862853",
+      "mod_id": "ZombieBuddy",
+      "version": "2.3.4",
+      "purpose": "Java loader required by Viewpoint",
+      "requires": [],
+      "evidence": "local GUI trial passed; dedicated-server behavior untested",
+      "jar_sha256": "eb79b9876332010733a8e0d7ce4fe0377846059a9e28859029e2a0fb449f6cf2"
+    },
+    {
+      "workshop_id": "3809306528",
+      "mod_id": "Viewpoint",
+      "version": "0.1.6.1",
+      "purpose": "First-person presentation and initial native gunplay candidate",
+      "requires": ["ZombieBuddy"],
+      "evidence": "first-person movement and door interaction passed; combat and multiplayer untested",
+      "jar_sha256": "096bd37d63cb699ac95e9e7ea5245a1b9b5ff08c5161db35f6733b1d1c42b064"
+    },
+    {
+      "workshop_id": "3810302175",
+      "mod_id": "PZVoxelStudioViewpoint",
+      "version": "1.0",
+      "purpose": "3D model assets used in the Viewpoint GUI trial",
+      "requires": [],
+      "evidence": "enabled during local GUI trial; individual asset completeness and multiplayer untested"
+    }
+  ],
+  "accepted_release_stack": false,
+  "notes": [
+    "Workshop IDs reference upstream dependencies and do not freeze versions.",
+    "No NPC, horde or alternative firearm framework is enabled yet.",
+    "Dedicated-server WorkshopItems and Mods must be generated from an explicitly selected profile, not inferred from every collection item."
+  ]
+}

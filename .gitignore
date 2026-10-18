@@ -1,0 +1,8 @@
+runtime/
+.local-git/
+.agents/
+.codex/
+.aws/
+__pycache__/
+.pytest_cache/
+

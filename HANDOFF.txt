@@ -1,0 +1,135 @@
+POKEYS 100 DAYS GONE — LOCAL CODEX HANDOFF
+Prepared 2026-10-18. This is a curated continuation record, not a complete chat transcript.
+
+READ FIRST
+Read PROJECT_BRIEF.txt in full. It is the user's original project-manager prompt, preserved verbatim from the uploaded attachment. Continue the project from its present state; the initial research/kickoff response has already been provided. Do not generate another entire kickoff or the whole mod. Start with the local discovery task below.
+
+USER-CONFIRMED FACTS
+- Client OS: Manjaro Linux.
+- Installed Project Zomboid version: user reports 42.19. Not yet inspected locally. Exact branch, patch/revision, native Linux versus Proton, launch arguments and installed mod versions are still unknown.
+- Starting fresh; no campaign save needs migration. Existing installation/settings still need inventory before changes.
+- Dedicated-server hardware is flexible. User can provide bare metal or a k3s pod, with GPU resources if necessary. No specific host, hardware budget, running dedicated instance, or access method has been identified.
+- No second human player is currently available. User is interested in simulating multiplayer or running two clients/hosts.
+- User has installed Codex CLI and wants it to continue the work on their PC, reducing manual steps.
+- Private dedicated survival multiplayer remains the target. 2–8 players is a planning assumption; actual group size/platforms and capacity are unverified.
+
+CURRENT PROJECT STATUS
+- Milestone: M0 baseline, discovery ready.
+- Author documentation and changelogs were researched in the browser on 2026-10-18.
+- No installed mod source or game files inspected.
+- No game launched or runtime, multiplayer, backup/restore, performance or persistence test performed by the browser agent.
+- No mod stack accepted. No companion code, server configuration, repository or deployment created.
+- Browser research is provisional author-documented evidence only. Re-check against the user's installed files and target game patch. Do not treat confidence or Workshop tags as test results.
+
+RELEASE BOUNDARY
+Core 1.0: reliable dedicated-server joining/reconnection; Viewpoint and credible shooting; a minimal cast provisionally representing neutral/allied/hostile groups; one persistent, consequential group-wide standing change; recurring forecasted horde affecting players and a faction; recognizable killable leader with one visible coordination effect; one optional active interaction with a useful baseline and bounded benefit; repeatable preparation/aftermath/recovery loop.
+Stretch only: one surplus and one shortage per faction, producing bounded requests/trades.
+Later: continuous NPC simulation, recruitment/base workers, autonomous diplomacy, full economy, generic quest framework, many minigames, map overhaul, new rendering or firearm engines.
+Use one owner for each firearm/NPC/horde behavior. Configure first, supported integration second, a small compatibility patch third, custom behavior only for a demonstrated gap. Keep our code/config/docs in Git; do not redistribute upstream code/assets without permission.
+
+PROVISIONAL RECOMMENDATIONS — NOT USER-APPROVED IMPLEMENTATIONS
+1. Inspect the existing working Viewpoint setup, then test Viewpoint's current native gunplay before adding a separate firearm framework.
+2. Use Bandits alone for the first NPC trial. Kane is optional encounter content later. Defer NPC Crew's worker/recruitment scope.
+3. Select exactly one horde mod after inspecting exact-patch compatibility, test controls, caps and recovery behavior.
+4. Start with a plain dedicated-server process for a simpler baseline; consider k3s packaging after it works. Do not allocate GPU to the server by assumption. Rendered clients need separate GPU/load measurement.
+5. Complete one integrated slice before adding content breadth.
+
+CRITICAL BUILD CONFLICT
+Current Bandits and Kane author pages require 42.20+, while the user reports 42.19. Do not install current Workshop inputs on 42.19 and call them supported. The official website observed during research lists 42.21 Stable, but this is not the user's verified installed build or automatic certification of any mod. Inspect the existing installation first, explain the narrow build/dependency decision, and prepare a reviewable change before changing branches or replacing that setup. Starting fresh permits a new campaign but does not authorize silently changing the user's main game installation.
+
+COMPACT CANDIDATE/EVIDENCE RECORD
+All sources below were read as author descriptions/changelogs on 2026-10-18; none is source-inspected or multiplayer-tested here.
+
+Presentation: Project Viewpoint — Workshop 3809306528, Mod ID Viewpoint.
+Requires ZombieBuddy. Changelog identifies alpha-0.1.6.1 on Oct 15. Version 0.1.6 introduced its own gunplay changes including skill-dependent sway, steadier aim, recoil effects and an original-shooting option. Exact game-patch compatibility and target-specific damage remain unverified.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3809306528
+https://steamcommunity.com/sharedfiles/filedetails/changelog/3809306528
+
+Loader: ZombieBuddy — Workshop 3619862853, Mod ID ZombieBuddy.
+Author lists B41 and B42.12–42.21, with native Linux Java-agent installation. That range is not a guarantee for dependent mods. Determine actual installation and native/Proton mode rather than pasting default paths. Preserve existing launch options. Additional server Java setup may be required by a selected ballistic mod.
+https://steamcommunity.com/workshop/filedetails/?id=3619862853
+
+Handling candidate: Recoil & ADS — Workshop 3812612054.
+Updated Oct 15 for Viewpoint 0.1.6. Author states it changes no damage/ammo/hit detection. Required-items panel lists True Ballistics and Advanced Throwables while prose calls ballistics optional: resolve that discrepancy before freezing the dependency list. Do not add the whole collection.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3812612054
+
+Ballistic alternative: Viewpoint True Ballistics — Workshop 3812864848, Mod ID ViewpointTrueBallistics.
+Updated Oct 15; author claims projectile/cover collision, targeted player wounds and full dedicated-server checking with server-side ZombieBuddy. Verify the server handshake before claiming full installation. The author's Oct 16 comment says in-game co-op hosting is unsupported; use dedicated topology. Named A-Life NPC patch support does not establish Bandits compatibility. Do not combine competing hit-detection replacements.
+https://steamcommunity.com/workshop/filedetails/?id=3812864848
+
+Other firearm alternatives, held:
+ATRO — 3036878362: last listed update Feb 22, description discusses 42.14 fixes. Current Viewpoint/Bandits integration unverified; older generic NPC FAQ is not certification.
+Advanced Trajectory B42 Port — 3777026775, Mod ID AdvancedTrajectoryB42: B42 conversion documented, exact target-patch/dedicated/Viewpoint/NPC behavior unverified.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3036878362
+https://steamcommunity.com/sharedfiles/filedetails/?id=3777026775
+
+NPC candidate: Bandits — Workshop 3268487204, Mod ID Bandits2.
+Current description requires B42.20+ SP/MP. Provides friendly/hostile encounters, not demonstrated persistent player-driven diplomacy. Current changelog reports Oct 8 reload-regression and Oct 9 loot-duplication fixes: include both as regression tests. Sep 19 disabled resupply even though the description still advertises it. Author prohibits reuploading without written permission; use dependency references/separate add-ons.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3268487204
+https://steamcommunity.com/sharedfiles/filedetails/changelog/3268487204
+
+Optional NPC content: Kane — 3594821036, Mod ID KaneNPCPack; requires Bandits and 42.20+. Encounter profiles do not establish persistent faction society/standing.
+Deferred NPC Crew — 3800132623, Mod ID NPCCrew; requires Bandits2. Author documents worker ownership by recruiting client, paused work when another player becomes closer, and owner-specific recruitment. This is material for shared-base coop and adds optional scope.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3594821036
+https://steamcommunity.com/sharedfiles/filedetails/?id=3800132623
+
+Horde candidate: Horde Nights — 3782615002, Mod ID HordeNights.
+Author names 42.20 and dedicated support, directional attacks, active cap and reinforcement budget. Targets connected living-player groups. Disable optional airdrops/sprinters/extras in first trial. Exact 42.21 support, trigger/API and mid-event restart semantics unverified. Optional Bandits airdrop guards do not establish attacks on NPC factions.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3782615002
+
+Horde alternative: Hark's Stable — 3713005182, Mod ID HHNR.
+Documents forecasts, /hhnr info and per-participating-player queues/population; do not assume server-wide active cap. Exact numeric game-patch support unresolved.
+Hark's Beta — separate 3764680098, Mod ID HHNREXP, description v0.60. Documents directional corridor, server-checked /hhnr horde now and /hhnr horde today, and PauseEmpty=true requirement. Never enable Stable and Beta together: different IDs write shared save data. Beta commands/features are not established for Stable.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3713005182
+https://steamcommunity.com/sharedfiles/filedetails/?id=3764680098
+
+Optional-interaction lead: Neat Lockpicking — 3783535220; requires NeatUI and replaces multiple interactions. No selection made; radio calibration remains preferred if a small implementation is justified after forecasts exist.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3783535220
+
+Official game-version evidence observed:
+https://projectzomboid.com/blog/news/2026/09/42-21-stable-released/
+
+EARLIEST TECHNICAL RISKS
+- Camera alignment, projectile collision, zombie damage, NPC damage/return fire, player wounds and network agreement require separate observations.
+- Leader coordination is the biggest custom-feature unknown. Inspect exact hooks for event identity, entity tagging/death, client ownership and bounded rally/attraction. A health/stat buff or larger reinforcement budget alone does not satisfy the promised directing leader. Kill must stop one observable coordination effect while ordinary zombies remain.
+- Restart/reconnect/unload/handoff must not duplicate leaders, events or rewards or lose standing. Never reconstruct entities from stale positions by assumption.
+- Horde faction targeting is unproven. A loaded camp near players can be tested; offscreen consequence needs explicit persistent state and visible aftermath.
+- Cap event population across the server and test split player locations. Distinguish ambient from event zombies. Measure rendering, NPC, server and network constraints separately.
+
+NO SECOND PLAYER: TEST POLICY
+Do useful solo client + dedicated-server checks now. Two independent real client connections can exercise networking without two humans, but simultaneous full clients on one Manjaro machine remain an unverified experiment. Check launch/authentication constraints first. Historical -cachedir/-nosteam documentation is not a current tested B42 recipe. Split-screen does not resolve between-client ownership transfer. A synthetic bot does not establish Viewpoint rendering or combat behavior. Local testing leaves real network conditions and 2–8-player capacity unverified.
+
+ACCESS / AUTOMATION
+The browser session had only a hosted workspace; it did not control the user's PC. The user's installed CLI is the intended new execution environment. Discover its actual capabilities and permissions locally.
+Official documentation observed on Oct 18 says the Linux desktop preview does not yet offer built-in desktop Computer Use, and Manjaro is not explicitly supported by that preview. Do not promise unattended GUI/gameplay based solely on CLI installation. A separate screenshot/input bridge may be investigated only after the cheaper server/file workflow is established; avoid building an agent platform.
+
+NEXT EXECUTABLE TASK: M0-01 — LOCAL INVENTORY
+Outcome: verified local inputs and a small, reviewable plan for an isolated dedicated-server baseline.
+Owner: local Codex inspects permitted local files/commands; user supplies only facts unavailable locally.
+Prerequisites: read this handoff and original brief; inspect existing project instructions if present.
+Approach: read-only discovery first. Allow roughly 5–15 minutes, depending on layout/access.
+
+Actions:
+1. Discover Steam libraries, PZ client installation and user-data directories. Record actual paths; never assume browser scratch paths exist locally.
+2. Verify game version/revision and branch using installed metadata/logs. Record native Linux versus Proton and existing launch options. Preserve user configuration.
+3. Identify enabled versus subscribed mods; record mod.info IDs, installed versions, required dependencies and relevant JAR/config hashes where useful. Inspect only relevant paths. Do not dump passwords/tokens or whole unrelated home directories into output.
+4. Identify available dedicated-server installation/process/configuration and hardware without assuming a running instance. Report CPU/RAM/storage/GPU facts separately. Ask at most three focused questions only for remaining blockers.
+5. Resolve the 42.19/current-candidate mismatch with evidence. Present a narrow build choice and configuration diff before changing the main installation.
+6. Prepare a disposable server profile/world and backup/restore plan within an isolated task directory when inputs are known. Keep release and test values separate. Do not alter a live server or host-wide services.
+7. Establish Git for our project files if needed. Store concise inventory, candidate table and evidence/status log; original dependencies remain by reference.
+
+Pass: verified inputs are recorded, unknowns are explicit, and M0-02 has a concrete startup/join/restart/restore procedure. No game or multiplayer gate is accepted merely because files look correct.
+Failure clues: first relevant log error and nearby lines; investigate build mismatch, loader/launch path or missing dependency before adding mods. Discover actual log locations from this installation.
+Rollback: read-only inventory needs none; any later disposable configuration is removable without replacing main settings.
+
+NEXT GATES AFTER INVENTORY
+M0-02: same-build dedicated server + client join/reconnect/restart and demonstrated restore. Single-client subset can run now; independent-client ownership checks stay unrun until arranged.
+M1: Viewpoint/native gunplay first; vanilla weapon selection, obstruction/aim/recoil and separate target categories. Add exactly one alternative only for a measured gap.
+M2: Bandits encounters, ownership/reload and consequential persistent standing.
+M3: one horde scheduler, warning/direction/caps/termination and recovery.
+M4: scientist forecast, one target, faction consequence, leader/rally/death, persistent aftermath.
+M5: optional calibration and bounded recurring favors.
+M6: authored day-100 prehistory, install/recovery guide and full acceptance. Retain the original brief's three forced cycles, ordinary scheduled trigger, warning/event restart tests, two sessions and intended-group playtest.
+
+CONTINUE NOW
+Perform local M0-01 discovery and report only the findings, specific next change, and any necessary user action. Do not repeat the full project kickoff, implement the entire mod, claim tests that were not run, or silently expand scope. The user's goal is competent autonomous progress with small reviewable changes and minimal overhead.

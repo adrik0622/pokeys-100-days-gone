@@ -11,6 +11,6 @@
 
 The old `/sharedfiles/createcollection/` route redirected to the Workshop landing page. Steam's client collection tools worked without handling account credentials or extracting cookies. Public APIs and SteamCMD remain preferable for suitable read/download operations, but no supported account-free collection-creation API was established. Hidden collection evidence is retained from the authenticated owner UI.
 
-Branding source and a PNG are under `assets/workshop/`. The first PNG upload failed with Steam's generic upload-error banner; saving the description without an image succeeded. Image upload is cosmetic and does not block membership/server work. Do not recreate the collection to address it.
+Branding source and a PNG are under `assets/workshop/`. Both the initial 16-bit PNG and a standard 8-bit RGB PNG retry failed with Steam's generic upload-error banner; saving without an image succeeds. Cause is unresolved; no evidence establishes an account or authentication restriction. Image upload is cosmetic and does not block membership/server work. Do not recreate the collection to address it. A browser-side retry or another image format can be investigated independently later.
 
 The collection is a distribution convenience, not an executable server configuration or version lock. Use `config/modpack.json` and an explicitly selected server profile. Never copy every candidate into the server automatically.

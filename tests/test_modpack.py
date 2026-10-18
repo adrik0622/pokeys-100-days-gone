@@ -60,6 +60,20 @@ class ModpackTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "JAR drift"):
                 modpack.check_installed(manifest, root)
 
+    def test_full_fingerprint_detects_same_version_asset_change(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            item_root = root / "1"
+            item_root.mkdir()
+            (item_root / "mod.info").write_text("id=Models\nmodversion=1.0\n")
+            (item_root / "model.asset").write_bytes(b"original")
+            item = {"workshop_id": "1", "mod_id": "Models", "version": "1.0", "metadata_path": "mod.info"}
+            manifest = {"trial_items": [item]}
+            item["payload_sha256"] = modpack.check_installed(manifest, root, full=True)[0]["payload_sha256"]
+            (item_root / "model.asset").write_bytes(b"changed without a version bump")
+            with self.assertRaisesRegex(ValueError, "payload drift"):
+                modpack.check_installed(manifest, root, full=True)
+
 
 if __name__ == "__main__":
     unittest.main()

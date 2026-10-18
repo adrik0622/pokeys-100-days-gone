@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""A foreground, X11-only control bridge scoped to a disposable PZ client.
+"""A foreground project bridge for disposable PZ, Steam Workshop and local server tests.
 
 Start `serve` in a normal desktop terminal; use `request` from Codex.
 No network listener, shell commands, system services, or arbitrary application input.
@@ -440,7 +440,7 @@ def serve():
         signal.signal(signal.SIGINT, shutdown)
         signal.signal(signal.SIGTERM, shutdown)
         print("PZ desktop bridge ready. Keep this terminal open; Ctrl+C stops it.", flush=True)
-        print(f"Project: {ROOT}\nOnly clients launched here can receive input.", flush=True)
+        print(f"Project: {ROOT}\nInput targets tracked PZ or explicitly attached Steam Workshop windows.", flush=True)
         try:
             while not desktop.stopping:
                 atomic_json(STATE / "ready.json", {"session": session, "pid": os.getpid(),

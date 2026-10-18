@@ -1,6 +1,6 @@
 # M0-02 — Isolated dedicated-server baseline
 
-Status: **single-client testing in progress** (2026-10-18). Dedicated installation, vanilla loopback startup, client join, movement, item drop, save and clean shutdown passed. Restart/restore are being checked. Two-independent-client acceptance and the modded server profile remain unrun.
+Status: **one-client local subtest accepted** (2026-10-18). Dedicated installation, vanilla loopback startup, join, movement, item transfer, reconnect, clean server restart and offline rollback passed. Two-independent-client acceptance and the modded/Steam-enabled server profile remain unrun. This does not yet accept the full M0 gate.
 
 ## Outcome
 
@@ -35,6 +35,17 @@ Client A: isolated `client-vanilla`, multiplayer favorite **Pokeys M0 local**, a
 Offline snapshot `20261018-173100-vanilla` contains 1,206 files, covering the world, server settings and account database. Snapshot integrity is SHA256 checked. Restore retains the previous state under `runtime/server/recovery/`; it never deletes the prior world. Credentials, databases and raw logs remain ignored. Current controller credentials are generated in ignored runtime files and are not printed into the action log.
 
 Both vanilla client and dedicated logs contain upstream warnings (missing tiles/icons, Lua requires, packet-handler listings); this was not an error-free run. Preserve raw logs when comparing the modded trial.
+
+### Restart and rollback observations
+
+- Clean restart: PID 130948 exited 0; PID 133219 started the same vanilla world. Client A reconnected as Jo Jarvis at the same location; **ID Card: Jo Jarvis** remained on the floor.
+- Used Take All on that floor inventory. The transfer was asynchronous; a screenshot during its progress bar was not sufficient evidence. An additional reconnect confirmed **one card in the player's inventory and an empty Ground inventory** (weight 1.41 vs 1.31 after dropping).
+- Disconnected and cleanly stopped the second server with exit 0. Restored snapshot `20261018-173100-vanilla`, SHA256-checked over all 1,206 files. Previous world/config/database were retained under `runtime/server/recovery/20261018-173447/`.
+- Started restored server PID 134293, reconnected, and observed the card **back on the ground and absent from player inventory**, in the same house. The saved player row remains ID 1, `pokeys_trial_a`, Jo Jarvis, living, `(7990.119140625,11756.443359375,0)` — equal to the offline snapshot.
+- Client Quit to Desktop → Yes exited 0. Final server `quit` logged `Shutdown handling finished`, exited 0 and left no UDP listener. No forced termination was needed.
+- The inventory capacity label briefly showed 8 immediately after joins, then returned to 12 when initialization completed; do not interpret that transient screenshot as a demonstrated stat-loss regression. No broad stat/damage integrity test was performed.
+
+Selected evidence is under `docs/evidence/2026-10-18-dedicated/`: restart marker, card in inventory before rollback, and card on ground after rollback. Full logs/actions remain ignored under `runtime/evidence/dedicated/` and `runtime/desktop-control/`. Three dedicated starts, three clean stops, four client joins (including the transfer-confirmation reconnect) were observed.
 
 ## Backup / restore procedure
 

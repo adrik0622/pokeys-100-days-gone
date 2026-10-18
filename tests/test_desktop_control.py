@@ -41,6 +41,18 @@ class DesktopControlTests(unittest.TestCase):
         desktop.dispatch({"action": "server_command", "command": "save"})
         desktop.server.stdin.write.assert_called_once_with("save\n")
 
+    def test_live_or_untracked_server_refuses_backup_and_restore(self):
+        desktop = control.Desktop()
+        for server in [None, Mock()]:
+            desktop.server = server
+            if server:
+                server.poll.return_value = None
+            with patch.object(control.runpy, "run_path") as helpers:
+                for action in ["server_backup", "server_restore"]:
+                    with self.assertRaisesRegex(RuntimeError, "exited"):
+                        desktop.dispatch({"action": action, "snapshot": "20261018-173100-vanilla"})
+                helpers.assert_not_called()
+
     def test_workshop_open_rejects_external_or_credential_urls(self):
         desktop = control.Desktop()
         with patch.object(control.subprocess, "Popen") as popen:

@@ -28,8 +28,9 @@ def validate(manifest, profiles):
                 path = Path(item[field])
                 if path.is_absolute() or ".." in path.parts:
                     raise ValueError("Dependency paths must stay inside their item")
-        if "jar_sha256" in item and not re.fullmatch(r"[0-9a-f]{64}", item["jar_sha256"]):
-            raise ValueError("Invalid JAR SHA256")
+        for field in ["jar_sha256", "metadata_sha256", "payload_sha256"]:
+            if field in item and not re.fullmatch(r"[0-9a-f]{64}", item[field]):
+                raise ValueError(f"Invalid SHA256: {field}")
         ids.add(wid)
         mods.add(mid)
     if set(manifest["workshop_collection"]["verified_members"]) != ids:
@@ -54,7 +55,7 @@ def render(manifest, profiles, name):
             + "Mods=" + ";".join(items[i]["mod_id"] for i in ids) + "\n")
 
 
-def check_installed(manifest, workshop):
+def check_installed(manifest, workshop, full=False):
     results = []
     for item in manifest["trial_items"]:
         root = (workshop / item["workshop_id"]).resolve()
@@ -73,6 +74,8 @@ def check_installed(manifest, workshop):
         result = {"workshop_id": item["workshop_id"], "mod_id": fields["id"],
                   "version": version,
                   "metadata_sha256": hashlib.sha256(metadata.read_bytes()).hexdigest()}
+        if "metadata_sha256" in item and result["metadata_sha256"] != item["metadata_sha256"]:
+            raise ValueError(f"Installed metadata drift: {item['mod_id']}")
         if "jar_path" in item:
             jar = root / item["jar_path"]
             if not jar.resolve().is_relative_to(root):
@@ -82,6 +85,21 @@ def check_installed(manifest, workshop):
             if digest != item["jar_sha256"]:
                 raise ValueError(f"Installed JAR drift: {item['mod_id']}")
             result["jar_sha256"] = digest
+        if full:
+            tree = hashlib.sha256()
+            count, size = 0, 0
+            for path in sorted(root.rglob("*")):
+                if path.is_symlink():
+                    raise ValueError("Unexpected symlink in upstream payload")
+                if path.is_file():
+                    with path.open("rb") as source:
+                        digest = hashlib.file_digest(source, "sha256").hexdigest()
+                    tree.update((path.relative_to(root).as_posix() + "\0" + digest + "\n").encode())
+                    count += 1
+                    size += path.stat().st_size
+            result.update(payload_sha256=tree.hexdigest(), payload_file_count=count, payload_bytes=size)
+            if "payload_sha256" in item and item["payload_sha256"] != tree.hexdigest():
+                raise ValueError(f"Installed payload drift: {item['mod_id']}")
         results.append(result)
     return results
 
@@ -91,6 +109,7 @@ def main():
     parser.add_argument("command", choices=["validate", "profile", "check-installed"])
     parser.add_argument("--profile", default="vanilla")
     parser.add_argument("--workshop-root", type=Path, default=WORKSHOP)
+    parser.add_argument("--full", action="store_true", help="Fingerprint every upstream payload file")
     args = parser.parse_args()
     manifest = json.loads((ROOT / "config/modpack.json").read_text())
     profiles = json.loads((ROOT / "config/profiles.json").read_text())
@@ -100,7 +119,7 @@ def main():
             parser.error("Unknown profile")
         print(render(manifest, profiles, args.profile), end="")
     elif args.command == "check-installed":
-        print(json.dumps(check_installed(manifest, args.workshop_root), indent=2))
+        print(json.dumps(check_installed(manifest, args.workshop_root, args.full), indent=2))
     else:
         print(f"Manifest valid: {len(manifest['trial_items'])} trial items, {len(profiles)} explicit profiles")
 

@@ -37,3 +37,11 @@ This is the durable chronological record. Each significant change or decision re
 - Added fixed server lifecycle commands and offline backup/restore with SHA256 checking and preservation of replaced state. Created an offline 1,206-file baseline snapshot. Restart/restore observation is still in progress; multiplayer acceptance is not claimed yet.
 - Added explicit vanilla/presentation profiles and `scripts/modpack.py` for dependency-order validation, non-deploying INI generation, installed ID/version and JAR-drift checks. All three installed dependencies match. ZombieBuddy's version comes from its JAR manifest because its mod.info omits modversion.
 - Twenty-five automated checks pass, including dependency/profile safety and backup corruption/path/roundtrip checks.
+
+## 2026-10-18 — Local restart/rollback subtest accepted; gate preserved
+
+- Same vanilla character and dropped ID-card marker survived a clean dedicated restart/reconnect. Then picked the card up, verified it in inventory after another reconnect, stopped the server, and restored the offline snapshot. Rejoining restored the card to the floor and removed it from inventory; saved living-player ID/location match the snapshot. Three dedicated starts/stops all exited cleanly; final client exit code 0, no listeners left running.
+- Retained the pre-restore world/config/account database at `runtime/server/recovery/20261018-173447/`. Selected before/after screenshots are versioned. Full raw logs, databases and snapshots remain ignored.
+- Added complete upstream payload/metadata fingerprints, including 35,887 model-pack files, and failure-on-drift checks. Twenty-seven automated checks pass. Added compact integration/source evidence and the next three dependent tasks.
+- Full M0 is **not accepted**: a second independent client and Steam-enabled networking remain untested. Recorded A-002 for actual group size/platforms and a coordinated two-client test. No NPC/horde/firearm alternatives or custom gameplay were introduced across that gate.
+- Workshop branding failed a second time with an 8-bit RGB PNG; description/membership remain intact. Cosmetic service/form troubleshooting is independent, with no demonstrated user-authentication action required.

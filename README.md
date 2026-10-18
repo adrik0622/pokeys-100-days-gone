@@ -2,13 +2,14 @@
 
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 
-Current milestone: establish a disposable local baseline on installed Build 42.21.0, revision `4a0e9546ec`. Autonomous GUI control passed with fresh vanilla and Viewpoint games, movement, door interaction and clean exits. Vanilla save reload also passed. Dedicated multiplayer and combat gates remain unrun; no release mod stack is accepted.
+Current milestone: disposable local baseline on Build 42.21.0, revision `4a0e9546ec`. Vanilla/Viewpoint GUI smoke passed. One vanilla client joined the isolated dedicated server and passed reconnect, restart and offline backup restoration. The hidden development Workshop collection is populated. Two-client, Steam-networking, modded dedicated and combat gates remain unrun; no release stack is accepted.
 
 - [Current status](docs/STATUS.md)
 - [Progress toward v1.0](docs/PROGRESS.md)
 - [User action items](docs/ACTION_ITEMS.md)
 - [Versioned dependency manifest](config/modpack.json)
 - [Development Workshop collection](docs/WORKSHOP.md)
+- [Integration record and next three tasks](docs/INTEGRATION.md)
 - [Local inventory](docs/M0-01-local-inventory.md)
 - [Desktop controller and GUI smoke test](docs/M0-03-desktop-smoke.md)
 - [Dedicated-server baseline and recovery test](docs/M0-02-dedicated-baseline.md)
@@ -19,7 +20,7 @@ The task sandbox cannot access X11 or the desktop bus directly. Start the scoped
 python3 /home/adrikingston/Projects/pokeys-100-days-gone/scripts/desktop_control.py serve
 ```
 
-The controller uses the installed game with separate caches and saves in `runtime/`. It supports bounded input for its own disposable game and explicitly attached Steam Workshop windows, plus a fixed anonymous dedicated-server installation action. Keep its terminal open; Ctrl+C stops it. See the smoke-test document for operations and acceptance evidence.
+The controller uses separate caches/saves in `runtime/`. It supports bounded input for its disposable game and explicitly attached Steam Workshop windows, plus fixed dedicated-server installation, lifecycle and offline recovery actions. Keep its terminal open; Ctrl+C stops it. See the smoke-test and dedicated-baseline documents for operations and evidence.
 
 Automated controller checks:
 
@@ -32,6 +33,7 @@ Validate and inspect candidate profiles (these commands do not deploy):
 ```bash
 python3 scripts/modpack.py validate
 python3 scripts/modpack.py check-installed
+python3 scripts/modpack.py check-installed --full
 python3 scripts/modpack.py profile --profile presentation-trial
 ```
 

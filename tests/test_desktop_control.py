@@ -14,6 +14,94 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_select_all_holds_and_releases_both_polled_keys(self):
+        desktop = control.Desktop()
+        with patch.object(desktop, "window", return_value=42), patch.object(control, "run") as run, \
+             patch.object(control.time, "sleep"):
+            desktop.dispatch({"action": "select_all", "client": "b"})
+            self.assertEqual(run.call_args_list[0].args, ("xdotool", "keydown", "Control_L"))
+            self.assertEqual(run.call_args_list[1].args, ("xdotool", "keydown", "a"))
+            self.assertEqual({call.args for call in run.call_args_list[2:]},
+                             {("xdotool", "keyup", "Control_L"), ("xdotool", "keyup", "a")})
+            self.assertEqual(desktop.pressed, set())
+
+    def test_dual_profiles_do_not_share_settings_or_saves(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)):
+            a = control.prepare_profile("vanilla", "a")
+            b = control.prepare_profile("vanilla", "b")
+            self.assertNotEqual(a, b)
+            self.assertEqual(a.name, "client-vanilla-a")
+            self.assertIn("frameRate=30", (b / "options.ini").read_text())
+            (a / "options.ini").write_text("a-only")
+            self.assertNotIn("a-only", (b / "options.ini").read_text())
+            with self.assertRaises(ValueError):
+                control.prepare_profile("vanilla", "../outside")
+
+    def test_second_named_client_accepts_only_owned_existing_pid(self):
+        desktop = control.Desktop()
+        desktop.clients["a"] = Mock(pid=123)
+        desktop.clients["a"].poll.return_value = None
+        with tempfile.TemporaryDirectory() as directory, \
+             patch.object(control, "prepare_profile", return_value=Path(directory)) as prepare, \
+             patch.object(control.Path, "read_text", return_value="MemAvailable: 12000000 kB\n"), \
+             patch.object(control, "run", return_value="123 ProjectZomboid6"), \
+             patch.object(control.subprocess, "Popen", return_value=Mock(pid=456)) as popen:
+            result = desktop.launch("vanilla", "b")
+            self.assertEqual(result["pid"], 456)
+            self.assertIs(desktop.clients["b"], popen.return_value)
+            args = popen.call_args.args[0]
+            self.assertIn("-Xmx3g", args[:args.index("--")])
+            prepare.assert_called_once_with("vanilla", "b")
+
+    def test_named_clients_reject_untracked_process_and_low_memory(self):
+        desktop = control.Desktop()
+        desktop.clients["a"] = Mock(pid=123)
+        desktop.clients["a"].poll.return_value = None
+        with patch.object(control, "run", return_value="123 ProjectZomboid6\n999 ProjectZomboid6"), \
+             patch.object(control.subprocess, "Popen") as popen:
+            with self.assertRaisesRegex(RuntimeError, "existing PZ client"):
+                desktop.launch("vanilla", "b")
+            popen.assert_not_called()
+        with patch.object(control, "run", return_value="123 ProjectZomboid6"), \
+             patch.object(control.Path, "read_text", return_value="MemAvailable: 5000000 kB\n"), \
+             patch.object(control.subprocess, "Popen") as popen:
+            with self.assertRaisesRegex(RuntimeError, "6 GiB"):
+                desktop.launch("vanilla", "b")
+            popen.assert_not_called()
+
+    def test_duplicate_named_slot_and_main_mixing_are_refused(self):
+        desktop = control.Desktop()
+        desktop.clients["a"] = Mock()
+        desktop.clients["a"].poll.return_value = None
+        with patch.object(control.subprocess, "Popen") as popen:
+            for name in ["a", "main", "c", "../../outside"]:
+                with self.subTest(name=name), self.assertRaises((ValueError, RuntimeError)):
+                    desktop.launch("vanilla", name)
+            popen.assert_not_called()
+
+    def test_named_window_search_is_bound_to_correct_child_pid(self):
+        desktop = control.Desktop()
+        desktop.clients["b"] = Mock(pid=456)
+        desktop.clients["b"].poll.return_value = None
+        with patch.object(control, "run", side_effect=["42", "Project Zomboid"]) as run:
+            self.assertEqual(desktop.windows("b"), [{"id": 42, "name": "Project Zomboid"}])
+            self.assertEqual(run.call_args_list[0].args, ("xdotool", "search", "--onlyvisible", "--pid", 456))
+        with self.assertRaises(RuntimeError):
+            desktop.window(client="a")
+
+    def test_dual_server_uses_separate_profile_ports_and_no_vanilla_restore(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control.shutil, "copy2"), patch.object(control.subprocess, "Popen") as popen:
+            desktop = control.Desktop()
+            result = desktop.launch_server("dual")
+            args = popen.call_args.args[0]
+            self.assertIn(f"-cachedir={directory}/runtime/server/dual", args)
+            self.assertEqual(args[args.index("-port") + 1], "19870")
+            self.assertEqual(result["profile"], "dual")
+            desktop.server.poll.return_value = 0
+            with self.assertRaisesRegex(ValueError, "vanilla profile only"):
+                desktop.dispatch({"action": "server_restore", "snapshot": "20261018-173100-vanilla"})
+
     def test_server_launch_is_loopback_isolated_and_credentials_not_returned(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
              patch.object(control.shutil, "copy2") as copy, patch.object(control.subprocess, "Popen") as popen:

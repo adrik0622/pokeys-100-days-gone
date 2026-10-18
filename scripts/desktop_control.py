@@ -59,10 +59,18 @@ def run(*args, timeout=10):
     return result.stdout.strip()
 
 
-def prepare_profile(profile):
+def client_name(value):
+    if value not in {"main", "a", "b"}:
+        raise ValueError("Client must be main, a or b")
+    return value
+
+
+def prepare_profile(profile, client="main"):
+    client_name(client)
     if profile not in {"vanilla", "viewpoint"}:
         raise ValueError("Profile must be vanilla or viewpoint")
-    cache = ROOT / "runtime" / f"client-{profile}"
+    suffix = "" if client == "main" else f"-{client}"
+    cache = ROOT / "runtime" / f"client-{profile}{suffix}"
     cache.mkdir(parents=True, exist_ok=True)
     # The full-screen user profile is deliberately not copied. This separate
     # cache contains only test settings and worlds, retained across restarts.
@@ -70,7 +78,7 @@ def prepare_profile(profile):
     if not options.exists():
         options.write_text("\n".join([
             "version=8", "width=1600", "height=900", "fullScreen=false",
-            "borderless=false", "frameRate=60", "vsync=true", "language=EN",
+            "borderless=false", f"frameRate={60 if client == 'main' else 30}", "vsync=true", "language=EN",
             "tutorialDone=true", "showFirstTimeSneakTutorial=false",
             "showFirstTimeSearchTutorial=false", "soundVolume=2", "musicVolume=0", "",
         ]))
@@ -106,16 +114,30 @@ class Desktop:
         self.workshop_window = None
         self.installer = None
         self.server = None
+        self.server_profile = "vanilla"
+        self.clients = {}
+        self.client_profiles = {}
 
-    def launch_server(self):
+    def process(self, client="main"):
+        client_name(client)
+        return self.game if client == "main" else self.clients.get(client)
+
+    def tracked_clients(self):
+        return dict({"main": self.game} if self.game is not None else {}, **self.clients)
+
+    def launch_server(self, profile="vanilla"):
+        if profile not in {"vanilla", "dual"}:
+            raise ValueError("Server profile must be vanilla or dual")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
         install = ROOT / "runtime/server/install"
-        cache = ROOT / "runtime/server/vanilla"
-        config = cache / "Server/pokeys-m0-vanilla.ini"
+        cache = ROOT / "runtime/server" / profile
+        name = f"pokeys-m0-{profile}"
+        port = 19860 if profile == "vanilla" else 19870
+        config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
-            shutil.copy2(ROOT / "config/server/vanilla.ini", config)
+            shutil.copy2(ROOT / f"config/server/{profile}.ini", config)
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
@@ -126,8 +148,8 @@ class Desktop:
                 "-Dzomboid.steam=0", "-Dzomboid.znetlog=1", "-Djava.library.path=linux64/:.",
                 "-Djava.security.egd=file:/dev/urandom", "-XX:+UseZGC", "-XX:-OmitStackTraceInFastThrow",
                 "-cp", "java/.:java/projectzomboid.jar", "zombie.network.GameServer",
-                f"-cachedir={cache}", "-servername", "pokeys-m0-vanilla", "-nosteam",
-                "-ip", "127.0.0.1", "-port", "19860", "-udpport", "19861",
+                f"-cachedir={cache}", "-servername", name, "-nosteam",
+                "-ip", "127.0.0.1", "-port", str(port), "-udpport", str(port + 1),
                 "-adminusername", "pokeysadmin", "-adminpassword", credentials.read_text().strip()]
         env = os.environ.copy()
         env["LD_LIBRARY_PATH"] = ":".join(str(p) for p in
@@ -136,8 +158,9 @@ class Desktop:
             self.server = subprocess.Popen(args, cwd=install, env=env, stdin=subprocess.PIPE,
                                            stdout=output, stderr=subprocess.STDOUT,
                                            text=True, start_new_session=True)
-        return {"pid": self.server.pid, "cache": str(cache), "profile": "vanilla",
-                "bind_ip": "127.0.0.1", "ports": [19860, 19861], "max_heap_gb": 4}
+        self.server_profile = profile
+        return {"pid": self.server.pid, "cache": str(cache), "profile": profile,
+                "bind_ip": "127.0.0.1", "ports": [port, port + 1], "max_heap_gb": 4}
 
     def install_server(self):
         if getattr(self, "installer", None) and self.installer.poll() is None:
@@ -165,11 +188,12 @@ class Desktop:
         return [{"id": int(value), "name": run("xdotool", "getwindowname", value)}
                 for value in found.splitlines()]
 
-    def windows(self):
-        if self.game is None or self.game.poll() is not None:
+    def windows(self, client="main"):
+        process = self.process(client)
+        if process is None or process.poll() is not None:
             return []
         try:
-            found = run("xdotool", "search", "--onlyvisible", "--pid", self.game.pid)
+            found = run("xdotool", "search", "--onlyvisible", "--pid", process.pid)
         except RuntimeError:
             return []
         windows = []
@@ -179,17 +203,18 @@ class Desktop:
                 windows.append({"id": int(value), "name": name})
         return windows
 
-    def window(self, focus=False, scope="game"):
+    def window(self, focus=False, scope="game", client="main"):
         if scope == "workshop":
             windows = [w for w in self.steam_windows() if w["id"] == self.workshop_window]
         elif scope == "game":
-            windows = self.windows()
+            windows = self.windows(client)
         else:
             raise ValueError("Scope must be game or workshop")
         if len(windows) != 1:
             raise RuntimeError(f"Expected one owned game window, found {len(windows)}")
         window = windows[0]["id"]
         if focus:
+            self.release()
             run("xdotool", "windowactivate", "--sync", window, timeout=5)
             if int(run("xdotool", "getactivewindow")) != window:
                 raise RuntimeError("Game focus could not be confirmed")
@@ -209,20 +234,64 @@ class Desktop:
                 "game_exit_code": self.game.poll() if self.game else None,
                 "profile": self.profile, "windows": self.windows(),
                 "pointer": run("xdotool", "getmouselocation", "--shell"),
-                "active_window": run("xdotool", "getactivewindow")}
+                "active_window": run("xdotool", "getactivewindow"),
+                "clients": {name: {"pid": child.pid, "exit_code": child.poll(),
+                                    "profile": self.profile if name == "main" else self.client_profiles.get(name),
+                                    "windows": self.windows(name)}
+                            for name, child in self.tracked_clients().items()}}
 
-    def launch(self, profile):
-        if self.game and self.game.poll() is None:
-            raise RuntimeError("This bridge already has a game running")
-        # Reject a second PZ client, including one started outside this bridge.
-        processes = run("ps", "-eo", "comm=").splitlines()
-        if any(p.strip().lower().startswith("projectzomboid") for p in processes):
+    def resources(self):
+        memory = dict((line.split(":", 1)[0], int(line.split()[1]))
+                      for line in Path("/proc/meminfo").read_text().splitlines())
+        processes = {}
+        children = self.tracked_clients()
+        if getattr(self, "server", None):
+            children["server"] = self.server
+        for name, child in children.items():
+            if child.poll() is not None:
+                continue
+            try:
+                rollup = Path(f"/proc/{child.pid}/smaps_rollup").read_text()
+                processes[name] = {"pid": child.pid, **{
+                    field: int(re.search(rf"^{field}:\s+(\d+)", rollup, re.M).group(1))
+                    for field in ["Rss", "Pss", "Swap"]}}
+            except (OSError, AttributeError):
+                processes[name] = {"pid": child.pid, "memory_unavailable": True}
+        gpu = None
+        if shutil.which("nvidia-smi"):
+            gpu = run("nvidia-smi", "--query-gpu=name,memory.total,memory.used,utilization.gpu",
+                      "--format=csv,noheader,nounits")
+        return {"time": time.time(), "memory_unit": "KiB", "mem_available": memory["MemAvailable"],
+                "mem_total": memory["MemTotal"], "processes": processes,
+                "gpu_host_aggregate_name_totalMiB_usedMiB_utilPercent": gpu}
+
+    def launch(self, profile, client="main"):
+        client_name(client)
+        live = {name: child for name, child in self.tracked_clients().items() if child.poll() is None}
+        if client in live:
+            raise RuntimeError("This client slot already has a game running")
+        if live and (client == "main" or "main" in live):
+            raise RuntimeError("The main single-client session cannot mix with explicit a/b sessions")
+        # Permit only our two explicitly tracked children, never unrelated PZ.
+        processes = run("ps", "-eo", "pid=,comm=").splitlines()
+        owned = {child.pid for child in live.values()}
+        if any(line.split()[-1].lower().startswith("projectzomboid") and
+               (not line.split()[0].isdigit() or int(line.split()[0]) not in owned)
+               for line in processes if line.split()):
             raise RuntimeError("An existing PZ client is running; close it before the test")
-        cache = prepare_profile(profile)
+        if client != "main":
+            memory = Path("/proc/meminfo").read_text()
+            available = int(re.search(r"^MemAvailable:\s+(\d+)", memory, re.M).group(1))
+            if available < 6 * 1024 * 1024:
+                raise RuntimeError("Less than 6 GiB available; refusing another rendered client")
+        cache = prepare_profile(profile, client)
         args = [str(GAME / "ProjectZomboid64")]
+        vm_args = ["-Xms256m", "-Xmx3g"] if client != "main" else []
         if profile == "viewpoint":
             # pzexe requires a -- separator between JVM and game arguments.
-            args.extend([f"-javaagent:{GAME / 'ZombieBuddy.jar'}=policy=deny-new", "--"])
+            vm_args.append(f"-javaagent:{GAME / 'ZombieBuddy.jar'}=policy=deny-new")
+        if vm_args:
+            args.extend(vm_args + ["--"])
         args.extend([f"-cachedir={cache}", "-nosteam"])
         env = os.environ.copy()
         env["PATH"] = str(GAME / "jre64/bin") + os.pathsep + env.get("PATH", os.defpath)
@@ -233,14 +302,19 @@ class Desktop:
             if p.exists())
         env["XMODIFIERS"] = ""
         with (cache / "launcher.log").open("a") as logfile:
-            self.game = subprocess.Popen(args, cwd=GAME, env=env, stdout=logfile,
-                                         stderr=subprocess.STDOUT, start_new_session=True)
-        self.profile = profile
-        return {"pid": self.game.pid, "cache": str(cache), "args": args}
+            child = subprocess.Popen(args, cwd=GAME, env=env, stdout=logfile,
+                                     stderr=subprocess.STDOUT, start_new_session=True)
+        if client == "main":
+            self.game, self.profile = child, profile
+        else:
+            self.clients[client] = child
+            self.client_profiles[client] = profile
+        return {"client": client, "pid": child.pid, "cache": str(cache), "args": args}
 
     def dispatch(self, request):
         action = request.get("action")
         scope = request.get("scope", "game")
+        client = client_name(request.get("client", "main"))
         if action == "workshop_open":
             url = request.get("url", "https://steamcommunity.com/sharedfiles/createcollection/?appid=108600")
             parsed = urlparse(url)
@@ -277,6 +351,8 @@ class Desktop:
             return {"attached": value}
         if action == "status":
             return self.status()
+        if action == "resources":
+            return self.resources()
         if action == "server_install":
             return self.install_server()
         if action == "server_install_status":
@@ -284,11 +360,13 @@ class Desktop:
             return {"pid": installer.pid if installer else None,
                     "exit_code": installer.poll() if installer else None}
         if action == "server_launch":
-            return self.launch_server()
+            return self.launch_server(request.get("profile", "vanilla"))
         if action in {"server_backup", "server_restore"}:
             server = getattr(self, "server", None)
             if not server or server.poll() is None:
                 raise RuntimeError("Confirm the tracked disposable server has exited before backup/restore")
+            if self.server_profile != "vanilla":
+                raise ValueError("Snapshot helpers currently target the vanilla profile only")
             helpers = runpy.run_path(str(ROOT / "scripts/server_backup.py"))
             if action == "server_backup":
                 return helpers["backup"](ROOT)
@@ -296,9 +374,10 @@ class Desktop:
         if action == "server_status":
             server = getattr(self, "server", None)
             return {"pid": server.pid if server else None,
+                    "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":1986[01]\s", line)]}
+                                      if re.search(r":198[67][01]\s", line)]}
         if action == "server_command":
             server = getattr(self, "server", None)
             command = request.get("command")
@@ -310,9 +389,9 @@ class Desktop:
             server.stdin.flush()
             return {"sent": command, "note": "Confirm completion in the server log and status"}
         if action == "launch":
-            return self.launch(request.get("profile", "vanilla"))
+            return self.launch(request.get("profile", "vanilla"), client)
         if action == "stop":
-            if self.game and self.game.poll() is None:
+            if any(child.poll() is None for child in self.tracked_clients().values()):
                 raise RuntimeError("Close the disposable game before stopping the bridge")
             if getattr(self, "server", None) and self.server.poll() is None:
                 raise RuntimeError("Quit the disposable server before stopping the bridge")
@@ -322,21 +401,24 @@ class Desktop:
             # Explicit fallback, scoped to the child we launched. This is not a
             # clean-save test and is always reported as a forced termination.
             self.release()
-            if not self.game or self.game.poll() is not None:
+            child = self.process(client)
+            if not child or child.poll() is not None:
                 return {"already_closed": True}
-            self.game.terminate()
+            child.terminate()
             try:
-                self.game.wait(timeout=10)
+                child.wait(timeout=10)
             except subprocess.TimeoutExpired:
-                self.game.kill()
-                self.game.wait(timeout=5)
-            return {"forced": True, "exit_code": self.game.returncode}
-        window = self.window(focus=action != "screenshot", scope=scope)
+                child.kill()
+                child.wait(timeout=5)
+            return {"forced": True, "client": client, "exit_code": child.returncode}
+        window = self.window(focus=action != "screenshot" or request.get("focus", False), scope=scope, client=client)
         if action == "resize":
             width = int(number(request.get("width"), 640, 3440))
             height = int(number(request.get("height"), 480, 1440))
+            x = int(number(request.get("x", 50), 0, 3440 - width))
+            y = int(number(request.get("y", 50), 0, 1440 - height))
             run("xdotool", "windowsize", window, width, height)
-            run("xdotool", "windowmove", window, 50, 50)
+            run("xdotool", "windowmove", window, x, y)
             return {"width": width, "height": height}
         if action == "screenshot":
             name = request.get("name", "screen")
@@ -349,14 +431,26 @@ class Desktop:
             run("import", "-window", "root", "-crop", crop, "+repage", path)
             return {"path": str(path), "geometry": geometry}
         if action == "test_password" and scope == "game":
-            credential = ROOT / "runtime/server/vanilla/client-password.txt"
+            suffix = "" if client == "main" else f"-{client}"
+            credential = ROOT / "runtime/server" / self.server_profile / f"client-password{suffix}.txt"
+            credential.parent.mkdir(parents=True, exist_ok=True)
             if not credential.exists():
                 credential.write_text(secrets.token_hex(16) + "\n")
                 credential.chmod(0o600)
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
                 credential.read_text().strip())
         elif action == "select_all":
-            run("xdotool", "key", "ctrl+a")
+            # Native PZ polls shortcut state; a zero-duration combo may be
+            # missed at the reduced dual-client frame rate.
+            try:
+                self.pressed.add("Control_L")
+                run("xdotool", "keydown", "Control_L")
+                time.sleep(0.08)
+                self.pressed.add("a")
+                run("xdotool", "keydown", "a")
+                time.sleep(0.12)
+            finally:
+                self.release()
         elif action == "click":
             x = int(number(request.get("x"), 0, 4096))
             y = int(number(request.get("y"), 0, 2160))
@@ -480,13 +574,14 @@ def serve():
                 print("Requesting a clean save/quit of the disposable server.", flush=True)
                 desktop.dispatch({"action": "server_command", "command": "quit"})
             (STATE / "ready.json").unlink(missing_ok=True)
-            if desktop.game and desktop.game.poll() is None:
-                print("Closing the disposable client on bridge shutdown.", flush=True)
-                try:
-                    desktop.dispatch({"action": "close"})
-                    desktop.game.wait(timeout=15)
-                except Exception:
-                    desktop.dispatch({"action": "terminate"})
+            for name, child in desktop.tracked_clients().items():
+                if child.poll() is None:
+                    print(f"Closing disposable client {name} on bridge shutdown.", flush=True)
+                    try:
+                        desktop.dispatch({"action": "close", "client": name})
+                        child.wait(timeout=15)
+                    except Exception:
+                        desktop.dispatch({"action": "terminate", "client": name})
 
 
 def send(payload, timeout=30):

@@ -52,3 +52,10 @@ This is the durable chronological record. Each significant change or decision re
 - Inspected the existing controller: `launch()` deliberately rejects any existing PZ client. This is a project safety guard, not evidence of a game/Steam restriction. No simultaneous-client launch has been attempted.
 - Next agent-owned experiment: separately track two local vanilla clients with isolated caches/accounts, bounded memory/render settings, and explicit per-window input. Verify resource use, both clients' shared observations, reconnect/restart and clean exits. Preserve rejection of unrelated user game processes.
 - Keep limitations explicit: two local clients may exercise networking/state synchronization but cannot certify remote networking, Steam identities, friend platforms, human gameplay quality or 4–8-player capacity. This clarification did not launch games or change gameplay/server behavior.
+
+## 2026-10-18 — Explicit dual-client controller and first simultaneous launch
+
+- Implemented two named, PID-owned A/B client slots with separate caches/accounts, bounded heap/render settings, launch memory guard, and per-client input/cleanup. Kept unrelated-game refusal and legacy single-client isolation. Added fixed read-only resource sampling.
+- Added a separate loopback-only `dual` vanilla server profile and fixed shared spawn, preserving the earlier vanilla world. Both native clients launched concurrently and authenticated against it; first character entered. Shared-state/restart/exit acceptance is in progress in `M0-04-multi-client.md`.
+- Caught/fixed missed native Ctrl+A at reduced frame rate before using the malformed port. Thirty-four automated checks pass, including owned-vs-unowned PID handling, slot/cache isolation, low-memory launch refusal, server-profile boundaries and held-shortcut release.
+- Resource samples show this experiment consumes substantial RAM beyond Java heap sizes. Monitor available RAM and aggregate GPU usage during world loading; no 4–8-player capacity or sustained-performance claim is made.

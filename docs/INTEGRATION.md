@@ -18,7 +18,7 @@ On drift: preserve relevant logs/fingerprints under ignored runtime, identify th
 
 ## Next three executable tasks
 
-1. Finish M0 two-client reconnect/restart acceptance on this exact vanilla profile. Record actual group size and friend platforms. The current listener is loopback only; arrange an intentionally restricted test connection before asking a friend to connect. No public ports or router changes are implied.
+1. Explore two local vanilla clients on this exact dedicated profile. Target is now 4–8 players; no second human tester is available. Extend the controller to separately tracked A/B processes with distinct caches/accounts, preserving rejection of unrelated clients. Begin with bounded resource use and verify launch/focus/clean exits before shared-state/reconnect/restart checks. This is untested; do not assume the controller's present one-client guard is a game limitation. Keep loopback binding; no public ports/router changes are implied. Local dual-client results will not establish Steam authentication, WAN/cross-platform behavior or 4–8-player capacity.
 2. After M0, trial the explicit presentation profile on a **separate world**, confirm server-side dependency loading vs client-only rendering, then repeat join/reconnect. Do not enable a camera-rendering JAR on the server by moving it out of its client directory.
 3. Only then perform M1's native firearm/obstruction tests with A acting and B observing. Human NPC damage is a later target-specific test after selecting one NPC owner. Do not select extra ballistic/NPC/horde frameworks to bypass an unpassed seam.
 

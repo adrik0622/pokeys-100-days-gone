@@ -2,6 +2,8 @@
 
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 
+Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; the next networking experiment is two isolated local clients, not a request for another tester. Multi-client launch and target capacity are not yet verified.
+
 Current milestone: disposable local baseline on Build 42.21.0, revision `4a0e9546ec`. Vanilla/Viewpoint GUI smoke passed. One vanilla client joined the isolated dedicated server and passed reconnect, restart and offline backup restoration. The hidden development Workshop collection is populated. Two-client, Steam-networking, modded dedicated and combat gates remain unrun; no release stack is accepted.
 
 - [Current status](docs/STATUS.md)

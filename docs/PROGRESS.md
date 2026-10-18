@@ -45,3 +45,10 @@ This is the durable chronological record. Each significant change or decision re
 - Added complete upstream payload/metadata fingerprints, including 35,887 model-pack files, and failure-on-drift checks. Twenty-seven automated checks pass. Added compact integration/source evidence and the next three dependent tasks.
 - Full M0 is **not accepted**: a second independent client and Steam-enabled networking remain untested. Recorded A-002 for actual group size/platforms and a coordinated two-client test. No NPC/horde/firearm alternatives or custom gameplay were introduced across that gate.
 - Workshop branding failed a second time with an 8-bit RGB PNG; description/membership remain intact. Cosmetic service/form troubleshooting is independent, with no demonstrated user-authentication action required.
+
+## 2026-10-18 — Player target clarified; local multi-client path
+
+- User confirmed **4–8 players**, with higher scale desirable if feasible, and reiterated that no second human tester is available. Updated continuation/status/action notes so future chats do not repeat that request.
+- Inspected the existing controller: `launch()` deliberately rejects any existing PZ client. This is a project safety guard, not evidence of a game/Steam restriction. No simultaneous-client launch has been attempted.
+- Next agent-owned experiment: separately track two local vanilla clients with isolated caches/accounts, bounded memory/render settings, and explicit per-window input. Verify resource use, both clients' shared observations, reconnect/restart and clean exits. Preserve rejection of unrelated user game processes.
+- Keep limitations explicit: two local clients may exercise networking/state synchronization but cannot certify remote networking, Steam identities, friend platforms, human gameplay quality or 4–8-player capacity. This clarification did not launch games or change gameplay/server behavior.

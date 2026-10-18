@@ -4,7 +4,7 @@ Status: **one-client local subtest accepted** (2026-10-18). Dedicated installati
 
 ## Outcome
 
-One client joins a disposable same-build dedicated server, reconnects after a controlled restart, and restores the disposable world from an offline backup. A second independent client is required before accepting the multiplayer gate.
+One client joins a disposable same-build dedicated server, reconnects after a controlled restart, and restores the disposable world from an offline backup. A second independent client process is required for the next multiplayer subtest; it does not require another human operator. The user confirmed no second tester is available, so explore two isolated local clients. This experiment is still unrun and cannot establish Steam authentication, remote/cross-platform operation or target capacity (4–8 players).
 
 ## Chosen approach
 

@@ -13,6 +13,7 @@ Read `README.md`, `docs/STATUS.md`, `docs/PROGRESS.md`, and `docs/ACTION_ITEMS.m
 
 ## Goal and workflow
 
+- User-confirmed target: **4–8 players**, with scaling beyond that desirable only if measurements support it. This is a planning target, not verified capacity. **No second human tester is available.** Do not repeatedly request one or make that an immediate development blocker. Next multiplayer experiment is two isolated local client processes; feasibility is not yet tested. The controller's current single-client refusal is our safety guard, not a demonstrated game restriction. Separate local protocol tests from Steam authentication, cross-platform/remote networking, group capacity and eventual human playtesting.
 - Deliver the bounded v1.0 in `PROJECT_BRIEF.txt`: reliable private dedicated multiplayer, Viewpoint and credible shooting, minimal faction presence and persistent consequential standing, forecasted recurring horde, a recognizable killable directing leader, one optional bounded interaction, and a repeatable recovery loop.
 - Keep faction surplus/shortage trades as stretch scope. Defer continuous NPC simulation, recruitment/base workers, a full economy, map/render/firearm engines, and generic quest infrastructure.
 - Prefer configuration, then supported integrations, then a small patch, then custom behavior for an evidenced gap. Use one owner for each firearm, NPC, and horde behavior. Complete a playable slice before adding breadth.

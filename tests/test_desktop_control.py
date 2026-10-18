@@ -14,6 +14,37 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_workshop_open_rejects_external_or_credential_urls(self):
+        desktop = control.Desktop()
+        with patch.object(control.subprocess, "Popen") as popen:
+            for url in ["http://steamcommunity.com/sharedfiles/", "https://example.com/workshop/",
+                        "https://steamcommunity.com@evil.example/sharedfiles/",
+                        "https://steamcommunity.com/actions/Logout", "file:///tmp/a"]:
+                with self.subTest(url=url), self.assertRaises(ValueError):
+                    desktop.dispatch({"action": "workshop_open", "url": url})
+            popen.assert_not_called()
+
+    def test_workshop_attach_only_accepts_visible_steam_window(self):
+        desktop = control.Desktop()
+        with patch.object(desktop, "steam_windows", return_value=[{"id": 12, "name": "Steam"}]):
+            with self.assertRaises(ValueError):
+                desktop.dispatch({"action": "workshop_attach", "window": 13})
+            desktop.dispatch({"action": "workshop_attach", "window": 12})
+            self.assertEqual(desktop.window(scope="workshop"), 12)
+        with patch.object(desktop, "steam_windows", return_value=[]):
+            with self.assertRaises(RuntimeError):
+                desktop.window(scope="workshop")
+
+    def test_workshop_text_is_bounded_and_passed_without_shell(self):
+        desktop = control.Desktop()
+        with patch.object(desktop, "window", return_value=12), patch.object(control, "run") as run:
+            for value in ["x" * 4097, "escape\x1b", "", None]:
+                with self.assertRaises(ValueError):
+                    desktop.dispatch({"action": "text", "scope": "workshop", "text": value})
+            run.assert_not_called()
+            desktop.dispatch({"action": "text", "scope": "workshop", "text": "Title\nDescription"})
+            self.assertEqual(run.call_args.args[-2:], ("--", "Title\nDescription"))
+
     def test_reject_desktop_shortcuts_and_shell_text(self):
         for value in ["alt+F4", "Super_L", "ctrl+alt+t", "$(touch nope)", "a;ls", None]:
             with self.subTest(value=value), self.assertRaises(ValueError):

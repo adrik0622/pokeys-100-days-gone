@@ -21,3 +21,11 @@ This is the durable chronological record. Each significant change or decision re
 - User explicitly requires local Git revisioning across all project-owned artifacts and documentation of every significant step toward v1.0.
 - Added root `AGENTS.md`, this progress log, an action-item ledger, and a Git wrapper using `.local-git/`. This keeps usable local history despite the task environment's protected `.git` mount.
 - Next: create and populate the development Workshop collection with the three GUI-trial dependencies; verify its actual ID and membership; establish an isolated dedicated-server baseline. Continue independent work if account authentication needs the user.
+
+## 2026-10-18 — Hidden Workshop collection and dedicated installation
+
+- Created **Pokeys 100 Days Gone**, Workshop `3822649790`, in PokeyFish's account. Owner view confirms Hidden. Populated the three presentation-trial dependencies in dependency-first order; kept the user's existing collection/subscriptions unchanged. Saved an explicit development/unvalidated description.
+- Added scoped Steam-window controls and bounded Workshop text to the existing controller. Sixteen automated checks pass. No credentials/cookies were read. The legacy creation route redirected, so used the working Steam client collection tool instead.
+- Original vector cover is versioned. Steam rejected the initial PNG upload; text-only save worked. Cosmetic retry is independent of server work.
+- SteamCMD anonymous download/validation of dedicated app `380870` succeeded into isolated `runtime/server/install/` (7.21 GB installed). Dedicated Steam build `25485538`; core revision string `4a0e9546ec` matches the installed client's revision. Runtime version/startup/join still require verification.
+- Next: isolated loopback-only vanilla server startup, then the smallest client join/restart/recovery check before adding presentation dependencies.

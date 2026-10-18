@@ -10,9 +10,16 @@
     "steam_client_build_id": "25485521"
   },
   "workshop_collection": {
-    "id": null,
+    "id": "3822649790",
+    "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3822649790",
+    "owner_steam_id": "76561198039982939",
+    "owner_display_name": "PokeyFish",
     "visibility_intent": "hidden",
-    "status": "creation pending"
+    "visibility_observed": "hidden",
+    "status": "created and populated; development collection, not a validated release",
+    "verified_members": ["3619862853", "3809306528", "3810302175"],
+    "verified_at": "2026-10-18",
+    "verification": "Logged-in Steam owner view and collection editor; see docs/WORKSHOP.md"
   },
   "trial_items": [
     {

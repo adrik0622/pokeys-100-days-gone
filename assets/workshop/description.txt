@@ -1,0 +1,11 @@
+Pokeys 100 Days Gone is a private cooperative Project Zomboid modpack in development.
+
+Target baseline: Build 42.21.0. This collection currently holds the small presentation stack used in our local GUI smoke test: ZombieBuddy, Project Viewpoint, and the Viewpoint 3D model pack.
+
+Verified locally: creating a new game, first-person movement, door interaction, and clean shutdown. Dedicated-server compatibility, combat, faction systems, horde events, and intended-group capacity are still being tested or developed. This is not the v1.0 release.
+
+Subscribing is only one installation step. ZombieBuddy also requires its native Linux/Windows Java-agent installation; follow the original author's instructions. Exact client/server settings and dependency fingerprints are maintained in the project's local Git history.
+
+Planned v1.0: an established faction presence, consequential shared standing, recurring forecasted hordes, a recognizable leader whose death stops a coordination effect, one optional active interaction, and a sustainable preparation/recovery loop.
+
+All upstream work remains owned and distributed by its original authors. This collection references their Workshop items; it does not reupload them.

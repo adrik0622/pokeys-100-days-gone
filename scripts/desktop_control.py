@@ -13,11 +13,13 @@ import os
 from pathlib import Path
 import re
 import runpy
+import shutil
 import signal
 import subprocess
 import sys
 import time
 import uuid
+from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / "runtime" / "desktop-control"
@@ -100,6 +102,34 @@ class Desktop:
         self.profile = None
         self.pressed = set()
         self.stopping = False
+        self.workshop_window = None
+        self.installer = None
+
+    def install_server(self):
+        if getattr(self, "installer", None) and self.installer.poll() is None:
+            raise RuntimeError("Dedicated-server installation is already running")
+        steamcmd = ROOT / "runtime" / "steamcmd"
+        steamcmd.mkdir(parents=True, exist_ok=True)
+        if not (steamcmd / "steamcmd.sh").exists():
+            shutil.copy2("/usr/lib/steamcmd/steamcmd.sh", steamcmd / "steamcmd.sh")
+            shutil.copytree("/usr/lib/steamcmd/linux32", steamcmd / "linux32", dirs_exist_ok=True)
+        destination = ROOT / "runtime" / "server" / "install"
+        destination.mkdir(parents=True, exist_ok=True)
+        args = [str(steamcmd / "steamcmd.sh"), "+force_install_dir", str(destination),
+                "+login", "anonymous", "+app_update", "380870", "validate", "+quit"]
+        logfile = ROOT / "runtime" / "server" / "install.log"
+        with logfile.open("a") as output:
+            self.installer = subprocess.Popen(args, cwd=steamcmd, stdout=output,
+                                              stderr=subprocess.STDOUT, start_new_session=True)
+        return {"pid": self.installer.pid, "args": args, "log": str(logfile)}
+
+    def steam_windows(self):
+        try:
+            found = run("xdotool", "search", "--onlyvisible", "--class", "[Ss]team")
+        except RuntimeError:
+            return []
+        return [{"id": int(value), "name": run("xdotool", "getwindowname", value)}
+                for value in found.splitlines()]
 
     def windows(self):
         if self.game is None or self.game.poll() is not None:
@@ -115,8 +145,13 @@ class Desktop:
                 windows.append({"id": int(value), "name": name})
         return windows
 
-    def window(self, focus=False):
-        windows = self.windows()
+    def window(self, focus=False, scope="game"):
+        if scope == "workshop":
+            windows = [w for w in self.steam_windows() if w["id"] == self.workshop_window]
+        elif scope == "game":
+            windows = self.windows()
+        else:
+            raise ValueError("Scope must be game or workshop")
         if len(windows) != 1:
             raise RuntimeError(f"Expected one owned game window, found {len(windows)}")
         window = windows[0]["id"]
@@ -171,8 +206,49 @@ class Desktop:
 
     def dispatch(self, request):
         action = request.get("action")
+        scope = request.get("scope", "game")
+        if action == "workshop_open":
+            url = request.get("url", "https://steamcommunity.com/sharedfiles/createcollection/?appid=108600")
+            parsed = urlparse(url)
+            if parsed.scheme != "https" or parsed.netloc != "steamcommunity.com" or \
+                    not parsed.path.startswith(("/sharedfiles/", "/workshop/", "/profiles/", "/id/",
+                                                "/app/108600/workshop")):
+                raise ValueError("Only Steam Community Workshop/project profile URLs are allowed")
+            subprocess.Popen(["steam", "steam://openurl/" + url], stdout=subprocess.DEVNULL,
+                             stderr=subprocess.DEVNULL)
+            time.sleep(1)
+            return {"opened": url, "windows": self.steam_windows()}
+        if action == "workshop_windows":
+            return {"windows": self.steam_windows(), "attached": self.workshop_window}
+        if action == "workshop_picker_info":
+            window = int(run("xdotool", "getactivewindow"))
+            return {"window": window, "name": run("xdotool", "getwindowname", window),
+                    "properties": run("xprop", "-id", window, "WM_CLASS", "WM_TRANSIENT_FOR")}
+        if action == "workshop_cover_select":
+            window = int(number(request.get("window"), 1, 2**32 - 1))
+            if not self.workshop_window or int(run("xdotool", "getactivewindow")) != window or \
+                    '"xdg-desktop-portal-kde"' not in run("xprop", "-id", window, "WM_CLASS"):
+                raise RuntimeError("Expected the inspected active KDE Workshop file chooser")
+            cover = ROOT / "assets/workshop/collection-cover.png"
+            if not cover.is_file():
+                raise FileNotFoundError(cover)
+            run("xdotool", "type", "--clearmodifiers", "--delay", "5", "--", cover)
+            run("xdotool", "key", "Return")
+            return {"selected": str(cover)}
+        if action == "workshop_attach":
+            value = int(number(request.get("window"), 1, 2**32 - 1))
+            if value not in {w["id"] for w in self.steam_windows()}:
+                raise ValueError("Target is not a visible Steam window")
+            self.workshop_window = value
+            return {"attached": value}
         if action == "status":
             return self.status()
+        if action == "server_install":
+            return self.install_server()
+        if action == "server_install_status":
+            installer = getattr(self, "installer", None)
+            return {"pid": installer.pid if installer else None,
+                    "exit_code": installer.poll() if installer else None}
         if action == "launch":
             return self.launch(request.get("profile", "vanilla"))
         if action == "stop":
@@ -193,7 +269,13 @@ class Desktop:
                 self.game.kill()
                 self.game.wait(timeout=5)
             return {"forced": True, "exit_code": self.game.returncode}
-        window = self.window(focus=action != "screenshot")
+        window = self.window(focus=action != "screenshot", scope=scope)
+        if action == "resize":
+            width = int(number(request.get("width"), 640, 3440))
+            height = int(number(request.get("height"), 480, 1440))
+            run("xdotool", "windowsize", window, width, height)
+            run("xdotool", "windowmove", window, 50, 50)
+            return {"width": width, "height": height}
         if action == "screenshot":
             name = request.get("name", "screen")
             if not isinstance(name, str) or not re.fullmatch(r"[a-zA-Z0-9_-]{1,80}", name):
@@ -204,7 +286,9 @@ class Desktop:
             crop = f"{geometry['WIDTH']}x{geometry['HEIGHT']}+{geometry['X']}+{geometry['Y']}"
             run("import", "-window", "root", "-crop", crop, "+repage", path)
             return {"path": str(path), "geometry": geometry}
-        if action == "click":
+        if action == "select_all" and scope == "workshop":
+            run("xdotool", "key", "ctrl+a")
+        elif action == "click":
             x = int(number(request.get("x"), 0, 4096))
             y = int(number(request.get("y"), 0, 2160))
             button = int(number(request.get("button", 1), 1, 5))
@@ -252,9 +336,14 @@ class Desktop:
             run("xdotool", "mousemove_relative", "--", dx, dy)
         elif action == "text":
             text = request.get("text")
-            if not isinstance(text, str) or not re.fullmatch(r"[a-zA-Z0-9 _.-]{1,80}", text):
+            if scope == "workshop":
+                if not isinstance(text, str) or not 1 <= len(text) <= 4096 or \
+                        any(ord(c) < 32 and c not in "\n\t" for c in text):
+                    raise ValueError("Workshop form text must be printable and at most 4096 characters")
+            elif not isinstance(text, str) or not re.fullmatch(r"[a-zA-Z0-9 _.-]{1,80}", text):
                 raise ValueError("Only short game names/text are allowed")
-            run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--", text)
+            run("xdotool", "type", "--clearmodifiers", "--delay", "5" if scope == "workshop" else "30",
+                "--", text, timeout=60 if scope == "workshop" else 10)
         elif action == "close":
             self.release()
             # xdotool's windowclose destroys a window; windowquit sends the

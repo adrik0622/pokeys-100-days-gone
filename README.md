@@ -8,6 +8,7 @@ Current milestone: establish a disposable local baseline on installed Build 42.2
 - [Progress toward v1.0](docs/PROGRESS.md)
 - [User action items](docs/ACTION_ITEMS.md)
 - [Versioned dependency manifest](config/modpack.json)
+- [Development Workshop collection](docs/WORKSHOP.md)
 - [Local inventory](docs/M0-01-local-inventory.md)
 - [Desktop controller and GUI smoke test](docs/M0-03-desktop-smoke.md)
 - [Dedicated-server baseline and recovery test](docs/M0-02-dedicated-baseline.md)
@@ -18,7 +19,7 @@ The task sandbox cannot access X11 or the desktop bus directly. Start the scoped
 python3 /home/adrikingston/Projects/pokeys-100-days-gone/scripts/desktop_control.py serve
 ```
 
-The controller uses the installed game with separate caches and saves in `runtime/`. It supports screenshots and bounded input only for its own disposable game process. Keep its terminal open; Ctrl+C stops it. See the smoke-test document for operations and acceptance evidence.
+The controller uses the installed game with separate caches and saves in `runtime/`. It supports bounded input for its own disposable game and explicitly attached Steam Workshop windows, plus a fixed anonymous dedicated-server installation action. Keep its terminal open; Ctrl+C stops it. See the smoke-test document for operations and acceptance evidence.
 
 Automated controller checks:
 

@@ -1,6 +1,6 @@
 # M0-02 — Isolated dedicated-server baseline
 
-Status: **ready**. The user authorized baseline work on 2026-10-18. Use the current Manjaro machine for the initial trial. M0-03's desktop smoke test passed; no dedicated server has been installed or tested yet.
+Status: **single-client testing in progress** (2026-10-18). Dedicated installation, vanilla loopback startup, client join, movement, item drop, save and clean shutdown passed. Restart/restore are being checked. Two-independent-client acceptance and the modded server profile remain unrun.
 
 ## Outcome
 
@@ -16,13 +16,25 @@ Use a separately installed dedicated-server payload and an isolated profile/worl
 
 Create a project-owned server runtime beneath this workspace (for example `runtime/server/`) and keep its disposable world, config, logs, and offline backups there. Do not touch `~/Zomboid/Server`, existing saves, or any host-wide service. First demonstrate the requested launch/new-game/move/interact/exit flow in M0-03; then reuse that input path for the server join test.
 
-Initial test mod list, pending server-side dependency confirmation:
+Start with vanilla to separate networking/persistence from mod integration. The next explicit candidate profile, pending server-side dependency confirmation, is:
 
 ```text
 ZombieBuddy;Viewpoint;PZVoxelStudioViewpoint
 ```
 
 Do not include `isometricnomore`, NPC, horde, ballistic, or content mods.
+
+## Runtime operations and initial evidence
+
+SteamCMD app `380870` installed/validated anonymously into `runtime/server/install/`. Steam build `25485538`; runtime reports `42.21.0 4a0e9546ec`, matching the client (client Steam build ID differs as expected for a different app). Dedicated core JAR SHA256: `e1a69eb743ede60b213a0fe7f8b83d4fcab773036d256cc4543a336f3b058a33`.
+
+The controller supports fixed `server_install`, `server_install_status`, `server_launch`, `server_status`, `server_command` (`save`, `players`, `quit` only), `server_backup` and `server_restore` actions. No shell/console execution endpoint is exposed. Launch uses the server's bundled Java, a 4 GiB heap limit, separate `-cachedir`, `-nosteam`, `-ip 127.0.0.1`, ports 19860/19861, and `config/server/vanilla.ini`. `ss` confirmed UDP **127.0.0.1:19860**, not a wildcard listener. Public listing and UPnP are disabled. This does not test Steam authentication, external networking, firewall/NAT, or production capacity.
+
+Client A: isolated `client-vanilla`, multiplayer favorite **Pokeys M0 local**, account `pokeys_trial_a`, character **Jo Jarvis**, Custom Occupation, Rosewood. Spawn observed at `(7989,11755,0)` in the server log; normal `S` input moved the character. Dropped the uniquely named **ID Card: Jo Jarvis** onto the floor beside the refrigerator and verified it in the Ground inventory. Server `save` logged `World saved` / `Saving finish`. Client Quit returned to menu; server `quit` completed with exit code 0 and no remaining UDP listener.
+
+Offline snapshot `20261018-173100-vanilla` contains 1,206 files, covering the world, server settings and account database. Snapshot integrity is SHA256 checked. Restore retains the previous state under `runtime/server/recovery/`; it never deletes the prior world. Credentials, databases and raw logs remain ignored. Current controller credentials are generated in ignored runtime files and are not printed into the action log.
+
+Both vanilla client and dedicated logs contain upstream warnings (missing tiles/icons, Lua requires, packet-handler listings); this was not an error-free run. Preserve raw logs when comparing the modded trial.
 
 ## Backup / restore procedure
 

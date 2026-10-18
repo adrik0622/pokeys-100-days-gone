@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import re
 import runpy
+import secrets
 import shutil
 import signal
 import subprocess
@@ -104,6 +105,39 @@ class Desktop:
         self.stopping = False
         self.workshop_window = None
         self.installer = None
+        self.server = None
+
+    def launch_server(self):
+        if getattr(self, "server", None) and self.server.poll() is None:
+            raise RuntimeError("The disposable server is already running")
+        install = ROOT / "runtime/server/install"
+        cache = ROOT / "runtime/server/vanilla"
+        config = cache / "Server/pokeys-m0-vanilla.ini"
+        config.parent.mkdir(parents=True, exist_ok=True)
+        if not config.exists():
+            shutil.copy2(ROOT / "config/server/vanilla.ini", config)
+        credentials = cache / "admin-password.txt"
+        if not credentials.exists():
+            credentials.write_text(secrets.token_urlsafe(24) + "\n")
+            credentials.chmod(0o600)
+        # Bind explicitly to loopback, with no UPnP or public listing. This
+        # profile has no mod payloads and cannot alter the user's normal saves.
+        args = [str(install / "jre64/bin/java"), "-Djava.awt.headless=true", "-Xms512m", "-Xmx4g",
+                "-Dzomboid.steam=0", "-Dzomboid.znetlog=1", "-Djava.library.path=linux64/:.",
+                "-Djava.security.egd=file:/dev/urandom", "-XX:+UseZGC", "-XX:-OmitStackTraceInFastThrow",
+                "-cp", "java/.:java/projectzomboid.jar", "zombie.network.GameServer",
+                f"-cachedir={cache}", "-servername", "pokeys-m0-vanilla", "-nosteam",
+                "-ip", "127.0.0.1", "-port", "19860", "-udpport", "19861",
+                "-adminusername", "pokeysadmin", "-adminpassword", credentials.read_text().strip()]
+        env = os.environ.copy()
+        env["LD_LIBRARY_PATH"] = ":".join(str(p) for p in
+                                          [install / "linux64", install, install / "jre64/lib"])
+        with (cache / "launcher.log").open("a") as output:
+            self.server = subprocess.Popen(args, cwd=install, env=env, stdin=subprocess.PIPE,
+                                           stdout=output, stderr=subprocess.STDOUT,
+                                           text=True, start_new_session=True)
+        return {"pid": self.server.pid, "cache": str(cache), "profile": "vanilla",
+                "bind_ip": "127.0.0.1", "ports": [19860, 19861], "max_heap_gb": 4}
 
     def install_server(self):
         if getattr(self, "installer", None) and self.installer.poll() is None:
@@ -249,11 +283,39 @@ class Desktop:
             installer = getattr(self, "installer", None)
             return {"pid": installer.pid if installer else None,
                     "exit_code": installer.poll() if installer else None}
+        if action == "server_launch":
+            return self.launch_server()
+        if action in {"server_backup", "server_restore"}:
+            server = getattr(self, "server", None)
+            if not server or server.poll() is None:
+                raise RuntimeError("Confirm the tracked disposable server has exited before backup/restore")
+            helpers = runpy.run_path(str(ROOT / "scripts/server_backup.py"))
+            if action == "server_backup":
+                return helpers["backup"](ROOT)
+            return helpers["restore"](ROOT, request.get("snapshot"))
+        if action == "server_status":
+            server = getattr(self, "server", None)
+            return {"pid": server.pid if server else None,
+                    "exit_code": server.poll() if server else None,
+                    "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
+                                      if re.search(r":1986[01]\s", line)]}
+        if action == "server_command":
+            server = getattr(self, "server", None)
+            command = request.get("command")
+            if command not in {"save", "quit", "players"}:
+                raise ValueError("Only save, quit and players are allowed for the disposable server")
+            if not server or server.poll() is not None:
+                raise RuntimeError("No tracked disposable server is running")
+            server.stdin.write(command + "\n")
+            server.stdin.flush()
+            return {"sent": command, "note": "Confirm completion in the server log and status"}
         if action == "launch":
             return self.launch(request.get("profile", "vanilla"))
         if action == "stop":
             if self.game and self.game.poll() is None:
                 raise RuntimeError("Close the disposable game before stopping the bridge")
+            if getattr(self, "server", None) and self.server.poll() is None:
+                raise RuntimeError("Quit the disposable server before stopping the bridge")
             self.stopping = True
             return {"stopping": True}
         if action == "terminate":
@@ -286,7 +348,14 @@ class Desktop:
             crop = f"{geometry['WIDTH']}x{geometry['HEIGHT']}+{geometry['X']}+{geometry['Y']}"
             run("import", "-window", "root", "-crop", crop, "+repage", path)
             return {"path": str(path), "geometry": geometry}
-        if action == "select_all" and scope == "workshop":
+        if action == "test_password" and scope == "game":
+            credential = ROOT / "runtime/server/vanilla/client-password.txt"
+            if not credential.exists():
+                credential.write_text(secrets.token_hex(16) + "\n")
+                credential.chmod(0o600)
+            run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
+                credential.read_text().strip())
+        elif action == "select_all":
             run("xdotool", "key", "ctrl+a")
         elif action == "click":
             x = int(number(request.get("x"), 0, 4096))
@@ -407,6 +476,9 @@ def serve():
                 time.sleep(0.1)
         finally:
             desktop.release()
+            if getattr(desktop, "server", None) and desktop.server.poll() is None:
+                print("Requesting a clean save/quit of the disposable server.", flush=True)
+                desktop.dispatch({"action": "server_command", "command": "quit"})
             (STATE / "ready.json").unlink(missing_ok=True)
             if desktop.game and desktop.game.poll() is None:
                 print("Closing the disposable client on bridge shutdown.", flush=True)

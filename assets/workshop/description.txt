@@ -1,11 +1,11 @@
-Pokeys 100 Days Gone is a private cooperative Project Zomboid modpack in development.
+DEVELOPMENT COLLECTION - NOT A VALIDATED RELEASE
 
-Target baseline: Build 42.21.0. This collection currently holds the small presentation stack used in our local GUI smoke test: ZombieBuddy, Project Viewpoint, and the Viewpoint 3D model pack.
+Private cooperative Project Zomboid modpack. Target baseline: Build 42.21.0.
 
-Verified locally: creating a new game, first-person movement, door interaction, and clean shutdown. Dedicated-server compatibility, combat, faction systems, horde events, and intended-group capacity are still being tested or developed. This is not the v1.0 release.
+Initial trial: ZombieBuddy, Project Viewpoint and the Viewpoint 3D model pack. Single-player launch, movement and door interaction passed. Dedicated multiplayer, combat, faction and horde behavior are NOT yet accepted.
 
-Subscribing is only one installation step. ZombieBuddy also requires its native Linux/Windows Java-agent installation; follow the original author's instructions. Exact client/server settings and dependency fingerprints are maintained in the project's local Git history.
+Subscribing alone does not install the required native Java agent. Follow upstream ZombieBuddy and Viewpoint instructions. Exact profiles, fingerprints and evidence are kept in local Git.
 
-Planned v1.0: an established faction presence, consequential shared standing, recurring forecasted hordes, a recognizable leader whose death stops a coordination effect, one optional active interaction, and a sustainable preparation/recovery loop.
+v1.0 goal: reliable private dedicated multiplayer, first-person presentation and credible gunplay, minimal faction encounters with shared persistent standing, forecasted recurring hordes, a killable directing leader, one optional bounded interaction and sustainable recovery.
 
-All upstream work remains owned and distributed by its original authors. This collection references their Workshop items; it does not reupload them.
+Upstream Workshop references only; no reuploaded code or assets. NPC and horde frameworks will be selected after compatibility testing.

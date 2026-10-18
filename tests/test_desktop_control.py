@@ -14,6 +14,33 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_server_launch_is_loopback_isolated_and_credentials_not_returned(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control.shutil, "copy2") as copy, patch.object(control.subprocess, "Popen") as popen:
+            desktop = control.Desktop()
+            result = desktop.launch_server()
+            args = popen.call_args.args[0]
+            self.assertEqual(args[args.index("-ip") + 1], "127.0.0.1")
+            self.assertIn("-nosteam", args)
+            self.assertIn("-Xmx4g", args)
+            self.assertIn(f"-cachedir={directory}/runtime/server/vanilla", args)
+            password = args[args.index("-adminpassword") + 1]
+            self.assertNotIn(password, str(result))
+            self.assertEqual((Path(directory) / "runtime/server/vanilla/admin-password.txt").stat().st_mode & 0o777, 0o600)
+            self.assertFalse(popen.call_args.kwargs.get("shell", False))
+            self.assertEqual(copy.call_args.args[0], Path(directory) / "config/server/vanilla.ini")
+
+    def test_server_commands_cannot_execute_arbitrary_input(self):
+        desktop = control.Desktop()
+        desktop.server = Mock()
+        desktop.server.poll.return_value = None
+        for command in ["quit\nexec", "grantadmin alice", "", None, "$(whoami)"]:
+            with self.assertRaises(ValueError):
+                desktop.dispatch({"action": "server_command", "command": command})
+        desktop.server.stdin.write.assert_not_called()
+        desktop.dispatch({"action": "server_command", "command": "save"})
+        desktop.server.stdin.write.assert_called_once_with("save\n")
+
     def test_workshop_open_rejects_external_or_credential_urls(self):
         desktop = control.Desktop()
         with patch.object(control.subprocess, "Popen") as popen:

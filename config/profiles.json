@@ -1,0 +1,10 @@
+{
+  "vanilla": {
+    "workshop_ids": [],
+    "purpose": "Isolate dedicated networking and persistence from mod compatibility"
+  },
+  "presentation-trial": {
+    "workshop_ids": ["3619862853", "3809306528", "3810302175"],
+    "purpose": "GUI-tested presentation candidate; dedicated compatibility NOT accepted"
+  }
+}

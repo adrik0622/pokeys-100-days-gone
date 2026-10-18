@@ -27,6 +27,14 @@ Automated controller checks:
 python3 -m unittest discover -s tests -v
 ```
 
+Validate and inspect candidate profiles (these commands do not deploy):
+
+```bash
+python3 scripts/modpack.py validate
+python3 scripts/modpack.py check-installed
+python3 scripts/modpack.py profile --profile presentation-trial
+```
+
 All project-owned code, configuration, documentation and original assets use local Git revisioning. This task environment protects `.git`, so metadata lives in `.local-git/`. Use the wrapper from any directory:
 
 ```bash

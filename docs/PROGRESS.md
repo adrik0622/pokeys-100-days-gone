@@ -29,3 +29,11 @@ This is the durable chronological record. Each significant change or decision re
 - Original vector cover is versioned. Steam rejected the initial PNG upload; text-only save worked. Cosmetic retry is independent of server work.
 - SteamCMD anonymous download/validation of dedicated app `380870` succeeded into isolated `runtime/server/install/` (7.21 GB installed). Dedicated Steam build `25485538`; core revision string `4a0e9546ec` matches the installed client's revision. Runtime version/startup/join still require verification.
 - Next: isolated loopback-only vanilla server startup, then the smallest client join/restart/recovery check before adding presentation dependencies.
+
+## 2026-10-18 — First dedicated client joined; reproducible profiles
+
+- Dedicated runtime confirmed `42.21.0 4a0e9546ec`, then reached SERVER STARTED. Verified its actual UDP listener is `127.0.0.1:19860`; no public listing/UPnP or host service changes.
+- Joined with the isolated vanilla client as `pokeys_trial_a` / Jo Jarvis. Moved and dropped the named ID card as a world-state marker. Server saved successfully and exited with code 0 after normal client disconnect.
+- Added fixed server lifecycle commands and offline backup/restore with SHA256 checking and preservation of replaced state. Created an offline 1,206-file baseline snapshot. Restart/restore observation is still in progress; multiplayer acceptance is not claimed yet.
+- Added explicit vanilla/presentation profiles and `scripts/modpack.py` for dependency-order validation, non-deploying INI generation, installed ID/version and JAR-drift checks. All three installed dependencies match. ZombieBuddy's version comes from its JAR manifest because its mod.info omits modversion.
+- Twenty-five automated checks pass, including dependency/profile safety and backup corruption/path/roundtrip checks.

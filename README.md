@@ -2,9 +2,9 @@
 
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 
-Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; the next networking experiment is two isolated local clients, not a request for another tester. Multi-client launch and target capacity are not yet verified.
+Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.
 
-Current milestone: disposable local baseline on Build 42.21.0, revision `4a0e9546ec`. Vanilla/Viewpoint GUI smoke passed. One vanilla client joined the isolated dedicated server and passed reconnect, restart and offline backup restoration. The hidden development Workshop collection is populated. Two-client, Steam-networking, modded dedicated and combat gates remain unrun; no release stack is accepted.
+Current milestone: disposable local baseline on Build 42.21.0, revision `4a0e9546ec`. Vanilla/Viewpoint GUI smoke and one-client dedicated recovery passed. Two vanilla clients passed shared movement, cross-player item transfer, disconnect/rejoin, server restart and clean exits in an isolated non-Steam network fixture. The hidden development Workshop collection is populated. Steam-networking, modded dedicated, combat and capacity gates remain open; no release stack is accepted.
 
 - [Current status](docs/STATUS.md)
 - [Progress toward v1.0](docs/PROGRESS.md)
@@ -15,6 +15,7 @@ Current milestone: disposable local baseline on Build 42.21.0, revision `4a0e954
 - [Local inventory](docs/M0-01-local-inventory.md)
 - [Desktop controller and GUI smoke test](docs/M0-03-desktop-smoke.md)
 - [Dedicated-server baseline and recovery test](docs/M0-02-dedicated-baseline.md)
+- [Two autonomous clients, persistence and resource limits](docs/M0-04-multi-client.md)
 
 The task sandbox cannot access X11 or the desktop bus directly. Start the scoped controller once in a normal desktop terminal:
 

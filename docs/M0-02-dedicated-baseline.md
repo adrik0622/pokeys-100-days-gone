@@ -1,10 +1,10 @@
 # M0-02 — Isolated dedicated-server baseline
 
-Status: **one-client local subtest accepted** (2026-10-18). Dedicated installation, vanilla loopback startup, join, movement, item transfer, reconnect, clean server restart and offline rollback passed. Two-independent-client acceptance and the modded/Steam-enabled server profile remain unrun. This does not yet accept the full M0 gate.
+Status: **local vanilla subtests accepted** (2026-10-18). Dedicated installation, vanilla loopback startup, one-client join/restart/offline rollback, and the separate two-client shared-state/reconnect/restart test passed. See [M0-04](M0-04-multi-client.md) for the two-client evidence and safe fixture. Modded/Steam-enabled/remote gates remain open; full M0 is not accepted.
 
 ## Outcome
 
-One client joins a disposable same-build dedicated server, reconnects after a controlled restart, and restores the disposable world from an offline backup. A second independent client process is required for the next multiplayer subtest; it does not require another human operator. The user confirmed no second tester is available, so explore two isolated local clients. This experiment is still unrun and cannot establish Steam authentication, remote/cross-platform operation or target capacity (4–8 players).
+One client joined a disposable same-build dedicated server, reconnected after a controlled restart, and observed an offline restoration. Two separately controlled clients subsequently shared movement and an item transfer, rejoined and retained both living identities/item ownership across a clean restart on a separate world. No second human was required. These local non-Steam tests cannot establish Steam authentication, remote/cross-platform operation or target capacity (4–8 players).
 
 ## Chosen approach
 

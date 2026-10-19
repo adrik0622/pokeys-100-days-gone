@@ -1,5 +1,11 @@
 # Progress and significant decisions
 
+## 2026-10-19 — Steam Link display retry and headless game check
+
+- Retried the isolated vanilla GUI client after the user enabled a Steam Link virtual monitor. The controller reports `:0` at 3440×1440, but PID 585442 exited 0 before a window appeared; a screenshot request correctly refused because it had no owned window. The fresh launcher log again reports `NullPointerException` at LWJGL `GLFW.nglfwGetVideoMode` / `Display.init`. No input was sent. Direct X display inspection remains blocked by sandbox permissions. Updated HR-008 and the desktop smoke record; this remains an environment/display issue, not evidence of mod incompatibility.
+- Continued with a separate isolated headless `day100` dedicated-server check (PID 586160; loopback only). `PokeysObserver` and `PokeysCampaign` loaded, campaign schema/calendar opened, server reached `SERVER STARTED`, accepted save/quit, logged `Shutdown handling finished`, exited 0 and released UDP port 19830. This proves dedicated startup/shutdown and module load, not client join or gameplay acceptance. No main saves/services touched; raw logs remain ignored in runtime.
+- Next: resume visible-client controls and integration checks once a PZ window launches in the active desktop session; headless V1/V2 work can continue meanwhile.
+
 ## 2026-10-19 — Comprehensive V2/V3 report reconciled with current evidence
 
 - Updated `V2_V3_MODPACK_REPORT.md` against the roadmap, current source and the latest isolated contract trial. Added the project-owned companion as a first-class mod entry, documented its opt-in `PokeysV2.Enabled` setting and fixed contract knobs, and distinguished its successful dedicated clean-restart slice from the new mocked server-adapter regression harness.

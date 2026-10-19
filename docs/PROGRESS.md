@@ -1,5 +1,11 @@
 # Progress and significant decisions
 
+## 2026-10-19 — V2 server bridge replay and partial-aid boundary test
+
+- Added `tests/lua/v2_server_spec.lua` and wired it into `pytest`. It runs the actual companion server adapter against mocked game/Jeem/The Mission APIs to check server-owned completion history, mission registration/relay radius, deferred credit while Jeem is unavailable, exactly-once credit across a data re-open, and one successful aid item followed by the shared cooldown.
+- Injected a failure after server inventory insertion but before the item-container notification. The bridge latched `aidPending`, did not advance the cooldown, and refused a second item. This confirms current fail-closed policy at the mocked boundary; it also surfaced that no supported operator reconciliation path exists, so added **HR-010 / V2-R6** for that operational choice. No production gameplay code changed.
+- Verification: harness passed; full suite **68 passed, 34 subtests**. This is not engine serialization, hard-crash atomicity, real item-sync or multiplayer-race acceptance. Do not clear pending state or retry manually without inspecting the account/inventory. Next: dedicated failure-path test only if a safe engine injection is found; continue the other V2 seams independently.
+
 ## 2026-10-19 — second V3 scene scan and V1 regression confidence
 
 - Rechecked current boss/relic leads against primary pages. Added **ApocalipseBR Regiões** (B42 ≥42.14 / MP-designed, outfit-registered boss API, editable custom zones) to the V3 report and human-review guardian choice. Its region/zombie/PvP controls could support a deliberately authored boss site, but there is no loot/relic/faction-claim bridge and no exact-stack runtime test. Added Nocturnal Reign only as a public GitHub prototype lead (author says B42.19 co-op/dedicated, broad day/night AI plus Zombie Lord; not a verified Workshop release). No V3 code/profile/manifest/collection changes.

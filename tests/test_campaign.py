@@ -43,3 +43,9 @@ class CampaignTests(unittest.TestCase):
                                 text=True, capture_output=True, timeout=10)
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("PASS: V2 bridge pure rules", result.stdout)
+
+    def test_v2_server_adapter_authority_replay_and_partial_aid_failure(self):
+        result = subprocess.run(["lua5.1", "tests/lua/v2_server_spec.lua"], cwd=ROOT,
+                                text=True, capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("PASS: V2 server adapter", result.stdout)

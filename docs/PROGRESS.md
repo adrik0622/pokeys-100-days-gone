@@ -1,5 +1,10 @@
 # Progress and significant decisions
 
+## 2026-10-18 night — ordinary Military Drop request/recovery/consequence and restart observed
+
+- One ordinary Morgan Supply, native radio and requisition form, no admin force/teleport: requested medical lot, flight D1, physical crate at 7939/11740 with one case/zero zombies, normal walk/fence traversal and native case opening. Actual Alcohol Wipes/Cold Pack/Surgical Gloves inventory and trust 25→35 logged; repeated ordinary request refused cooldown. No second payout.
+- Both processes exit 0, offline checkpoint retained. Fresh client/server restored Morgan beside same empty crate with all medical items; no creation/restore/reward/supply replay. Exact restored trust, third-party recovery, code puzzle, horde/NPC/crash and group capacity remain untested. Four selected pictures versioned; see V2-02 for exact scope and process IDs. Source audit also corrected The Mission history to account/Steam-keyed, not necessarily character-keyed.
+
 ## 2026-10-18 night — searchable settings appendix generated
 
 - Added original read-only declaration parser/build tool and committed factual CSV/HTML catalogue: 1,091 sandbox knobs across nine catalog inputs (A-Life 498; Jeem 166; Military Drop 64; Random Zeds 288; The Mission 14; remaining dependencies/retained owners included). No upstream translation/tooltips, code or images copied. Declaration defaults explicitly differ from chosen/server/preset values. CSV retains source-file fingerprints; HTML filters locally without network access.

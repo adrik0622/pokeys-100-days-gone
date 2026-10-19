@@ -7,6 +7,7 @@ This is the durable dated progress record. New sweep entries appear first; the e
 - Created `runtime/dist/pokeys-development-c65c4a9bb7fd.zip` from clean local commit `c65c4a9bb7fd81aa6d0d651cfc657aeed5567fd8`: 65 archive entries (64 original source/config/doc/test files + PACKAGE.json). SHA256 `29e0767a4f4c0cab0fecdeb70df3e400b370148761cfc1d785507c748bb1a93d`.
 - Independently checked ZIP CRC, every packaged source hash and DEVELOPMENT_NOT_V1/upstream-exclusion markers. No runtime, saves, credentials, upstream payloads, evidence images or Git metadata included. Artifact is a local review/development kit, not an upload or validated friend installer. This later documentation-only record is intentionally outside the artifact's recorded source revision.
 - Final 52 tests and full five-item installed payload checks passed; local worktree clean before packaging. All tracked clients/server exited 0, no test listener; controller left available. Technical pins and next narrow diagnostics are in ACTION_ITEMS/INTEGRATION. v1.0, leader, complete combat, strict horde cap/offline safety and intended-group capacity remain unaccepted.
+- Clarified historical fixture/count wording in continuation/calibration notes so earlier 0.1/0.2 evidence is not confused with current source or later independent observations. Documentation-only follow-up; packaged code revision/hash unchanged.
 
 ## 2026-10-18 evening — Day-100 engine startup and sweep handoff
 

@@ -10,7 +10,8 @@ SandboxVars = {
     },
     TM42 = {
         EnableKillCategory = false, EnableWalkCategory = false,
-        EnableSurviveCategory = false, EnableMissionReset = false,
+        EnableSurviveCategory = false, EnableRefillCategory = false,
+        EnableMissionReset = false,
         LoadCustomMissions = false,
     },
 }

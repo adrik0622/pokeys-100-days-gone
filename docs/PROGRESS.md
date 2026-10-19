@@ -1,5 +1,10 @@
 # Progress and significant decisions
 
+## 2026-10-18 night — searchable settings appendix generated
+
+- Added original read-only declaration parser/build tool and committed factual CSV/HTML catalogue: 1,091 sandbox knobs across nine catalog inputs (A-Life 498; Jeem 166; Military Drop 64; Random Zeds 288; The Mission 14; remaining dependencies/retained owners included). No upstream translation/tooltips, code or images copied. Declaration defaults explicitly differ from chosen/server/preset values. CSV retains source-file fingerprints; HTML filters locally without network access.
+- 65 tests pass; all 12 installed full payload pins match. Caught and disabled The Mission's separate refill category as well as walk/kill/survival in the unlaunched gather fixture. Supply ordinary join/native radio/requisition accepted and one actual zero-zombie drop logged; recovery still in progress, not yet an accepted complete loop.
+
 ## 2026-10-18 night — V2 supply/contract dependencies pinned; isolated fixtures ready
 
 - Subscribed original Military Drop 0.5.4, Belt Radio 1.2.0, TooltipLib 1.7.0, The Mission (no numeric modversion) and Random Zeds 1.4.3 individually through the owned Steam UI. Full payload fingerprints recorded; no collection promotion or enabled catch-all stack. Actual Military metadata requires Belt → Tooltip; Signal Smoke optional and omitted.

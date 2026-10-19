@@ -34,7 +34,7 @@
       "payload_bytes": 14466055,
       "purpose": "Java loader required by Viewpoint",
       "requires": [],
-      "evidence": "local GUI trial passed; dedicated-server behavior untested",
+      "evidence": "GUI and dedicated presentation/combined startup+join observed; no full gameplay acceptance",
       "jar_sha256": "eb79b9876332010733a8e0d7ce4fe0377846059a9e28859029e2a0fb449f6cf2"
     },
     {
@@ -49,7 +49,7 @@
       "payload_bytes": 34153469,
       "purpose": "First-person presentation and initial native gunplay candidate",
       "requires": ["ZombieBuddy"],
-      "evidence": "first-person movement and door interaction passed; combat and multiplayer untested",
+      "evidence": "First-person GUI/dedicated/combined join observed; shotgun packet warnings remain; target damage and shared combat unaccepted",
       "jar_sha256": "096bd37d63cb699ac95e9e7ea5245a1b9b5ff08c5161db35f6733b1d1c42b064"
     },
     {

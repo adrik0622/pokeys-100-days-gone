@@ -33,8 +33,10 @@ Horde source evidence and smallest possible integration seams: [OWNER_SEAMS](OWN
 
 ## Unrun acceptance — not reproduced failures
 
-- Combined presentation/NPC/horde/companion campaign, separate target damage/obstruction, client-visible horde approach/combat, three accepted forced cycles and an ordinary scheduled trigger.
+- Full combined physical campaign/combat: separate target damage/obstruction, client-visible horde approach/combat, three accepted forced cycles and an ordinary scheduled trigger. Combined first-person join/favor/aid/calibration/clean restart now passed narrowly; [evidence](M4-01-integrated.md).
 - Warning/active-event restart and ownership handoff, feature-modded shared observations, and engine movement/death interruption for calibration.
-- Joined-client day-100 survival/loot/utilities/balance, repeated integrated sessions, friend installation/Steam/WAN/platform checks and a 60–90 minute intended-group playtest. Target **4–8 players**, capacity unverified; no second human tester is currently available.
+- Day-100 survival/loot/utilities/balance beyond the observed combined client join/UI slice, extended integrated sessions, friend installation/Steam/WAN/platform checks and a 60–90 minute intended-group playtest. Target **4–8 players**, capacity unverified; no second human tester is currently available.
+
+Optional Screamer 1.1.12 is **deferred, not enabled** after a source/mocked-Lua audit of prepared births and death/reload lifecycle. This is a candidate mismatch for our optional integration, not an in-game bug report or new mandatory blocker. [Detailed audit](M4-optional-screamer.md).
 
 The unrun core checks remain v1.0 completion/acceptance work, not requests to stop development play. Leader-specific assertions are deferred by SC-001. Current progress and evidence are in [STATUS](STATUS.md); no immediate user credential, controller or second-tester action is needed.

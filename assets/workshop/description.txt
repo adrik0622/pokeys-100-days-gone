@@ -4,7 +4,7 @@ Updated 2026-10-18. Native Linux baseline: Build 42.21.0. Target: 4-8 players; c
 This collection currently contains ZombieBuddy, Project Viewpoint and the Viewpoint 3D model pack only. Bandits and Horde Nights are separate trial candidates, NOT collection members. The original Pokeys100DaysGone companion is local development source 0.3.0, not a Workshop download. Subscribe All does not install the full intended campaign.
 
 PROGRESS
-Single-player launch/movement/interaction and local vanilla two-client movement, item transfer, reconnect and clean server restart passed. Dedicated Viewpoint join/first-person rendering works. Separate companion trials demonstrated persistent faction standing/favors/aid, a brief radio-calibration task with improved arrival windows, and debug-horde completion causing a faction supply disruption that a favor can shorten. A separate Bandits trial showed one armed hostile human approaching/attacking. These are independent observations, NOT acceptance of a combined campaign.
+Single-player launch/movement/interaction and local vanilla two-client movement, item transfer, reconnect and clean server restart passed. Separate trials demonstrated persistent faction standing/favors/aid, calibration, debug-horde faction disruption/recovery and one armed hostile human. A later combined dedicated trial passed first-person join, faction favor/aid, 18.83-second calibration and clean-restart persistence. Full combat/horde-loop acceptance remains open.
 
 KNOWN BUGS / LIMITATIONS - PINNED, NOT AN IMMEDIATE STOP TO DEVELOPMENT PLAY
 - Viewpoint dedicated shotgun shots logged PlayerHitSquare inconsistencies. Cause unresolved; reliable zombie/NPC/player damage and obstruction are not verified.
@@ -16,11 +16,14 @@ KNOWN BUGS / LIMITATIONS - PINNED, NOT AN IMMEDIATE STOP TO DEVELOPMENT PLAY
 - Workshop cover upload failed; cosmetic only.
 
 NOT IMPLEMENTED / STILL TO ACCEPT
-Recognizable directing leader and coordination/death effect; complete recurring encounters and integrated combat/recovery; normal horde trigger, repeated cycles and mid-event restarts; day-100 survival balance and friend installation/playtest. Documenting an issue does not mark it fixed or waive v1.0 requirements.
+Complete recurring encounters and integrated combat/recovery; normal horde trigger, repeated cycles and mid-event restarts; day-100 survival balance and friend installation/playtest. Known issues are not fixed by documenting them.
+
+APPROVED SCOPE CHANGE (SC-001)
+The original v1.0 ask included a recognizable leader whose death stops its coordination. That full feature is now a v1.1 target, NOT mandatory for v1.0. A simpler Screamer-based threat was considered optional; the downloaded candidate's lifecycle audit did not meet our low-cost integration criteria, so it remains excluded. No replacement custom AI or second director is being added for v1.0. The core forecast/horde/faction-aftermath/recovery loop remains.
 
 INSTALLATION
 Subscribing alone does not install the required native Java agent. Follow upstream ZombieBuddy and Viewpoint instructions. Explicit profiles, dependency fingerprints, detailed known bugs and test evidence are kept in local Git. Do not treat trial fixture counts/settings as release balance.
 
-v1.0 goal: reliable private dedicated survival multiplayer, Viewpoint and credible gunplay, established factions with consequential shared standing, forecasted recurring hordes, a killable directing leader, optional bounded active play and sustainable recovery.
+v1.0 goal: reliable private dedicated survival multiplayer, Viewpoint and credible gunplay, established factions with consequential shared standing, forecasted recurring hordes, optional bounded active play and sustainable recovery. Directing leader targets v1.1.
 
 Upstream Workshop references only; no reuploaded code/assets. Collection remains hidden during development.

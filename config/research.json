@@ -4,7 +4,7 @@
   "items": [
     {
       "workshop_id": "3782615002", "mod_id": "HordeNights", "version": "1.1.3",
-      "role": "Selected isolated horde trial only",
+      "role": "Selected physical owner in isolated/combined DEVELOPMENT trials; not release accepted",
       "requires": [],
       "files": {
         "mods/HordeNights/42/mod.info": "bb4fe4b95fbc19b2fc41b56bb13358b4f07e06a992e5fe2c07bdff826661a811",
@@ -14,7 +14,7 @@
     },
     {
       "workshop_id": "3268487204", "mod_id": "Bandits2", "version": "V2, numeric modversion absent",
-      "role": "Physical NPC candidate, source inspected, not enabled",
+      "role": "Only physical NPC candidate; isolated encounter and combined join/UI trials, not release accepted",
       "requires": [],
       "files": {
         "mods/Bandits/42.21/mod.info": "026723713770c55c1f297ae2593f16a8c86d7cb5645ee597503cf3b5d10ece0f",

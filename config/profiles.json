@@ -51,5 +51,16 @@
   "contract-trial": {
     "workshop_ids": ["3640172314"], "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "V2 isolated original County EMS Mission/Jeem bridge smoke; custom contract enabled, Jeem/NPC and drop owners absent"
+  },
+  "faction-contract-trial": {
+    "workshop_ids": [
+      "3803984183",
+      "3806944055",
+      "3640172314"
+    ],
+    "local_mod_ids": [
+      "Pokeys100DaysGone"
+    ],
+    "purpose": "V2 isolated A-Life + Jeem + custom Mission credit test; no Military Drop, horde, Bandits or presentation"
   }
 }

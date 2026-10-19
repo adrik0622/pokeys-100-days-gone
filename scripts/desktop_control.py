@@ -49,7 +49,17 @@ V2_TRIALS = {
                       "mods": ["TheMission42"]},
     "contract-trial": {"port": 19770, "items": [("3640172314", "TheMission")],
                         "mods": ["TheMission42", "Pokeys100DaysGone"], "project_mod": True},
+    "faction-contract-trial": {"port": 19760, "items": [
+        ("3803984183", "ProjectALifeNPCs"), ("3806944055", "ProjectALifeJimmy"),
+        ("3640172314", "TheMission")],
+        "mods": ["ProjectALifeNPCs", "ProjectALifeJimmy", "TheMission42", "Pokeys100DaysGone"],
+        "project_mod": True, "alife_owner": True},
 }
+
+
+def alife_profile(profile):
+    return profile in ALIFE_TRIALS or (
+        profile in V2_TRIALS and V2_TRIALS[profile].get("alife_owner"))
 
 
 def stage_upstream(cache, items):
@@ -543,7 +553,8 @@ class Desktop:
             server = getattr(self, "server", None)
             targets = {"supply-trial": ("pokeys_supply_a", [("Base.WalkieTalkie5", 1), ("Base.Battery", 1)]),
                        "mission-trial": ("pokeys_mission_a", [("Base.Bandage", 2)]),
-                       "contract-trial": ("pokeys_contract_a", [("Base.Bandage", 2)])}
+                       "contract-trial": ("pokeys_contract_a", [("Base.Bandage", 2)]),
+                       "faction-contract-trial": ("pokeys_faction_contract_a", [("Base.Bandage", 2)])}
             if self.server_profile not in targets or not server or server.poll() is not None:
                 raise RuntimeError("V2 supplies require the running isolated supply/mission fixture")
             username, items = targets[self.server_profile]
@@ -637,7 +648,7 @@ class Desktop:
         elif action == "test_alife_contact_approach" and scope == "game":
             server = getattr(self, "server", None)
             profile = self.profile if client == "main" else self.client_profiles.get(client)
-            if self.server_profile not in ALIFE_TRIALS or profile != self.server_profile or not server or server.poll() is not None:
+            if not alife_profile(self.server_profile) or profile != self.server_profile or not server or server.poll() is not None:
                 raise RuntimeError("Contact fixture requires the matching owned A-Life client/server")
             # Fixed native admin movement for the isolated contact fixture only.
             # No caller-controlled command, coordinates, actor or inventory.
@@ -646,10 +657,10 @@ class Desktop:
                 "/teleportto " + point)
         elif action == "test_admin_password" and scope == "game":
             server = getattr(self, "server", None)
-            if self.server_profile not in {"migration", "encounter", *ALIFE_TRIALS} or not server or server.poll() is not None:
+            if self.server_profile not in {"migration", "encounter"} and not alife_profile(self.server_profile) or not server or server.poll() is not None:
                 raise RuntimeError("Admin fixture requires the running isolated migration/encounter server")
             profile = self.profile if client == "main" else self.client_profiles.get(client)
-            if self.server_profile in ALIFE_TRIALS and profile != self.server_profile:
+            if alife_profile(self.server_profile) and profile != self.server_profile:
                 raise RuntimeError("A-Life admin password requires the matching owned client/server")
             credential = ROOT / "runtime/server" / self.server_profile / "admin-password.txt"
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",

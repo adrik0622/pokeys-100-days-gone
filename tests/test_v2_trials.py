@@ -34,7 +34,8 @@ class V2TrialTests(unittest.TestCase):
                 for mid in spec["mods"]:
                     self.assertIn(f"mod = {mid},", enabled)
                 for mid in ["Bandits", "HordeNights", "Viewpoint", "ProjectALife"]:
-                    self.assertNotIn(mid, enabled)
+                    if not spec.get("alife_owner"):
+                        self.assertNotIn(mid, enabled)
                 if spec.get("project_mod"):
                     self.assertIn("mod = Pokeys100DaysGone,", enabled)
                 else:
@@ -46,6 +47,7 @@ class V2TrialTests(unittest.TestCase):
             ("supply-trial", ["additem pokeys_supply_a Base.WalkieTalkie5 1\n", "additem pokeys_supply_a Base.Battery 1\n"]),
             ("mission-trial", ["additem pokeys_mission_a Base.Bandage 2\n"]),
             ("contract-trial", ["additem pokeys_contract_a Base.Bandage 2\n"]),
+            ("faction-contract-trial", ["additem pokeys_faction_contract_a Base.Bandage 2\n"]),
         ]:
             d.server_profile = profile; d.server.stdin.write.reset_mock()
             d.dispatch({"action": "server_v2_supplies", "username": "unrelated", "count": 999})
@@ -57,6 +59,17 @@ class V2TrialTests(unittest.TestCase):
         with self.assertRaises(RuntimeError): d.dispatch({"action": "server_v2_supplies"})
         d.server_profile = "contract-trial"
         with self.assertRaises(RuntimeError): d.dispatch({"action": "server_v2_supplies"})
+
+    def test_faction_contract_fixture_keeps_a_life_helpers_profile_scoped(self):
+        self.assertTrue(control.alife_profile("faction-contract-trial"))
+        self.assertFalse(control.alife_profile("contract-trial"))
+        d = control.Desktop(); d.server = Mock(); d.server.poll.return_value = None
+        d.server_profile = "faction-contract-trial"; d.profile = "contract-trial"
+        with self.assertRaises(RuntimeError): d.dispatch({"action": "test_alife_contact_approach", "scope": "game"})
+        d.profile = "faction-contract-trial"
+        with patch.object(d, "window", return_value="owned-window"), patch.object(control, "run") as run:
+            d.dispatch({"action": "test_alife_contact_approach", "scope": "game"})
+            self.assertIn("/teleportto 7995,11756,0", run.call_args.args)
 
 
 if __name__ == "__main__": unittest.main()

@@ -36,27 +36,29 @@ Three existing identities are provisional, not a lore commitment: Mutual Aid (ci
 
 ## Consequential reputation and violence
 
-User objectives: faction NPC deaths affect affinity; player killers lose affinity with most factions; a morally gray faction respects player killers. Implementation details below are proposals, not current behavior. Current PVP=false and schema-1 group standing stay unchanged.
+User clarification [SC-003](SCOPE_CHANGES.md): **we do not have an anti-player-killing policy. The pillar is consequence, and every action should have consequences players can feel.** Reputation is one channel, not the whole system: resource use, noise, time, danger, lost opportunities, changed relationships and persistent world state also count. Benefits, costs and mixed tradeoffs are all valid; a numerical penalty or popup for every input is not required. Cooperation, violence, mercy, concealment and inaction must fit the same causal world.
+
+Faction NPC deaths and player killing need contextual consequences, not universal punishment. Most factions disapproving and a gray faction respecting a kill are possible value-driven responses, not a mandate to prevent or discourage all PvP. Implementation below is proposed, not delivered. Existing PVP=false and schema-1 standing remain unchanged in retained fixtures; that setting does not establish a final gameplay policy.
 
 | Decision/event | Proposed response | Important distinction |
 | --- | --- | --- |
 | Supply a shortage, repair a relay, honor a commitment | Bounded access/trust and an actual stock/service change | Same completion cannot pay via both mission mod and companion |
 | Attack/kill a neutral or allied faction NPC | Loss with that faction; possible bounded allied-faction response | Faction ID, actor, intent/incident and prior hostility matter |
 | Fight an actual hostile attacker | Attacker faction may resent casualties; protected factions need not condemn defense | Do not give every NPC death the same universal penalty |
-| Murder another player | Most factions disapprove; services/price/intel consequences, with a recovery path | Needs corroborated attribution, not a client “I killed X” message |
-| Gray faction learns of a player killing | Capped respect/access under its values; possibly civil-faction costs | No cash/XP-per-murder, repeat-victim/alt-account farming or overpowering gear rewards |
+| Kill another player | Felt faction/world consequences according to values, relationships and circumstances; some may disapprove, others approve | Establish cause/actor/context; do not label every kill murder or infer a server punishment |
+| Gray faction learns of a player killing | Respect, access or changed opportunities under its values, with opposing costs where appropriate | Prevent duplicate/forged/meaningless repeat rewards; legitimate violent play is not automatically an exploit |
 | Self-defense, accident, agreed duel or unknown cause | Separate incident classification; unknown held for review, no guessed punishment | A last-hit pointer alone does not prove murder |
 | Theft, diversion, mercy or betrayal | Ownership/witness/contract-sensitive consequence, reported to the player | Explain who knows and why; no unexplained omniscient sanctions |
 
-Proposed responsibility model: personal conduct/heat for attributable violence; shared campaign conditions and selected cooperative access. Preserve existing group standing through a reviewed migration, rather than punishing the whole party automatically for one griefer. Define whether personal conduct survives character death (recommended anti-reset policy) before implementation; do not key it solely to transient online ID, body or display name. Retain only necessary private account identity, never expose it in public logs.
+Proposed responsibility model: personal reputation/history for attributable actions; shared campaign conditions and selected cooperative access. Preserve existing group standing through a reviewed migration; any consequences spreading to a party need a coherent affiliation/knowledge rule, not accidental bookkeeping. Define what persists across character death before implementation; do not key durable identity solely to transient online ID, body or display name. Retain only necessary private account identity, never expose it in public logs.
 
 Choose one authority for each reputation balance. If A-Life/Jeem or another owner supplies reliable standing, integrate project rules into it or adopt a single explicit projection; do not create two meters that independently reward and contradict one another. Existing v1 group data must not be destructively “converted” from guessed upstream values.
 
 Incident design must cover repeat/deferred death, disconnect, zombie infection, fire/vehicle/indirect deaths, ownership handoff, damage packets arriving late and ambiguous evidence. Initial supported causes can be narrow, with unsupported causes disclosed and no gray-faction payout for unverifiable kills. Test false attribution and both gun-damage paths before claiming universal coverage.
 
-Use bounded witness/report or explicit campaign-knowledge rules: nearby witnesses, victims' faction affiliation or announced public bounties can spread news. General anti-PK disapproval can have an explicit server-policy component. Do not accidentally make “kill all witnesses” an easy griefing exemption; review upstream witness behavior against this goal.
+Use bounded witness/report or explicit campaign-knowledge rules: nearby witnesses, victims' affiliations and reports can spread news. Concealing a deed can itself be a consequential choice; eliminating witnesses is not automatically an exemption from an anti-PK policy because no such policy exists. Assess how knowledge, missing people, resource loss and retaliation remain coherent. Do not add omniscient sanctions just to discourage violence.
 
-Reputation thresholds and numeric gains/losses are not balanced yet. Respect is not moral approval. Avoid presenting the gray faction as both anti-griefing enforcement and a lucrative murder farm. No faction choice should permanently remove all essential survival/recovery options.
+Reputation thresholds and numeric gains/losses are not balanced yet. Respect is not moral approval, and consequences need not be deterrents. Avoid unbounded reward duplication while preserving the legitimacy of player choices. Reuse A-Life/Jeem's demonstrated systems wherever they fit; custom rules should close an evidenced gap rather than create a parallel consequence engine.
 
 ## Systems and ownership boundaries
 
@@ -99,7 +101,7 @@ Only these are detailed now; later features remain outcome-level backlog. Owner:
 
 Outcome: a source-evidenced decision between keeping Bandits plus a small campaign layer and an isolated A-Life replacement, before substantial NPC rewrites.
 
-Approach: compare/integrate; A-Life/Jeem are strong documented leads, not accepted replacements. Prerequisite: retain current fingerprints, worlds and B-002 evidence.
+Approach: user-authorized A-Life/Jeem isolated trial, A-Life alone first and then the combination, with Bandits disabled in both. Not yet accepted replacements. Prerequisite: retain current fingerprints, worlds and B-002 evidence.
 
 1. Obtain exact upstream payloads for research through the existing scoped Steam workflow; inspect mod.info, dependencies, license, server/client entry points, faction editor/import, persistent squad/reputation ownership and spawn/death hooks. Record hashes and actual setting keys. Start with A-Life alone; add Jeem only for a demonstrated missing capability, checking its 1.4 overlap guards.
 2. Produce a small option matrix: own faction definitions, NPC kill attribution, personal standing, safe/offline bases, population/raid controls, restart/unload and Viewpoint combat. Confirm public hooks rather than inventing them from advertised features. Check randomizer exclusion for NPC bodies.

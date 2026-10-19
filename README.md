@@ -4,6 +4,8 @@ A small private Project Zomboid survival multiplayer project. Original requireme
 
 Approved [SC-002](docs/SCOPE_CHANGES.md): **v2.0 targets the living-world spirit**—recurring faction needs, meaningful choices, optional active play and consequential encounters. “It's show business” is one tool; choose the simplest effective engineering approach, including custom simulation when justified. [Living-world design and roadmap](docs/V2_LIVING_WORLD.md) · [Dated mod survey and airdrop source findings](docs/V2_MOD_SURVEY.md). These are plans/research, not newly enabled mods or a claim that v1.0 is complete.
 
+Clarification [SC-003](docs/SCOPE_CHANGES.md): **consequence, not an anti-player-killing policy**, is the pillar. Every action should have causal effects players can feel, with faction-specific responses rather than universal PvP punishment. A-Life/Jeem isolated testing is authorized with Bandits disabled; retained profiles/worlds stay intact.
+
 Approved [SC-001](docs/SCOPE_CHANGES.md): the full directing leader is now a **v1.1 target, not mandatory for v1.0**. A simpler existing Screamer-based threat is an optional bounded trial. The core forecast → horde → faction aftermath → recovery loop remains v1.0 scope; the original brief is preserved unchanged.
 
 Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.

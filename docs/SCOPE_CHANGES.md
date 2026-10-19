@@ -2,6 +2,14 @@
 
 The original [PROJECT_BRIEF.txt](../PROJECT_BRIEF.txt) is preserved unchanged. This dated record overrides only the specific requirements listed below; it does not retroactively change test evidence or waive unrelated quality requirements.
 
+## SC-003 — 2026-10-18: consequence, not an anti-player-killing policy; A-Life/Jeem trial
+
+**Correction:** the user explicitly clarified that there is no anti-player-killing policy. The pillar is consequence: every action should have effects players can feel, including killing another player. Earlier anti-PK/anti-griefing framing in the v2 concept and our explanation was an incorrect inference. SC-002's historical discussion remains below, but this clarification governs current design.
+
+**Current design:** costs, benefits, danger, resource/time/noise effects, relationships, opportunities and persistent world changes can all be consequences. Violence may anger one faction and earn another's respect; mercy, concealment, cooperation and inaction also have causal results. Do not assume consequences must deter PvP, classify all player kills as murder, or add an omniscient universal punishment. Factions respond according to values, interests and what they know. Prevent duplicate/forged effects without treating legitimate play choices as exploits. Reuse demonstrated upstream systems before writing replacements.
+
+**Testing approval:** proceed with Project A-Life and Jeem Extension, testing A-Life alone first to identify ownership/compatibility, then the combination. Disable Bandits in those isolated profiles; do not uninstall it or alter the retained v1 encounter/integrated worlds. Existing PVP=false is a smoke-fixture setting, not a final product policy; a future isolated PvP attribution test can be designed separately. No global settings or collection promotion follows automatically from this experiment. Source/automated/engine evidence remain separate.
+
 ## SC-002 — 2026-10-18: fit-for-purpose engineering and the v2.0 living world
 
 **Original ask/policy:** the brief's spirit section emphasized inexpensive staged representations of a living world. Section 4 prescribed settings → maintained integration → patch → custom for every requirement. Continuous NPC simulation, a full economy and generic quest infrastructure were deferred from the bounded v1.0 product.

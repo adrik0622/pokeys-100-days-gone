@@ -7,7 +7,7 @@ No immediate credential/MFA, controller restart or second-human-test action is r
 | A-001 | Resolved | Existing foreground host controller works; sandbox X11 restriction is bypassed through it. Do not repeat setup while alive |
 | A-002 | Resolved for local baseline | 4–8 target confirmed; no second tester available. Autonomous vanilla A/B movement/transfer/reconnect/restart passed and is parked. Capacity/remote/platform gates remain distinct |
 | A-003 | Deferred, nonblocking | When friends are available, record their platforms and perform real install/Steam/WAN/group playtest. Do not repeatedly request this during local development |
-| A-004 | v2 policy review, nonblocking | Before any PvP-enabled deployment, choose cooperative PvE vs consensual/open PvP and how self-defense/duels/accidents are classified. Current PVP=false remains. Blocks live PK consequence acceptance, not source survey, PvE contracts or mocked justice-rule tests |
+| A-004 | Clarified by SC-003; deployment details nonblocking | No anti-player-killing policy. Consequence is the pillar; contextual faction/world reactions need reliable attribution, not universal punishment. Existing PVP=false remains a fixture setting; deployment rules and a separate controlled PvP test can be specified later. Does not block A-Life/Jeem testing |
 | A-005 | v2 policy review, nonblocking | Review proposed personal responsibility across character death versus shared faction access; identify whether Road Reclaimers should become the gray faction. Blocks final migration/balance/lore decisions, not isolated prototypes. Existing schema-1 group ledger and hostile scout stay intact |
 
 ## Technical pins — deferred follow-ups, not a stop-work queue

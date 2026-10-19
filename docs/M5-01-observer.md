@@ -1,6 +1,6 @@
 # M5-01 — observer bulletin, calibration and recovery prototype
 
-Status: original implementation and Lua adapter checks; engine check pending. Companion 0.2.0. This is **not M3/M4/M5 acceptance**. Physical-owner gaps are in `OWNER_SEAMS.md`.
+Status: implementation, rules/adapter checks, one-client calibration and restart, real debug-event aftermath/recovery observed. Companion 0.2.0. This is **not full M3/M4/M5 acceptance**. Physical-owner gaps are in `OWNER_SEAMS.md`; later engine observations are in `M3-01-migration.md`.
 
 ## Engine observations — 2026-10-18 evening
 

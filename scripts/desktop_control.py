@@ -493,9 +493,10 @@ class Desktop:
                                       if re.search(r":198[56789][01]\s", line)]}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
-            if self.server_profile != "campaign" or not server or server.poll() is not None:
+            targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin"}
+            if self.server_profile not in targets or not server or server.poll() is not None:
                 raise RuntimeError("Test supplies require the running isolated campaign server")
-            command = "additem pokeys_campaign_a Base.Bandage 2"
+            command = "additem " + targets[self.server_profile] + " Base.Bandage 2"
             server.stdin.write(command + "\n")
             server.stdin.flush()
             return {"sent": command, "note": "Existing game admin command; fixture only, confirm inventory"}

@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Calibration persistence and real event recovery connection
+
+- Fresh client/server restart preserved calibrated forecast and character. Existing upstream admin controls forced event 1 WEST (four physical births/routes), then abort with no disruption; event 2 SOUTHWEST (four births/routes), debug completion left four ordinary survivors and scheduled day 3, without airdrop reward. This is not two fought/accepted release cycles or client-visible attack proof.
+- Observed actual completion → 24-hour supply disruption → server-refused aid → existing two-bandage favor → 12-hour recovery. Native campaign admin role control worked in-engine; no new item payout. Polling did not reapply event consequence. Updated favor UI to avoid implying aid is instantly available while disruption persists.
+- Preserved offline worlds/raw logs and selected screenshots. Both client/server exited cleanly. 47 checks pass, now including campaign/observer aid refusal and favor-repair coupling. Direction-before-arrival, global cap, offline target, physical approach/combat/leader and multi-client gates remain pinned; see `M3-01-migration.md`.
+
 ## 2026-10-18 evening — Playable relay calibration observed
 
 - Live Horde Nights schedule appeared in observer bulletin with actionable baseline and honest unresolved direction. All authored prehistory messages visible. Manual timing expired correctly; uncertain OCR cancelled without guessing.

@@ -6,7 +6,7 @@ local Panel = ISPanel:derive("PokeysCampaignPanel")
 local instance
 local messages = {
     refreshed = "Contact ledger refreshed.",
-    donated = "Supplies delivered. Shared standing +20; medical assistance unlocked.",
+    donated = "Supplies delivered (+20). Recovery shortened; disruption may still delay aid.",
     aid_received = "Mutual Aid supplied one disinfectant. Shared assistance cooldown started.",
     too_far = "Visit the Mutual Aid drop point to deliver supplies or request aid.",
     not_alive = "Only a living survivor can use the contact.",
@@ -80,7 +80,7 @@ function Panel:prerender()
     self.donate.enable = enabled and s.favorWait <= 0 or false
     self.aid.enable = enabled and s.aidUnlocked and s.aidWait <= 0 or false
     self:drawText(self.message or "Requesting server ledger...", 20, 350, 1, 0.85, 0.5, 1, UIFont.Small)
-    self:drawText("No migration forecast is simulated here; NPC and horde integration remain separate.",
+    self:drawText("Forecast / recovery: open observer bulletin. Physical NPCs and leader still unverified.",
         20, 480, 0.7, 0.7, 0.7, 1, UIFont.Small)
 end
 

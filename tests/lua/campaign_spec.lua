@@ -179,6 +179,18 @@ assert(run("aid", b) == "needs_admin_inspection" and #b.items == 1)
 store = copy(store)
 S.init()
 assert(run("aid", a) == "needs_admin_inspection" and #b.items == 1)
+store = {}
+failRemove, failAdd, failSync = false, false, false
+S.init()
+assert(run("admin", admin, {operation="setStanding", faction="mutualAid", value=20}) == "admin_changed")
+observerStore.disruptedUntil = hour + 24
+assert(run("aid", a) == "aid_disrupted")
+a.items = {item("Base.Bandage"),item("Base.Bandage")}
+assert(run("donate", a) == "donated")
+assert(observerStore.disruptedUntil == hour + 12)
+assert(run("aid", a) == "aid_disrupted")
+hour = hour + 12
+assert(run("aid", a) == "aid_received")
 store = {schema=99}
 S.init()
 assert(run("donate", a) == "campaign_unavailable" and store.schema == 99)

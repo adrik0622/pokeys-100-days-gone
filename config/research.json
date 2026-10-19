@@ -3,6 +3,23 @@
   "observed": "2026-10-18",
   "items": [
     {
+      "workshop_id": "3803984183", "mod_id": "ProjectALifeNPCs", "version": "1.4.5",
+      "role": "SC-003 isolated replacement-owner trial; not release or collection accepted; complete payload pin in modpack.json",
+      "requires": [],
+      "files": {
+        "mods/ProjectALifeNPCs/42.20/media/lua/server/ProjectALife/Decisions/ALifeNpcOpinion.lua": "55acdc53658a36e24a86f6c234f142c76d34bf3134400cf4ffdd5a346b9a9eea"
+      }
+    },
+    {
+      "workshop_id": "3806944055", "mod_id": "ProjectALifeJimmy", "version": "0.7.4",
+      "role": "SC-003 isolated combination contact/gift/restart investigation; complete payload pin in modpack.json",
+      "requires": ["ProjectALifeNPCs"],
+      "files": {
+        "mods/ProjectALifeJimmy/42/media/lua/server/ProjectALifeJimmy/Features/Standing/AlifeDeeds.lua": "407b6d5a614c6b10ca5e45ff1ff96d74f662985a3e1caac3639e42146c99eb13",
+        "mods/ProjectALifeJimmy/42/media/lua/server/ProjectALifeJimmy/Features/HandGifts/HandGifts.lua": "0345f85c84e031ff54cb35e263d4863e10df5c0a735dc6214b5d637b152ff2fb"
+      }
+    },
+    {
       "workshop_id": "3782615002", "mod_id": "HordeNights", "version": "1.1.3",
       "role": "Selected physical owner in isolated/combined DEVELOPMENT trials; not release accepted",
       "requires": [],

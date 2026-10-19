@@ -34,6 +34,8 @@ Horde source evidence and smallest possible integration seams: [OWNER_SEAMS](OWN
 
 ## Unrun acceptance — not reproduced failures
 
+The separate [A-Life/Jeem trial](V2-01-alife-jeem.md) now has contact/gift/identity-and-item restart evidence. Candidate follow-up V2-T1: outfit and position changed, initial position lock did not hold after restart; cause/expected behavior unassigned. Opinion +19 immediate versus +27 on return is consistent with the inspected deferred +8 gift bridge, not a proven reset/duplication bug. Preserve these observations; no exact visual/score-invariance or general persistence acceptance. NPC/player combat, witness policy, ordinary-player permissions and ownership handoff remain unrun.
+
 - Full combined physical campaign/combat: separate target damage/obstruction, client-visible horde approach/combat, three accepted forced cycles and an ordinary scheduled trigger. Combined first-person join/favor/aid/calibration/clean restart now passed narrowly; [evidence](M4-01-integrated.md).
 - Warning/active-event restart and ownership handoff, feature-modded shared observations, and engine movement/death interruption for calibration.
 - Day-100 survival/loot/utilities/balance beyond the observed combined client join/UI slice, extended integrated sessions, friend installation/Steam/WAN/platform checks and a 60–90 minute intended-group playtest. Target **4–8 players**, capacity unverified; no second human tester is currently available.

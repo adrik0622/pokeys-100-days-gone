@@ -34,6 +34,10 @@ KEYS = set("abcdefghijklmnopqrstuvwxyz0123456789") | {
 }
 PRESENTATION = [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
                 ("3810302175", "PZVoxelStudioViewpoint")]
+ALIFE_TRIALS = {
+    "alife": [("3803984183", "ProjectALifeNPCs")],
+    "alife-jeem": [("3803984183", "ProjectALifeNPCs"), ("3806944055", "ProjectALifeJimmy")],
+}
 
 
 def stage_upstream(cache, items):
@@ -128,7 +132,7 @@ def stage_campaign(cache):
 
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
+    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100", "integrated", *ALIFE_TRIALS}:
         raise ValueError("Unknown isolated client profile")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
@@ -161,6 +165,9 @@ def prepare_profile(profile, client="main"):
     if profile == "integrated":
         stage_upstream(cache, PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")])
         mod_ids = [name for _, name in PRESENTATION] + ["Bandits2", "HordeNights"] + mod_ids
+    if profile in ALIFE_TRIALS:
+        stage_upstream(cache, ALIFE_TRIALS[profile])
+        mod_ids = [name for _, name in ALIFE_TRIALS[profile]]
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
         for workshop_id, name in [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
@@ -202,7 +209,7 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
+        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100", "integrated", *ALIFE_TRIALS}:
             raise ValueError("Unknown isolated server profile")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
@@ -210,7 +217,8 @@ class Desktop:
         cache = ROOT / "runtime/server" / profile
         name = f"pokeys-m0-{profile}"
         port = {"vanilla": 19860, "dual": 19870, "campaign": 19880, "presentation": 19890,
-                "migration": 19850, "encounter": 19840, "day100": 19830, "integrated": 19820}[profile]
+                "migration": 19850, "encounter": 19840, "day100": 19830, "integrated": 19820,
+                "alife": 19810, "alife-jeem": 19800}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
@@ -226,6 +234,8 @@ class Desktop:
             shutil.copy2(ROOT / "config/server/day100_SandboxVars.lua", sandbox)
         if profile == "integrated" and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/integrated_SandboxVars.lua", sandbox)
+        if profile in ALIFE_TRIALS and not sandbox.exists():
+            shutil.copy2(ROOT / f"config/server/{profile}_SandboxVars.lua", sandbox)
         if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
             stage_campaign(cache)
         if profile == "migration":
@@ -236,6 +246,8 @@ class Desktop:
             stage_presentation(cache)
         if profile == "integrated":
             stage_upstream(cache, PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")])
+        if profile in ALIFE_TRIALS:
+            stage_upstream(cache, ALIFE_TRIALS[profile])
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
@@ -506,7 +518,7 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[23456789][01]\s", line)]}
+                                      if re.search(r":198[0123456789][01]\s", line)]}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
             targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin",
@@ -591,8 +603,11 @@ class Desktop:
                 "/teleportto 8045,11756,0")
         elif action == "test_admin_password" and scope == "game":
             server = getattr(self, "server", None)
-            if self.server_profile not in {"migration", "encounter"} or not server or server.poll() is not None:
+            if self.server_profile not in {"migration", "encounter", *ALIFE_TRIALS} or not server or server.poll() is not None:
                 raise RuntimeError("Admin fixture requires the running isolated migration/encounter server")
+            profile = self.profile if client == "main" else self.client_profiles.get(client)
+            if self.server_profile in ALIFE_TRIALS and profile != self.server_profile:
+                raise RuntimeError("A-Life admin password requires the matching owned client/server")
             credential = ROOT / "runtime/server" / self.server_profile / "admin-password.txt"
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
                 credential.read_text().strip())

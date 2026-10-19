@@ -28,6 +28,14 @@
     "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "Opt-in combined day-100 DEVELOPMENT trial; known bugs apply, no leader/Screamer, NOT release accepted"
   },
+  "alife": {
+    "workshop_ids": ["3803984183"],
+    "purpose": "SC-003 A-Life core-only isolated smoke; no Bandits/companion/horde/Viewpoint, not accepted"
+  },
+  "alife-jeem": {
+    "workshop_ids": ["3803984183", "3806944055"],
+    "purpose": "SC-003 A-Life + Jeem isolated compatibility/consequence trial; Bandits disabled, not accepted"
+  },
   "day100": {
     "workshop_ids": [], "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "Companion-only survival calendar candidate; horde disabled fail-safe, eight-slot setting NOT capacity proof"

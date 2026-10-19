@@ -14,6 +14,44 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_alife_trials_have_one_npc_owner_and_separate_worlds(self):
+        for profile, port in [("alife", 19810), ("alife-jeem", 19800)]:
+            with self.subTest(profile=profile), tempfile.TemporaryDirectory() as directory, \
+                 patch.object(control, "ROOT", Path(directory)), \
+                 patch.object(control, "stage_campaign") as local, \
+                 patch.object(control, "stage_upstream") as stage, \
+                 patch.object(control.shutil, "copy2") as copy, \
+                 patch.object(control.subprocess, "Popen") as popen:
+                result = control.Desktop().launch_server(profile)
+                self.assertEqual(result["ports"], [port, port + 1])
+                self.assertEqual(result["bind_ip"], "127.0.0.1")
+                local.assert_not_called()
+                stage.assert_called_once_with(Path(directory)/"runtime/server"/profile, control.ALIFE_TRIALS[profile])
+                copy.assert_any_call(Path(directory)/f"config/server/{profile}_SandboxVars.lua",
+                                     Path(directory)/f"runtime/server/{profile}/Server/pokeys-m0-{profile}_SandboxVars.lua")
+                self.assertNotIn("-javaagent:", str(popen.call_args.args[0]))
+                stage.reset_mock()
+                cache = control.prepare_profile(profile, "a")
+                stage.assert_called_once_with(cache, control.ALIFE_TRIALS[profile])
+                enabled = (cache / "mods/default.txt").read_text()
+                self.assertIn("mod = ProjectALifeNPCs,", enabled)
+                self.assertEqual("mod = ProjectALifeJimmy," in enabled, profile == "alife-jeem")
+                for forbidden in ["Bandits", "HordeNights", "Viewpoint", "Pokeys100DaysGone"]:
+                    self.assertNotIn(forbidden, enabled)
+
+    def test_alife_password_and_restore_remain_scoped(self):
+        desktop = control.Desktop()
+        desktop.server = Mock(); desktop.server.poll.return_value = None
+        desktop.server_profile = "alife"
+        desktop.client_profiles["a"] = "alife-jeem"
+        with patch.object(desktop, "window", return_value=42), patch.object(control, "run") as run:
+            with self.assertRaises(RuntimeError):
+                desktop.dispatch({"action": "test_admin_password", "client": "a"})
+            run.assert_not_called()
+        desktop.server.poll.return_value = 0
+        with self.assertRaises(ValueError):
+            desktop.dispatch({"action": "server_restore", "snapshot": "unrelated"})
+
     def test_integrated_profile_is_explicit_isolated_and_keeps_loader_policy(self):
         selected = control.PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")]
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \

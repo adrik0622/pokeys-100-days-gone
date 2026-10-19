@@ -13,6 +13,14 @@ SPEC.loader.exec_module(modpack)
 
 
 class ModpackTests(unittest.TestCase):
+    def test_alife_trials_exclude_competing_owners_and_collection_promotion(self):
+        self.assertIn("Mods=ProjectALifeNPCs\n", modpack.render(self.manifest, self.profiles, "alife"))
+        combined = modpack.render(self.manifest, self.profiles, "alife-jeem")
+        self.assertIn("Mods=ProjectALifeNPCs;ProjectALifeJimmy\n", combined)
+        for excluded in ["Bandits", "HordeNights", "Viewpoint", "Pokeys100DaysGone"]:
+            self.assertNotIn(excluded, combined)
+        self.assertEqual(len(self.manifest["workshop_collection"]["verified_members"]), 3)
+
     def test_integrated_profile_does_not_add_candidates_to_collection(self):
         text = modpack.render(self.manifest, self.profiles, "integrated")
         self.assertIn("Mods=ZombieBuddy;Viewpoint;PZVoxelStudioViewpoint;Bandits2;HordeNights;Pokeys100DaysGone", text)

@@ -83,8 +83,26 @@
       "metadata_sha256": "026723713770c55c1f297ae2593f16a8c86d7cb5645ee597503cf3b5d10ece0f",
       "payload_sha256": "d2d1a70ea0131315b04f78af8cbeefb8d3491075b931f8a08a7ac9af34f1e1f6",
       "payload_file_count": 1492, "payload_bytes": 165776091,
-      "purpose": "Only physical human NPC candidate, isolated one-shot encounter fixture",
+      "purpose": "Retained v1 NPC trial owner; disabled in all A-Life trial profiles",
       "requires": [], "evidence": "One physical armed hostile human/attack observed; repeated server command-handler table exception blocks reliability. Not in collection"
+    },
+    {
+      "workshop_id": "3803984183", "mod_id": "ProjectALifeNPCs", "version": "1.4.5",
+      "metadata_path": "mods/ProjectALifeNPCs/42.20/mod.info",
+      "metadata_sha256": "7c129437c9a2390ae04fb4ef6ce4687f45966268a4406ba3caeee1a4144af141",
+      "payload_sha256": "dd47ff5087c42abdd50f572d443a84497d1ab424453586b6073cf00e66c04b91",
+      "payload_file_count": 1691, "payload_bytes": 52325148,
+      "requires": [], "purpose": "SC-003 isolated replacement NPC-owner trial; never alongside Bandits",
+      "evidence": "Original Steam payload downloaded and relevant source/settings inspected; runtime trial in progress, not accepted or in collection"
+    },
+    {
+      "workshop_id": "3806944055", "mod_id": "ProjectALifeJimmy", "version": "0.7.4",
+      "metadata_path": "mods/ProjectALifeJimmy/42/mod.info",
+      "metadata_sha256": "6306542000470a2cefdd15ce6ea7c1ede03a6d6d257ec7ceee81ed1a27990c61",
+      "payload_sha256": "25481a2c8e789b1adad057351c8d00ce5ee3241313e194ee50d4d910ae22a084",
+      "payload_file_count": 263, "payload_bytes": 8805189,
+      "requires": ["ProjectALifeNPCs"], "purpose": "SC-003 isolated A-Life consequence/persistence extension trial",
+      "evidence": "Original Steam payload downloaded; requires/loads after A-Life, runtime trial pending, not accepted or in collection"
     }
   ],
   "local_items": [

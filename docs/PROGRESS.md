@@ -8,6 +8,12 @@ This is the durable dated progress record. New sweep entries appear first; the e
 - User approved A-Life + Jeem tests with Bandits disabled. Plan core-only then combined isolated profiles/worlds, no changes to retained v1 fixtures, main settings or Workshop membership. Existing PVP=false is a fixture safety setting, not a product policy. Source/automated/runtime observations will be recorded separately as tests progress.
 - Existing host controller responded; tracked game clients exited 0/no game windows. Both candidate payload directories are absent, so obtain original inputs through Steam before source inspection. No new compatibility result claimed yet.
 
+### Trial preparation
+
+- Subscribed/downloaded original A-Life 1.4.5 (1,691 files / 52,325,148 bytes) and Jeem 0.7.4 (263 / 8,805,189) via Steam UI; pinned complete payload/metadata hashes in the candidate catalog, not collection members. A-Life's 42.20 directory actually declares versionMin=42.21.0; Jeem requires/loads after ProjectALifeNPCs. No Java dependency added.
+- Added separate alife (19810/19811) and alife-jeem (19800/19801) loopback caches/worlds and fixed controller lifecycle support, with ONLY the selected NPC input(s). No Bandits, companion, horde or presentation owner. Native admin tools, very low ambient zombies, population/raid/encounter controls and reduced logical budgets are test settings, not measured release limits. Jeem residents/raids/random traders disabled while standing remains enabled.
+- First core server PID 242678 launched from preparation working tree after SC-003 commit 8514369; do not call this a clean-commit runtime. No joined NPC, consequence or persistence result claimed yet. Automated checks and profile isolation are validated before client observation; runtime results follow in the trial card/progress.
+
 ## 2026-10-18 — SC-002: fit-for-purpose engineering, v2 living-world concept and landscape survey
 
 - Recorded the user's correction: “show business” is a useful technique, not a ban on appropriate simulation/custom engineering or necessary entity/NPC rewrites. Preserve original brief verbatim; SC-002 overrides the rigid simplicity ladder and opens the v2 expansion while requiring explicit runtime/integration/lifetime-maintenance tradeoffs. v1 remains unfinished; SC-001's v1.1 leader target is unchanged. v3 depth/v4 major polish are provisional; correctness/save safety/accessibility/performance continue throughout.

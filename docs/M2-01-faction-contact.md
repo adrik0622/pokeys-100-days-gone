@@ -38,7 +38,9 @@ Engine inventory and global campaign data are **not an atomic storage transactio
 
 ## Development controls / isolated deployment
 
-Controller `campaign` client/server profiles stage only a symlink to our project-owned mod under their own caches. Existing directories are not overwritten. Server `runtime/server/campaign/`, `pokeys-m0-campaign`, loopback ports 19880/19881, Public/UPnP off; separate safe sandbox copied from the zombie-free network fixture. No Viewpoint/NPC/horde mod is loaded. This isolates Lua errors; it does not certify presentation compatibility.
+Controller `campaign` client/server profiles stage a real copy of only our project-owned mod under their own caches. A marker identifies owned stages; previous owned copies are retained under `campaign-stage-history/` before replacement. Unmarked existing directories and source symlinks are refused. Server `runtime/server/campaign/`, `pokeys-m0-campaign`, loopback ports 19880/19881, Public/UPnP off; separate safe sandbox copied from the zombie-free network fixture. No Viewpoint/NPC/horde mod is loaded. This isolates Lua errors; it does not certify presentation compatibility.
+
+First engine startup found `next()` unavailable in Kahlua at `Campaign.open`; the protected initializer disabled the feature rather than resetting data. Replaced the emptiness check with `pairs` and removed reliance on `math.huge`. The standalone test now deliberately removes `next`. The first symlink-staged mod also caused native ZipBackup “Is a directory” errors: real staged copies address that walker boundary rather than disabling backups. Added empty standard AnimSets/actiongroups directories for the engine's scanner. First-failure logs remain at `runtime/evidence/campaign/first-start-failed/`; corrected-start observations are recorded separately below.
 
 ```bash
 python3 scripts/desktop_control.py request '{"action":"server_launch","profile":"campaign"}'

@@ -14,12 +14,14 @@ Campaign.aidHours = 48
 Campaign.alliedAt = 20
 
 local function finite(n)
-    return type(n) == "number" and n == n and n > -math.huge and n < math.huge
+    return type(n) == "number" and n == n and (n - n) == 0
 end
 Campaign.finite = finite
 
 function Campaign.open(data)
-    if next(data) == nil then
+    local empty = true
+    for _ in pairs(data) do empty = false; break end
+    if empty then
         data.schema = 1
         data.revision = 0
         data.standing = {}

@@ -65,17 +65,34 @@ def client_name(value):
     return value
 
 
-def link_campaign(cache):
+def stage_campaign(cache):
     source = ROOT / "mods/Pokeys100DaysGone"
     if not (source / "42/mod.info").is_file():
         raise FileNotFoundError(source)
     destination = cache / "mods/Pokeys100DaysGone"
     destination.parent.mkdir(parents=True, exist_ok=True)
-    if destination.exists() or destination.is_symlink():
-        if not destination.is_symlink() or destination.resolve() != source.resolve():
+    marker = ".pokeys-project-stage"
+    if any(path.is_symlink() for path in source.rglob("*")):
+        raise RuntimeError("Project mod source must not contain symlinks")
+    if destination.is_symlink():
+        if destination.resolve() != source.resolve():
             raise RuntimeError("Refusing to replace an existing campaign mod directory")
-    else:
-        destination.symlink_to(source, target_is_directory=True)
+    elif destination.exists():
+        if not (destination / marker).is_file() or (destination / marker).read_text() != str(source):
+            raise RuntimeError("Refusing to replace an existing campaign mod directory")
+    # Real directories avoid the engine backup walker treating a directory
+    # symlink as an ordinary file. Preserve previous owned stages, not stale Lua.
+    token = uuid.uuid4().hex
+    prepared = cache / "campaign-stage-prepared" / token
+    shutil.copytree(source, prepared)
+    (prepared / marker).write_text(str(source))
+    if destination.is_symlink():
+        destination.unlink()  # Our own legacy link only; source remains intact.
+    elif destination.exists():
+        history = cache / "campaign-stage-history"
+        history.mkdir(exist_ok=True)
+        destination.rename(history / token)
+    prepared.rename(destination)
 
 
 def prepare_profile(profile, client="main"):
@@ -99,7 +116,7 @@ def prepare_profile(profile, client="main"):
     mods.mkdir(exist_ok=True)
     mod_ids = []
     if profile == "campaign":
-        link_campaign(cache)
+        stage_campaign(cache)
         mod_ids.append("Pokeys100DaysGone")
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
@@ -158,7 +175,7 @@ class Desktop:
         if profile in {"dual", "campaign"} and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/dual_SandboxVars.lua", sandbox)
         if profile == "campaign":
-            link_campaign(cache)
+            stage_campaign(cache)
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")

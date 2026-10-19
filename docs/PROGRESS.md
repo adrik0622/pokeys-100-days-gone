@@ -90,3 +90,9 @@ This is the durable chronological record. Each significant change or decision re
 - Inspected installed engine persistence/network/inventory hooks and current Bandits/Kane author descriptions before choosing the narrow missing campaign behavior. Source/author evidence and limitations are recorded in `M2-01-faction-contact.md`; no unavailable upstream code inspection is claimed.
 - Added pending-operation fail-closed handling, strict schema validation, isolated snapshots and focused Lua 5.1 rules/server-adapter checks. Engine inventory and campaign saves are not atomic; hard-crash recovery is explicitly unverified. Thirty-nine project tests pass, including fixed staging/test-gear boundaries.
 - Added separate companion-only campaign client/server profiles on loopback 19880, retaining previous worlds, normal settings, collection and presentation profile. One-client engine check is next; full M1/M2 acceptance and A/B feature testing remain pending.
+
+## 2026-10-18 — First companion engine boundary fixes
+
+- Initial campaign server startup exposed Kahlua's missing `next()` at the initializer. The feature failed closed; no standing/inventory action was run. Replaced it with `pairs` and removed reliance on `math.huge`; regression checks now remove standard Lua's `next` deliberately.
+- The native backup walker treated the local mod directory symlink as a file and raised “Is a directory”. Changed only our mod staging to real copies, preserving prior owned stages and refusing unmarked directories/source symlinks. Did not disable native backups or edit core files. Added the empty standard animation directories requested by the engine scanner.
+- First server stopped cleanly with code 0; failed-start logs retained under `runtime/evidence/campaign/first-start-failed/`. Thirty-nine checks pass; corrected engine startup and player interaction remain in progress.

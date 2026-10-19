@@ -1,6 +1,8 @@
 local root = "mods/Pokeys100DaysGone/42/media/lua/"
 package.path = root .. "shared/?.lua;" .. root .. "server/?.lua;" .. package.path
 local C = require "Pokeys/Campaign"
+-- Kahlua's runtime check caught next() being unavailable despite standard Lua.
+next = nil
 local function copy(value)
     if type(value) ~= "table" then return value end
     local out = {}

@@ -20,12 +20,17 @@ class DesktopControlTests(unittest.TestCase):
             source.mkdir(parents=True)
             (source / "mod.info").touch()
             cache = control.prepare_profile("campaign", "a")
-            self.assertEqual((cache / "mods/Pokeys100DaysGone").resolve(), source.parent)
+            self.assertFalse((cache / "mods/Pokeys100DaysGone").is_symlink())
+            self.assertTrue((cache / "mods/Pokeys100DaysGone/42/mod.info").is_file())
             self.assertIn("mod = Pokeys100DaysGone", (cache / "mods/default.txt").read_text())
+            (source / "mod.info").write_text("updated")
+            control.stage_campaign(cache)
+            self.assertEqual((cache / "mods/Pokeys100DaysGone/42/mod.info").read_text(), "updated")
+            self.assertEqual(len(list((cache / "campaign-stage-history").iterdir())), 1)
             other = Path(directory) / "different-cache"
             (other / "mods/Pokeys100DaysGone").mkdir(parents=True)
             with self.assertRaisesRegex(RuntimeError, "Refusing to replace"):
-                control.link_campaign(other)
+                control.stage_campaign(other)
 
     def test_campaign_supplies_are_fixed_and_refused_on_other_servers(self):
         desktop = control.Desktop()

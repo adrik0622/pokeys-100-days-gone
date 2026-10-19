@@ -4,11 +4,12 @@ A small private Project Zomboid survival multiplayer project. Original requireme
 
 Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.
 
-Current build: native Linux 42.21.0, revision `4a0e9546ec`. Local vanilla recovery and autonomous two-client networking passed; further A/B runs are parked. Viewpoint dedicated join/first-person rendering now works, but shotgun `PlayerHitSquare` packet warnings block combat acceptance. No release stack or v1.0 is accepted.
+Current build: native Linux 42.21.0, revision `4a0e9546ec`. Local vanilla recovery and autonomous two-client networking passed; further A/B runs are parked. Viewpoint dedicated join/first-person rendering works; shotgun packet warnings and the other reported issues are [pinned known bugs/limitations](docs/KNOWN_BUGS.md), not immediate stops to development play. Combat correctness and the combined campaign remain unaccepted; no release stack or v1.0 is accepted.
 
 Original companion source is **0.3.0 development**: shared faction standing/favors/aid; authored day-100 briefing; real-schedule observer bulletin; optional tuning (18.11-second real GUI success and clean-restart persistence); real debug-horde completion → supply disruption → favor-driven recovery. A one-shot admin Bandits encounter fixture is separate. Advance direction, strict global cap/offline safety, leader, complete combat and full integrated acceptance remain unfinished. Development collection remains hidden, with only the three presentation references; catalog candidates are not silently claimed as members.
 
 - [Current status](docs/STATUS.md)
+- [Known bugs, limitations and unfinished features](docs/KNOWN_BUGS.md)
 - [Progress toward v1.0](docs/PROGRESS.md)
 - [User action items](docs/ACTION_ITEMS.md)
 - [Versioned dependency manifest](config/modpack.json)

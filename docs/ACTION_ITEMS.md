@@ -1,6 +1,6 @@
 # User actions and pinned roadblocks
 
-No immediate credential/MFA, controller restart or second-human-test action is required. User is unavailable until morning; routine safe implementation/diagnostics continue without waiting. Do not contact authors, publish/upload a mod/fork, add a remote or change host services without separate authorization.
+No immediate credential/MFA, controller restart or second-human-test action is required. Latest user decision: pin the reported issues as known bugs/limitations, **not immediate blockers to development play or independent v1.0 feature work**. Detailed classification is in [KNOWN_BUGS](KNOWN_BUGS.md). This does not certify the combined campaign or waive original v1.0 acceptance. Do not contact authors, publish/upload a mod/fork, add a remote or change host services without separate authorization.
 
 | ID | State | User action / why |
 | --- | --- | --- |
@@ -8,7 +8,9 @@ No immediate credential/MFA, controller restart or second-human-test action is r
 | A-002 | Resolved for local baseline | 4–8 target confirmed; no second tester available. Autonomous vanilla A/B movement/transfer/reconnect/restart passed and is parked. Capacity/remote/platform gates remain distinct |
 | A-003 | Deferred, nonblocking | When friends are available, record their platforms and perform real install/Steam/WAN/group playtest. Do not repeatedly request this during local development |
 
-## Technical pins — agent-owned, not requests for routine permission
+## Technical pins — deferred follow-ups, not a stop-work queue
+
+The next narrow actions below are retained for later diagnosis, not the automatic next sweep. B-006 is an unfinished core feature; B-008 includes unrun capacity checks, not a proven remote-player limit.
 
 | ID | Roadblock and evidence | Next narrow action | Independent progress |
 | --- | --- | --- | --- |
@@ -22,4 +24,4 @@ No immediate credential/MFA, controller restart or second-human-test action is r
 | B-008 | High native client RAM and unknown friend/group conditions | Fresh client processes, bounded samples; no 4–8 rendered local clients or invented safe caps | Source/solo fixtures and artifact preparation |
 | B-009 | Workshop branding upload failed twice; collection membership/text works | Cosmetic retry only after gameplay risk work; no new authentication blocker | Hidden collection and explicit referenced profiles already exist |
 
-Morning review: inspect these pins and the objective matrix in STATUS. No user scope waiver is assumed. Faction names/prehistory and proposed survival balance are reviewable creative candidates, not requirements to answer before diagnostics continue. If upstream collaboration or redistributing a modified dependency becomes necessary, prepare the minimal evidence/report and ask for that specific authorization; nothing was sent/reuploaded in this sweep.
+Review: inspect the known-bugs record and objective matrix in STATUS. No user scope waiver is assumed. Faction names/prehistory and proposed survival balance are reviewable creative candidates, not requirements to answer before feature work continues. If upstream collaboration or redistributing a modified dependency becomes necessary, prepare the minimal evidence/report and ask for that specific authorization; nothing has been sent/reuploaded.

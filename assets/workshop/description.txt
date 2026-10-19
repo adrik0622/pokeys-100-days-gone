@@ -1,11 +1,26 @@
-DEVELOPMENT COLLECTION - NOT A VALIDATED RELEASE
+DEVELOPMENT COLLECTION - NOT V1.0
+Updated 2026-10-18. Native Linux baseline: Build 42.21.0. Target: 4-8 players; capacity unverified.
 
-Private cooperative Project Zomboid modpack. Target baseline: Build 42.21.0.
+This collection currently contains ZombieBuddy, Project Viewpoint and the Viewpoint 3D model pack only. Bandits and Horde Nights are separate trial candidates, NOT collection members. The original Pokeys100DaysGone companion is local development source 0.3.0, not a Workshop download. Subscribe All does not install the full intended campaign.
 
-Initial trial: ZombieBuddy, Project Viewpoint and the Viewpoint 3D model pack. Single-player launch, movement and door interaction passed. Dedicated multiplayer, combat, faction and horde behavior are NOT yet accepted.
+PROGRESS
+Single-player launch/movement/interaction and local vanilla two-client movement, item transfer, reconnect and clean server restart passed. Dedicated Viewpoint join/first-person rendering works. Separate companion trials demonstrated persistent faction standing/favors/aid, a brief radio-calibration task with improved arrival windows, and debug-horde completion causing a faction supply disruption that a favor can shorten. A separate Bandits trial showed one armed hostile human approaching/attacking. These are independent observations, NOT acceptance of a combined campaign.
 
-Subscribing alone does not install the required native Java agent. Follow upstream ZombieBuddy and Viewpoint instructions. Exact profiles, fingerprints and evidence are kept in local Git.
+KNOWN BUGS / LIMITATIONS - PINNED, NOT AN IMMEDIATE STOP TO DEVELOPMENT PLAY
+- Viewpoint dedicated shotgun shots logged PlayerHitSquare inconsistencies. Cause unresolved; reliable zombie/NPC/player damage and obstruction are not verified.
+- Bandits repeatedly logged Expected a table in its server command handler during a hostile encounter. Visible attacks do not certify synchronization/damage.
+- Advance horde direction is unavailable until event start. Current-event/loaded-only accounting is not a strict global survivor cap; repeated-event accumulation remains possible.
+- If a target group disconnects while others remain online, horde births can continue at its saved target. Empty-server pause alone does not verify offline-base safety.
+- Clean restart persistence passed; hard-crash inventory/campaign atomicity is unverified. Keep backups; do not blindly replay pending rewards.
+- Local rendered clients use substantial RAM. Steam/WAN, other platforms and 4-8-player capacity remain unverified.
+- Workshop cover upload failed; cosmetic only.
 
-v1.0 goal: reliable private dedicated multiplayer, first-person presentation and credible gunplay, minimal faction encounters with shared persistent standing, forecasted recurring hordes, a killable directing leader, one optional bounded interaction and sustainable recovery.
+NOT IMPLEMENTED / STILL TO ACCEPT
+Recognizable directing leader and coordination/death effect; complete recurring encounters and integrated combat/recovery; normal horde trigger, repeated cycles and mid-event restarts; day-100 survival balance and friend installation/playtest. Documenting an issue does not mark it fixed or waive v1.0 requirements.
 
-Upstream Workshop references only; no reuploaded code or assets. NPC and horde frameworks will be selected after compatibility testing.
+INSTALLATION
+Subscribing alone does not install the required native Java agent. Follow upstream ZombieBuddy and Viewpoint instructions. Explicit profiles, dependency fingerprints, detailed known bugs and test evidence are kept in local Git. Do not treat trial fixture counts/settings as release balance.
+
+v1.0 goal: reliable private dedicated survival multiplayer, Viewpoint and credible gunplay, established factions with consequential shared standing, forecasted recurring hordes, a killable directing leader, optional bounded active play and sustainable recovery.
+
+Upstream Workshop references only; no reuploaded code/assets. Collection remains hidden during development.

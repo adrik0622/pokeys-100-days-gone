@@ -2,6 +2,13 @@
 
 This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 — Known issues pinned; Workshop description and v1.0 progress clarified
+
+- User explicitly parked the reported issues because they are not immediate blockers to playing. Added `KNOWN_BUGS.md` with the existing B-001–B-009 IDs, distinguishing reproduced bugs, source/engineering limitations, missing leader/content and unrun acceptance. Preserved evidence, narrow diagnostic plans, risk precautions and original v1.0 outcomes; no defect is marked fixed and no original release requirement is silently waived.
+- Updated continuation instructions, README, status, action ledger and integration priorities. Feature progress can continue without first clearing every diagnostic pin. Current stage is working independent prototypes before the first integrated campaign; faction/optional interaction pieces are most developed, leader is missing, and survival/integrated/release validation remains. Source stays 0.3.0; version number is not completion percentage.
+- Amended both versioned Workshop description and live hidden collection `3822649790` through its existing Steam owner UI. `savesuccess=1` and rendered owner page confirmed new progress/known-issues/unfinished-feature sections. Hidden visibility and three references unchanged; no new member/subscription, author contact, credential access, public upload or upstream redistribution. Selected owner-page screenshots retained; Steam's content-analysis notice is not a compatibility test.
+- Verification: all 52 existing automated checks pass; documentation diff whitespace check passed. No game/server launched, no source/config/gameplay behavior changed, no fixture reset or new acceptance claimed. Existing development ZIP remains tied to its earlier source revision and does not contain this later documentation update. Changes are locally revisioned.
+
 ## 2026-10-18 evening — Verified development artifact
 
 - Created `runtime/dist/pokeys-development-c65c4a9bb7fd.zip` from clean local commit `c65c4a9bb7fd81aa6d0d651cfc657aeed5567fd8`: 65 archive entries (64 original source/config/doc/test files + PACKAGE.json). SHA256 `29e0767a4f4c0cab0fecdeb70df3e400b370148761cfc1d785507c748bb1a93d`.

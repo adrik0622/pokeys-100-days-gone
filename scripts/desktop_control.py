@@ -138,6 +138,9 @@ class Desktop:
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
             shutil.copy2(ROOT / f"config/server/{profile}.ini", config)
+        sandbox = cache / "Server" / f"{name}_SandboxVars.lua"
+        if profile == "dual" and not sandbox.exists():
+            shutil.copy2(ROOT / "config/server/dual_SandboxVars.lua", sandbox)
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
@@ -282,8 +285,21 @@ class Desktop:
         if client != "main":
             memory = Path("/proc/meminfo").read_text()
             available = int(re.search(r"^MemAvailable:\s+(\d+)", memory, re.M).group(1))
-            if available < 6 * 1024 * 1024:
-                raise RuntimeError("Less than 6 GiB available; refusing another rendered client")
+            # Reserve headroom for tracked processes still booting; otherwise
+            # two near-simultaneous launches could both pass on the same RAM.
+            pending = list(live.values())
+            if getattr(self, "server", None) and self.server.poll() is None:
+                pending.append(self.server)
+            reserve = 0
+            for child in pending:
+                try:
+                    rollup = Path(f"/proc/{child.pid}/smaps_rollup").read_text()
+                    pss = int(re.search(r"^Pss:\s+(\d+)", rollup, re.M).group(1))
+                except (OSError, AttributeError):
+                    pss = 0
+                reserve += max(0, 6 * 1024 * 1024 - pss)
+            if available - reserve < 6 * 1024 * 1024:
+                raise RuntimeError("Less than 6 GiB available after tracked-process growth reserve; refusing another rendered client")
         cache = prepare_profile(profile, client)
         args = [str(GAME / "ProjectZomboid64")]
         vm_args = ["-Xms256m", "-Xmx3g"] if client != "main" else []

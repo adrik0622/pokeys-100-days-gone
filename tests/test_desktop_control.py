@@ -43,7 +43,7 @@ class DesktopControlTests(unittest.TestCase):
         desktop.clients["a"].poll.return_value = None
         with tempfile.TemporaryDirectory() as directory, \
              patch.object(control, "prepare_profile", return_value=Path(directory)) as prepare, \
-             patch.object(control.Path, "read_text", return_value="MemAvailable: 12000000 kB\n"), \
+             patch.object(control.Path, "read_text", return_value="MemAvailable: 20000000 kB\n"), \
              patch.object(control, "run", return_value="123 ProjectZomboid6"), \
              patch.object(control.subprocess, "Popen", return_value=Mock(pid=456)) as popen:
             result = desktop.launch("vanilla", "b")
@@ -69,6 +69,19 @@ class DesktopControlTests(unittest.TestCase):
                 desktop.launch("vanilla", "b")
             popen.assert_not_called()
 
+    def test_near_simultaneous_launch_reserves_other_client_growth(self):
+        desktop = control.Desktop()
+        desktop.clients["a"] = Mock(pid=123)
+        desktop.clients["a"].poll.return_value = None
+        def read(path):
+            return "MemAvailable: 11000000 kB\n" if str(path) == "/proc/meminfo" else "Pss: 10000 kB\n"
+        with patch.object(control, "run", return_value="123 ProjectZomboid6"), \
+             patch.object(control.Path, "read_text", autospec=True, side_effect=read), \
+             patch.object(control.subprocess, "Popen") as popen:
+            with self.assertRaisesRegex(RuntimeError, "growth reserve"):
+                desktop.launch("vanilla", "b")
+            popen.assert_not_called()
+
     def test_duplicate_named_slot_and_main_mixing_are_refused(self):
         desktop = control.Desktop()
         desktop.clients["a"] = Mock()
@@ -91,13 +104,15 @@ class DesktopControlTests(unittest.TestCase):
 
     def test_dual_server_uses_separate_profile_ports_and_no_vanilla_restore(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
-             patch.object(control.shutil, "copy2"), patch.object(control.subprocess, "Popen") as popen:
+             patch.object(control.shutil, "copy2") as copy, patch.object(control.subprocess, "Popen") as popen:
             desktop = control.Desktop()
             result = desktop.launch_server("dual")
             args = popen.call_args.args[0]
             self.assertIn(f"-cachedir={directory}/runtime/server/dual", args)
             self.assertEqual(args[args.index("-port") + 1], "19870")
             self.assertEqual(result["profile"], "dual")
+            copy.assert_any_call(Path(directory) / "config/server/dual_SandboxVars.lua",
+                                 Path(directory) / "runtime/server/dual/Server/pokeys-m0-dual_SandboxVars.lua")
             desktop.server.poll.return_value = 0
             with self.assertRaisesRegex(ValueError, "vanilla profile only"):
                 desktop.dispatch({"action": "server_restore", "snapshot": "20261018-173100-vanilla"})

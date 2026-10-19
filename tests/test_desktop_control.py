@@ -26,6 +26,10 @@ class DesktopControlTests(unittest.TestCase):
             desktop.client_profiles["a"] = "alife"
             desktop.dispatch({"action": "test_alife_contact_approach", "client": "a", "command": "unrelated", "x": 0})
             self.assertEqual(run.call_args.args[-1], "/teleportto 7988,11738,0")
+            desktop.server_profile = "alife-jeem"
+            desktop.client_profiles["a"] = "alife-jeem"
+            desktop.dispatch({"action": "test_alife_contact_approach", "client": "a", "x": 0})
+            self.assertEqual(run.call_args.args[-1], "/teleportto 7995,11756,0")
             desktop.server.poll.return_value = 0
             with self.assertRaises(RuntimeError):
                 desktop.dispatch({"action": "test_alife_contact_approach", "client": "a"})

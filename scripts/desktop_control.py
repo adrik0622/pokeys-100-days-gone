@@ -608,8 +608,9 @@ class Desktop:
                 raise RuntimeError("Contact fixture requires the matching owned A-Life client/server")
             # Fixed native admin movement for the isolated contact fixture only.
             # No caller-controlled command, coordinates, actor or inventory.
+            point = "7988,11738,0" if profile == "alife" else "7995,11756,0"
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
-                "/teleportto 7988,11738,0")
+                "/teleportto " + point)
         elif action == "test_admin_password" and scope == "game":
             server = getattr(self, "server", None)
             if self.server_profile not in {"migration", "encounter", *ALIFE_TRIALS} or not server or server.poll() is not None:

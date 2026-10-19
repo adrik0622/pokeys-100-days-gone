@@ -91,6 +91,23 @@ assert(effects.inventory == 1 and effects.standing["account:" .. player.account]
 assert(command("aid").code == "shared_aid_cooldown")
 assert(effects.inventory == 1)
 
+-- A different completed account shares the relay's world-wide aid cooldown.
+local second = {account="steam:fixture-second", username="second", x=7990, y=11756, z=0}
+function second:getUsername() return self.username end
+function second:getX() return self.x end
+function second:getY() return self.y end
+function second:getZ() return self.z end
+function second:isDead() return false end
+function second:getInventory() return {AddItem=function(_, fullType)
+    effects.inventory = effects.inventory + 1
+    return {fullType=fullType}
+end} end
+history[second.account] = {completed={pokeys_medical_relief_01=true}}
+Server.credit(second)
+now = now + 600
+Server.command("PokeysV2", "aid", second, {})
+assert(sent[#sent][4].code == "shared_aid_cooldown" and effects.inventory == 1)
+
 -- Native completion waits for Jeem; it does not invent or mirror a standing balance.
 local jeem = ProjectALifeJimmy
 local deferred = {account="steam:fixture-deferred", username="deferred", x=7990, y=11756, z=0}
@@ -112,6 +129,7 @@ Server.credit(incident)
 assert(store["Pokeys100DaysGone.V2Bridge"].grants[incident.account].status == "incident")
 assert(effects.standing["account:" .. incident.account] == 1.5)
 Observer.repair = repair
+callbacks.OnInitGlobalModData()
 Server.credit(incident)
 assert(store["Pokeys100DaysGone.V2Bridge"].grants[incident.account].status == "incident")
 assert(effects.standing["account:" .. incident.account] == 1.5)
@@ -135,6 +153,7 @@ local failed = store["Pokeys100DaysGone.V2Bridge"]
 local previousAid = failed.lastAid
 assert(failed.aidPending and previousAid == 10)
 assert(effects.inventory == 2) -- one server-side item exists before notification fails
+callbacks.OnInitGlobalModData()
 now = now + 600
 Server.command("PokeysV2", "aid", bad, {})
 assert(failed.aidPending and failed.lastAid == previousAid)

@@ -8,7 +8,7 @@
 
 ### Follow-up — credit/recovery split failure
 
-- Extended the harness to fail after Jeem standing mutation but before relay recovery repair. The adapter records `incident`; replay does not apply a second standing delta. HR-010 now covers ambiguous partial reputation/recovery as well as aid delivery. No production behavior changed; retry behavior is protected at mocked boundaries only.
+- Extended the harness to fail after Jeem standing mutation but before relay recovery repair. The adapter records `incident`; replay after a mocked `OnInitGlobalModData` reopen does not apply a second standing delta. A second completed account is refused during the shared aid cooldown, confirming sequential cross-account ownership at the mocked shared-state boundary. The aid pending latch is likewise re-opened before retry refusal. HR-010 now covers ambiguous partial reputation/recovery as well as aid delivery. No production behavior changed; the same in-memory mock is not process-restart persistence and these checks do not model simultaneous clients.
 
 ## 2026-10-19 — second V3 scene scan and V1 regression confidence
 

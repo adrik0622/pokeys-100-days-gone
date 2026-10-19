@@ -1,6 +1,6 @@
 name=Pokeys 100 Days Gone - Campaign Prototype
 id=Pokeys100DaysGone
-modversion=0.1.0
+modversion=0.2.0
 versionMin=42.21.0
 versionMax=42.21.0
-description=Development-only shared faction standing, medical supply favor and earned assistance. No NPC or horde spawning. Not a release build.
+description=Development shared faction standing, favors, observer bulletin and optional relay calibration. Authored day-100 prehistory. No NPC or horde spawning; reads selected Horde Nights schedule if loaded. Direction/leader/cap integration unfinished. Not a release build.

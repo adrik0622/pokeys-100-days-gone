@@ -74,7 +74,11 @@ local failRemove = false
 local failAdd = false
 local failSync = false
 function isServer() return true end
-ModData = { getOrCreate = function(key) assert(key == C.key); return store end }
+local observerStore = {}
+ModData = { getOrCreate = function(key)
+    if key == "Pokeys100DaysGone.Observer" then return observerStore end
+    assert(key == C.key); return store
+end }
 function getGameTime() return { getWorldAgeHours = function() return hour end } end
 function sendServerCommand(...) sent[#sent + 1] = {...} end
 function sendRemoveItemFromContainer() removed = removed + 1 end
@@ -85,6 +89,7 @@ end
 Events = {
     OnInitGlobalModData = { Add = function(f) assert(type(f) == "function") end },
     OnClientCommand = { Add = function(f) assert(type(f) == "function") end },
+    EveryOneMinute = { Add = function(f) assert(type(f) == "function") end },
 }
 local function item(name, favorite)
     return {getFullType=function() return name end, isFavorite=function() return favorite or false end}
@@ -120,6 +125,7 @@ local function player(username, role)
     return p
 end
 local S = require "Pokeys/CampaignServer"
+require("Pokeys/MigrationServer").init()
 S.init()
 local a, b, admin = player("alpha"), player("bravo"), player("operator", "admin")
 local function run(command, p, args)

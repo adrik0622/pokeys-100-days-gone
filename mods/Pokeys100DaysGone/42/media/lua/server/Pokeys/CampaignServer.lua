@@ -1,5 +1,6 @@
 if not isServer() then return end
 local Campaign = require "Pokeys/Campaign"
+local Observer = require "Pokeys/MigrationServer"
 local Server = {}
 local data
 
@@ -63,6 +64,7 @@ function Server.command(module, command, player, args)
     local ok, code = Campaign.allowed(data, command, hour,
         player:getX(), player:getY(), player:getZ(), not player:isDead())
     if not ok then send(player, code); return end
+    if command == "aid" and Observer.aidBlocked() then send(player, "aid_disrupted"); return end
     local supplies
     if command == "donate" then
         supplies = bandages(player)
@@ -89,6 +91,7 @@ function Server.command(module, command, player, args)
         return
     end
     Campaign.finish(data, command)
+    if command == "donate" then Observer.repair() end
     print("[PokeysCampaign] " .. command .. " completed by " .. player:getUsername() ..
         " revision=" .. data.revision)
     broadcast()

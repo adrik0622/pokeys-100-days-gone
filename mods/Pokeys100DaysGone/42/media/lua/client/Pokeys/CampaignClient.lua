@@ -12,6 +12,7 @@ local messages = {
     not_alive = "Only a living survivor can use the contact.",
     need_two_bandages = "Need 2 non-favorite clean Bandages in your MAIN inventory.",
     aid_locked = "Mutual Aid standing must reach Allied (+20) first.",
+    aid_disrupted = "Mutual Aid resupply disrupted. Check observer bulletin; supply favors aid recovery.",
     favor_cooldown = "This shared favor is on cooldown. Refresh for remaining hours.",
     aid_cooldown = "The group's medical assistance is on cooldown.",
     needs_admin_inspection = "Inventory operation interrupted. Contact locked for admin inspection.",

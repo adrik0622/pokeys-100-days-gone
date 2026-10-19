@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Observer/calibration/recovery implementation
+
+- Implemented companion 0.2.0 observer bulletin using only the selected physical owner's actual schedule; absent owner yields no invented warning. Baseline/calibrated arrival windows, server-owned 15–25 second channel task, shared persistent precision, interruption/cancel/cooldown/retry protection. Direction remains explicitly unresolved until upstream chooses it.
+- Added five concise authored prehistory messages and late-joiner briefing. Real completed event identity can cause a bounded abstract supply disruption; existing favor repairs it and assistance checks it server-side. No second scheduler, NPC/horde spawning, inventory reward or leader claim.
+- 42 checks pass, including actual Lua rules/adapter timing, forged time/challenge, distance/death, duplicates/restart and owner absence. Engine/UI and physical aftermath remain pending; calibration trust boundary and test card are in `M5-01-observer.md`.
+
 ## 2026-10-18 evening — Unattended sweep and owner inspection
 
 - User requested broad progress toward v1.0 while unavailable until morning. Preserve parked vanilla A/B evidence; document blockers and continue independently. No release gates waived.

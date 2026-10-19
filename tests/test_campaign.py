@@ -8,6 +8,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CampaignTests(unittest.TestCase):
+    def test_observer_rules_and_real_server_adapter(self):
+        result = subprocess.run(["lua5.1", "tests/lua/migration_spec.lua"], cwd=ROOT,
+                                text=True, capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("PASS: observer rules", result.stdout)
+        self.assertIn("PASS: observer server adapter", result.stdout)
+
     def test_lua_51_syntax(self):
         compiler = shutil.which("luac5.1")
         self.assertIsNotNone(compiler, "Lua 5.1 compiler is required for companion checks")

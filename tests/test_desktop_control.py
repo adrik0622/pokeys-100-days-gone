@@ -14,6 +14,40 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_integrated_profile_is_explicit_isolated_and_keeps_loader_policy(self):
+        selected = control.PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")]
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control, "stage_campaign") as local, patch.object(control, "stage_upstream") as stage, \
+             patch.object(control.shutil, "copy2") as copy, patch.object(control.subprocess, "Popen") as popen:
+            desktop = control.Desktop()
+            result = desktop.launch_server("integrated")
+            self.assertEqual(result["ports"], [19820, 19821])
+            self.assertEqual(result["bind_ip"], "127.0.0.1")
+            stage.assert_called_once_with(Path(directory) / "runtime/server/integrated", selected)
+            local.assert_called_once()
+            copy.assert_any_call(Path(directory)/"config/server/integrated_SandboxVars.lua",
+                                 Path(directory)/"runtime/server/integrated/Server/pokeys-m0-integrated_SandboxVars.lua")
+            self.assertIn("policy=deny-new", popen.call_args.args[0][1])
+            stage.reset_mock()
+            cache = control.prepare_profile("integrated", "a")
+            stage.assert_called_once_with(cache, selected)
+            enabled = (cache / "mods/default.txt").read_text()
+            self.assertIn("mod = Bandits2,", enabled)
+            self.assertIn("mod = HordeNights,", enabled)
+            self.assertNotIn("Screamer", enabled)
+            self.assertNotIn("Hark", enabled)
+
+    def test_integrated_supplies_are_fixed_and_restore_stays_refused(self):
+        desktop = control.Desktop()
+        desktop.server = Mock()
+        desktop.server.poll.return_value = None
+        desktop.server_profile = "integrated"
+        desktop.dispatch({"action":"server_campaign_supplies", "username":"unrelated", "count":999})
+        desktop.server.stdin.write.assert_called_once_with("additem pokeys_integrated_a Base.Bandage 2\n")
+        desktop.server.poll.return_value = 0
+        with self.assertRaises(ValueError):
+            desktop.dispatch({"action":"server_restore", "snapshot":"unrelated"})
+
     def test_day100_profile_stages_only_original_companion_and_uses_distinct_calendar(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
              patch.object(control, "stage_campaign") as local, patch.object(control, "stage_upstream") as upstream, \

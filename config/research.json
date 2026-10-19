@@ -21,6 +21,20 @@
         "mods/Bandits/42.21/media/lua/server/BanditServerSpawner.lua": "6cfe6b19ff8c0dbba73e7041d19c945029b2255df377972507240fa8c2dbe0f3",
         "mods/Bandits/42.21/media/lua/server/BanditServerSync.lua": "925d9b7b7b6b51693eaf36a795ee1cd104a6e164c6c686112a9db175c0c19098"
       }
+    },
+    {
+      "workshop_id": "3756523429", "mod_id": "ScreamerZed", "version": "1.1.12",
+      "role": "Optional SC-001 source audit; DEFERRED, subscribed but not enabled or in collection",
+      "requires": [],
+      "metadata_path": "mods/ScreamerZed/42/mod.info",
+      "metadata_sha256": "2746fcba6e7b2aa0fe8dbe9969fe47008c16e8039cded299e9612fdb6b538f72",
+      "payload_sha256": "67d14827d3a31b25ef97566ce6eccf3e4768b8dd729207f7b57520deaf78c303",
+      "payload_file_count": 29, "payload_bytes": 659375,
+      "files": {
+        "mods/ScreamerZed/42/media/lua/server/ScreamerZed/SZ_Server.lua": "ec59491ff0c5aa25e79015432ee64ee492368a88dc698341f708fc1b23b8a959",
+        "mods/ScreamerZed/42/media/lua/shared/ScreamerZed/SZ_Config.lua": "c220c6fc68293a26a439dd58a143048f4c8309b5f704649a09325d16adccbd2a",
+        "mods/ScreamerZed/42/media/lua/client/ScreamerZed/SZ_Client.lua": "a6c95c84b994b932270bcbcead2c07f995bae2126ec4dc8181ecd4e5e6ca4c75"
+      }
     }
   ]
 }

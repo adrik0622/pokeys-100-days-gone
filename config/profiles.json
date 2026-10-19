@@ -23,6 +23,11 @@
     "workshop_ids": ["3268487204"], "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "One-shot Bandits-only human encounter fixture; no Viewpoint/horde"
   },
+  "integrated": {
+    "workshop_ids": ["3619862853", "3809306528", "3810302175", "3268487204", "3782615002"],
+    "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "Opt-in combined day-100 DEVELOPMENT trial; known bugs apply, no leader/Screamer, NOT release accepted"
+  },
   "day100": {
     "workshop_ids": [], "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "Companion-only survival calendar candidate; horde disabled fail-safe, eight-slot setting NOT capacity proof"

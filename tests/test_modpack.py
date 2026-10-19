@@ -13,6 +13,12 @@ SPEC.loader.exec_module(modpack)
 
 
 class ModpackTests(unittest.TestCase):
+    def test_integrated_profile_does_not_add_candidates_to_collection(self):
+        text = modpack.render(self.manifest, self.profiles, "integrated")
+        self.assertIn("Mods=ZombieBuddy;Viewpoint;PZVoxelStudioViewpoint;Bandits2;HordeNights;Pokeys100DaysGone", text)
+        self.assertNotIn("Screamer", text)
+        self.assertEqual(len(self.manifest["workshop_collection"]["verified_members"]), 3)
+
     def test_candidate_and_local_profiles_do_not_claim_collection_membership(self):
         modpack.validate(self.manifest, self.profiles)
         self.assertIn("Mods=HordeNights;Pokeys100DaysGone", modpack.render(self.manifest,self.profiles,"migration"))

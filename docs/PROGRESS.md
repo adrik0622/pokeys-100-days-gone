@@ -2,6 +2,13 @@
 
 This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 — Optional Screamer deferred; explicit combined trial prepared
+
+- Downloaded original Screamer Zed 1.1.12 through Steam subscription; inspected four actual Lua files and pinned 29-file payload/source hashes in research manifest. Not enabled, staged, added to collection or redistributed. Original read-only audit executes its installed Lua against mocked engine boundaries, showing one prepared new birth, cancellation before call, attraction path requests continuing after death and handler-local pulse state lost on reload. These are source/mock observations, not an engine or MP test. Full record `M4-optional-screamer.md`.
+- Applied SC-001 stopping rule: defer this optional candidate rather than building lifecycle/accounting/custom AI for it. Core campaign progresses without a leader. Current owner already supplies target/routes; combining unbounded ambient rally calls is not assumed safe or useful.
+- Prepared explicit `integrated` development profile at loopback 19820/19821, all five pinned upstream inputs + companion, separate cache/world, original Java deny-new and Lua checksum settings. Day-100/low ambient/four-birth values are trial settings, not release balance/caps. Fixed two-bandage supplies target only the named integrated account; backup/restore remains vanilla-only. Workshop membership remains three references.
+- 55 automated checks pass, including profile composition/isolation, deny-new, fixed supplies and restore refusal; manifest validates eight explicit profiles. First combined dedicated/client/UI smoke is next; no runtime success claimed from configuration alone.
+
 ## 2026-10-18 — SC-001 approved: full leader deferred, bounded existing-mod trial
 
 - Preserved original PROJECT_BRIEF verbatim; added `SCOPE_CHANGES.md` recording original objective D/M4/acceptance, the user's explicit approval, and the revised boundary. Full event-linked directing leader is a v1.1 target, no longer mandatory for v1.0. Core forecast/horde/player-and-faction aftermath/recovery remains; no unrelated quality checks are waived.

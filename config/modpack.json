@@ -73,7 +73,7 @@
       "metadata_sha256": "bb4fe4b95fbc19b2fc41b56bb13358b4f07e06a992e5fe2c07bdff826661a811",
       "payload_sha256": "28d38caeb3123d68e7ea8118a579a95b4cd0d31f3aa88c65e7091e81e57dd872",
       "payload_file_count": 15, "payload_bytes": 111417,
-      "purpose": "Isolated shared horde trial; direction/global-cap/offline/leader gaps block release",
+      "purpose": "Selected horde owner in isolated/combined DEVELOPMENT trials; known direction/global-cap/offline limits; leader deferred SC-001",
       "requires": [], "evidence": "Actual schedule, four births/routes, debug abort/complete and faction aftermath observed; not release accepted or in collection"
     },
     {

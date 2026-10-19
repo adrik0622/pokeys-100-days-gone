@@ -128,7 +128,7 @@ def stage_campaign(cache):
 
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100"}:
+    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
         raise ValueError("Unknown isolated client profile")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
@@ -146,7 +146,7 @@ def prepare_profile(profile, client="main"):
     mods = cache / "mods"
     mods.mkdir(exist_ok=True)
     mod_ids = []
-    if profile in {"campaign", "presentation", "migration", "encounter", "day100"}:
+    if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
         stage_campaign(cache)
         mod_ids.append("Pokeys100DaysGone")
     if profile == "presentation":
@@ -158,6 +158,9 @@ def prepare_profile(profile, client="main"):
     if profile == "encounter":
         stage_upstream(cache, [("3268487204", "Bandits")])
         mod_ids = ["Bandits2"] + mod_ids
+    if profile == "integrated":
+        stage_upstream(cache, PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")])
+        mod_ids = [name for _, name in PRESENTATION] + ["Bandits2", "HordeNights"] + mod_ids
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
         for workshop_id, name in [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
@@ -199,7 +202,7 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100"}:
+        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
             raise ValueError("Unknown isolated server profile")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
@@ -207,7 +210,7 @@ class Desktop:
         cache = ROOT / "runtime/server" / profile
         name = f"pokeys-m0-{profile}"
         port = {"vanilla": 19860, "dual": 19870, "campaign": 19880, "presentation": 19890,
-                "migration": 19850, "encounter": 19840, "day100": 19830}[profile]
+                "migration": 19850, "encounter": 19840, "day100": 19830, "integrated": 19820}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
@@ -221,7 +224,9 @@ class Desktop:
             shutil.copy2(ROOT / "config/server/encounter_SandboxVars.lua", sandbox)
         if profile == "day100" and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/day100_SandboxVars.lua", sandbox)
-        if profile in {"campaign", "presentation", "migration", "encounter", "day100"}:
+        if profile == "integrated" and not sandbox.exists():
+            shutil.copy2(ROOT / "config/server/integrated_SandboxVars.lua", sandbox)
+        if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
             stage_campaign(cache)
         if profile == "migration":
             stage_upstream(cache, [("3782615002", "HordeNights")])
@@ -229,6 +234,8 @@ class Desktop:
             stage_upstream(cache, [("3268487204", "Bandits")])
         if profile == "presentation":
             stage_presentation(cache)
+        if profile == "integrated":
+            stage_upstream(cache, PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")])
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
@@ -243,7 +250,7 @@ class Desktop:
                 f"-cachedir={cache}", "-servername", name, "-nosteam",
                 "-ip", "127.0.0.1", "-port", str(port), "-udpport", str(port + 1),
                 "-adminusername", "pokeysadmin", "-adminpassword", credentials.read_text().strip()]
-        if profile == "presentation":
+        if profile in {"presentation", "integrated"}:
             args.insert(1, f"-javaagent:{GAME / 'ZombieBuddy.jar'}=policy=deny-new")
         env = os.environ.copy()
         env["LD_LIBRARY_PATH"] = ":".join(str(p) for p in
@@ -394,7 +401,7 @@ class Desktop:
         cache = prepare_profile(profile, client)
         args = [str(GAME / "ProjectZomboid64")]
         vm_args = ["-Xms256m", "-Xmx3g"] if client != "main" else []
-        if profile in {"viewpoint", "presentation"}:
+        if profile in {"viewpoint", "presentation", "integrated"}:
             # pzexe requires a -- separator between JVM and game arguments.
             vm_args.append(f"-javaagent:{GAME / 'ZombieBuddy.jar'}=policy=deny-new")
         if vm_args:
@@ -499,10 +506,11 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[3456789][01]\s", line)]}
+                                      if re.search(r":198[23456789][01]\s", line)]}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
-            targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin"}
+            targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin",
+                       "integrated": "pokeys_integrated_a"}
             if self.server_profile not in targets or not server or server.poll() is not None:
                 raise RuntimeError("Test supplies require the running isolated campaign server")
             command = "additem " + targets[self.server_profile] + " Base.Bandage 2"

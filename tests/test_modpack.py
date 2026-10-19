@@ -13,6 +13,13 @@ SPEC.loader.exec_module(modpack)
 
 
 class ModpackTests(unittest.TestCase):
+    def test_candidate_and_local_profiles_do_not_claim_collection_membership(self):
+        modpack.validate(self.manifest, self.profiles)
+        self.assertIn("Mods=HordeNights;Pokeys100DaysGone", modpack.render(self.manifest,self.profiles,"migration"))
+        self.assertNotIn("3782615002", self.manifest["workshop_collection"]["verified_members"])
+        self.profiles["migration"]["local_mod_ids"]=["Unknown"]
+        with self.assertRaises(ValueError): modpack.validate(self.manifest,self.profiles)
+
     def setUp(self):
         self.manifest = json.loads((ROOT / "config/modpack.json").read_text())
         self.profiles = json.loads((ROOT / "config/profiles.json").read_text())

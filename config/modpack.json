@@ -66,10 +66,35 @@
       "evidence": "enabled during local GUI trial; individual asset completeness and multiplayer untested"
     }
   ],
+  "candidate_items": [
+    {
+      "workshop_id": "3782615002", "mod_id": "HordeNights", "version": "1.1.3",
+      "metadata_path": "mods/HordeNights/42/mod.info",
+      "metadata_sha256": "bb4fe4b95fbc19b2fc41b56bb13358b4f07e06a992e5fe2c07bdff826661a811",
+      "payload_sha256": "28d38caeb3123d68e7ea8118a579a95b4cd0d31f3aa88c65e7091e81e57dd872",
+      "payload_file_count": 15, "payload_bytes": 111417,
+      "purpose": "Isolated shared horde trial; direction/global-cap/offline/leader gaps block release",
+      "requires": [], "evidence": "Actual schedule, four births/routes, debug abort/complete and faction aftermath observed; not release accepted or in collection"
+    },
+    {
+      "workshop_id": "3268487204", "mod_id": "Bandits2", "version": null,
+      "version_note": "Metadata advertises V2 but has no numeric modversion; content/source hashes are essential",
+      "metadata_path": "mods/Bandits/42.21/mod.info",
+      "metadata_sha256": "026723713770c55c1f297ae2593f16a8c86d7cb5645ee597503cf3b5d10ece0f",
+      "payload_sha256": "d2d1a70ea0131315b04f78af8cbeefb8d3491075b931f8a08a7ac9af34f1e1f6",
+      "payload_file_count": 1492, "payload_bytes": 165776091,
+      "purpose": "Only physical human NPC candidate, isolated one-shot encounter fixture",
+      "requires": [], "evidence": "Public spawn/hostility/brain/cluster hooks source inspected; runtime trial in progress; not in collection"
+    }
+  ],
+  "local_items": [
+    { "mod_id": "Pokeys100DaysGone", "version": "0.3.0", "source": "mods/Pokeys100DaysGone",
+      "status": "Original development companion; standing/favors, observer/calibration/recovery and admin one-shot NPC fixture; NOT v1.0" }
+  ],
   "accepted_release_stack": false,
   "notes": [
     "Workshop IDs reference upstream dependencies and do not freeze versions.",
-    "No NPC, horde or alternative firearm framework is enabled yet.",
+    "NPC and horde are separate isolated candidate profiles, never competing owners or an accepted release stack.",
     "Dedicated-server WorkshopItems and Mods must be generated from an explicitly selected profile, not inferred from every collection item."
   ]
 }

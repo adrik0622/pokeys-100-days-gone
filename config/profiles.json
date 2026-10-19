@@ -6,5 +6,21 @@
   "presentation-trial": {
     "workshop_ids": ["3619862853", "3809306528", "3810302175"],
     "purpose": "GUI-tested presentation candidate; dedicated compatibility NOT accepted"
+  },
+  "campaign": {
+    "workshop_ids": [], "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "Original companion only; contact/reward/restart observed"
+  },
+  "presentation": {
+    "workshop_ids": ["3619862853", "3809306528", "3810302175"], "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "Dedicated join/first-person observed; hit-square packet warning BLOCKS combat acceptance"
+  },
+  "migration": {
+    "workshop_ids": ["3782615002"], "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "Four-zombie physical-owner/observer/recovery experiment, not release accepted"
+  },
+  "encounter": {
+    "workshop_ids": ["3268487204"], "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "One-shot Bandits-only human encounter fixture; no Viewpoint/horde"
   }
 }

@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Explicit candidate/local deployment manifest
+
+- Extended the existing manifest/profile renderer to distinguish verified three-member collection, separate unaccepted NPC/horde candidates and original local companion. All six explicit compositions now render server WorkshopItems/Mods, including local mod IDs; missing/duplicate local IDs rejected. No collection membership or release status fabricated.
+- Recomputed every presentation payload hash (unchanged) and first complete candidate hashes: Horde Nights 15 files/111,417 bytes; Bandits 1,492 files/165,776,091 bytes. Bandits' missing numeric version remains explicit `null`, not an invented version. Critical source hashes remain in research manifest.
+- Source companion version is now 0.3.0 to include the one-shot NPC fixture and remove the obsolete no-NPC-spawning description. Current encounter runtime staged pre-bump source at `fa756f1` (0.2.0 metadata); do not conflate metadata-only source bump with a new engine run. 50 checks pass; original-only development artifact will be generated after final clean commit.
+
 ## 2026-10-18 evening — Isolated physical NPC fixture implementation
 
 - Added one-shot, native-role-admin-only Reclaimer scout request through inspected public `BanditServer.Spawner.Clan`, referencing the original light-encounter clan UUID rather than copying its content. Fixed count/name/hostility/point 60 tiles east; alive/relay, free outdoor loaded square and all-player 55-tile distance checks. Pending attempt latches across ambiguous failure/restart; no replacement/reward automation.

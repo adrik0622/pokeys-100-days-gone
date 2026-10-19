@@ -12,8 +12,12 @@ ROOT = Path(__file__).resolve().parents[1]
 WORKSHOP = Path("/home/adrikingston/.local/share/Steam/steamapps/workshop/content/108600")
 
 
+def catalog(manifest):
+    return manifest["trial_items"] + manifest.get("candidate_items", [])
+
+
 def validate(manifest, profiles):
-    items = manifest["trial_items"]
+    items = catalog(manifest)
     ids, mods = set(), set()
     for item in items:
         wid, mid = item["workshop_id"], item["mod_id"]
@@ -33,9 +37,20 @@ def validate(manifest, profiles):
                 raise ValueError(f"Invalid SHA256: {field}")
         ids.add(wid)
         mods.add(mid)
-    if set(manifest["workshop_collection"]["verified_members"]) != ids:
+    if set(manifest["workshop_collection"]["verified_members"]) != {i["workshop_id"] for i in manifest["trial_items"]}:
         raise ValueError("Collection membership and trial manifest disagree")
+    local_ids = set()
+    for item in manifest.get("local_items", []):
+        mid = item["mod_id"]
+        path = Path(item["source"])
+        if not re.fullmatch(r"[A-Za-z0-9_.-]+", mid) or mid in mods or mid in local_ids or \
+                path.is_absolute() or ".." in path.parts or not path.parts or path.parts[0] != "mods":
+            raise ValueError("Invalid local companion identity/path")
+        local_ids.add(mid)
     for name, profile in profiles.items():
+        local = profile.get("local_mod_ids", [])
+        if len(set(local)) != len(local) or not set(local) <= local_ids:
+            raise ValueError("Unknown or duplicate local mod")
         selected = profile["workshop_ids"]
         if len(set(selected)) != len(selected) or not set(selected) <= ids:
             raise ValueError(f"Unknown or duplicate item in {name}")
@@ -49,15 +64,15 @@ def validate(manifest, profiles):
 
 def render(manifest, profiles, name):
     ids = profiles[name]["workshop_ids"]
-    items = {i["workshop_id"]: i for i in manifest["trial_items"]}
+    items = {i["workshop_id"]: i for i in catalog(manifest)}
     return ("# Generated candidate only; this does not deploy or accept a server profile.\n"
             + "WorkshopItems=" + ";".join(ids) + "\n"
-            + "Mods=" + ";".join(items[i]["mod_id"] for i in ids) + "\n")
+            + "Mods=" + ";".join([items[i]["mod_id"] for i in ids] + profiles[name].get("local_mod_ids", [])) + "\n")
 
 
 def check_installed(manifest, workshop, full=False):
     results = []
-    for item in manifest["trial_items"]:
+    for item in catalog(manifest):
         root = (workshop / item["workshop_id"]).resolve()
         metadata = root / item["metadata_path"]
         if not metadata.resolve().is_relative_to(root):
@@ -121,7 +136,7 @@ def main():
     elif args.command == "check-installed":
         print(json.dumps(check_installed(manifest, args.workshop_root, args.full), indent=2))
     else:
-        print(f"Manifest valid: {len(manifest['trial_items'])} trial items, {len(profiles)} explicit profiles")
+        print(f"Manifest valid: {len(catalog(manifest))} upstream catalog items, {len(profiles)} explicit profiles; NOT release accepted")
 
 
 if __name__ == "__main__":

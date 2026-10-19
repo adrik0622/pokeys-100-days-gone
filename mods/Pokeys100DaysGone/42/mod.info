@@ -1,6 +1,6 @@
 name=Pokeys 100 Days Gone - Campaign Prototype
 id=Pokeys100DaysGone
-modversion=0.2.0
+modversion=0.3.0
 versionMin=42.21.0
 versionMax=42.21.0
-description=Development shared faction standing, favors, observer bulletin and optional relay calibration. Authored day-100 prehistory. No NPC or horde spawning; reads selected Horde Nights schedule if loaded. Direction/leader/cap integration unfinished. Not a release build.
+description=Development faction contacts/favors, real-schedule observer bulletin, relay calibration, authored prehistory and faction recovery. Admin-only one-shot NPC fixture requires original Bandits. No custom NPC AI or horde scheduler. Direction/leader/global cap unfinished. Not a release build.

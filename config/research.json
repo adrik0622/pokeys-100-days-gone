@@ -1,0 +1,26 @@
+{
+  "status": "Source-inspected research/trial inputs, NOT accepted release or collection membership",
+  "observed": "2026-10-18",
+  "items": [
+    {
+      "workshop_id": "3782615002", "mod_id": "HordeNights", "version": "1.1.3",
+      "role": "Selected isolated horde trial only",
+      "requires": [],
+      "files": {
+        "mods/HordeNights/42/mod.info": "bb4fe4b95fbc19b2fc41b56bb13358b4f07e06a992e5fe2c07bdff826661a811",
+        "mods/HordeNights/42/media/lua/server/HordeNights/HordeManager.lua": "394416b0601f13e39a0c3d0325ba955c217e985e439313d8274513b865a5833b",
+        "mods/HordeNights/42/media/lua/server/HordeNights/HordeSpawner.lua": "57c5285c15886bcae094152f7c7878354354bb40e6878d696b7e64be1ebf523c"
+      }
+    },
+    {
+      "workshop_id": "3268487204", "mod_id": "Bandits2", "version": "V2, numeric modversion absent",
+      "role": "Physical NPC candidate, source inspected, not enabled",
+      "requires": [],
+      "files": {
+        "mods/Bandits/42.21/mod.info": "026723713770c55c1f297ae2593f16a8c86d7cb5645ee597503cf3b5d10ece0f",
+        "mods/Bandits/42.21/media/lua/server/BanditServerSpawner.lua": "6cfe6b19ff8c0dbba73e7041d19c945029b2255df377972507240fa8c2dbe0f3",
+        "mods/Bandits/42.21/media/lua/server/BanditServerSync.lua": "925d9b7b7b6b51693eaf36a795ee1cd104a6e164c6c686112a9db175c0c19098"
+      }
+    }
+  ]
+}

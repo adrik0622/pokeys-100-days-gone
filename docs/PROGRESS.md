@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Day-100 candidate and original development packaging
+
+- Added distinct survival candidate: October 17 (100 days after July 9), native month-granular three-month spoilage/erosion and existing authored faction prehistory. It is not an exact historical simulation or deployed/tuned preset. Physical horde remains fail-safe disabled in this candidate until known director gaps pass; four-zombie integration fixture stays separate.
+- Added clean-local-Git-only deterministic development packaging with per-file hashes, exclusive artifact creation, path/symlink rejection and original-files allowlist. Saves, secrets, Git metadata and upstream payloads excluded. Installation/recovery guide distinguishes host-specific tested paths from untested friend/remote deployment.
+- Pinned six actual NPC/horde metadata/seam file hashes in a separate research manifest, without claiming collection inclusion or a frozen Workshop version. 45 checks pass including packaging reproducibility/exclusion/overwrite refusal. No production deployment/publication.
+
 ## 2026-10-18 evening — Small physical migration fixture prepared
 
 - Added a separate Horde Nights+companion-only loopback fixture at 19850/19851. Four-event-zombie birth budget/cap, zero scaling/sprinters/ambient population and no airdrops. Disabled exact-time native indicator so calibration has an information benefit. Values are experiments, not a measured safe release budget; cap/offline gaps remain documented.

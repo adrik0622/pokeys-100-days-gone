@@ -1,0 +1,28 @@
+# Development installation / recovery
+
+This is a **0.2.0 development kit, not v1.0**. No friend-install, Steam-enabled join, target-specific combat or complete campaign acceptance is claimed. Original dependencies are supplied by Workshop references, not in our archive. Do not use test fixtures for a public/live survival world.
+
+## Reproduce the known Linux project path
+
+Verified installation: native Linux Build 42.21.0 / revision `4a0e9546ec`; client Steam build 25485521, dedicated app 380870 build 25485538. Manifest: `config/modpack.json`. Upstream Workshop IDs do not lock updates; run metadata/JAR checks, and `--full` before an acceptance run. Inspect drift before changing expected pins. Research source pins live separately in `config/research.json` and are not accepted collection members.
+
+1. Read `STATUS.md` and `OWNER_SEAMS.md`. Check existing controller with `python3 scripts/desktop_control.py request '{"action":"status"}'`. Do not start another while it is alive. If needed, start `serve` in a normal desktop terminal; task sandbox has no direct X11 access.
+2. Run `python3 -m unittest discover -s tests -v`, `python3 scripts/modpack.py validate`, `python3 scripts/modpack.py check-installed --full`. The game and dedicated install are existing local prerequisites; controller scripts intentionally use this host's inspected paths, not portable path guesses.
+3. Choose exactly one isolated profile. `campaign`: companion only, port 19880. `presentation`: three presentation dependencies + companion, 19890; Java agent retains `policy=deny-new`. `migration`: Horde Nights + companion only, 19850; four-zombie experiment, no Viewpoint/NPC. Each uses its own `runtime/server/<profile>` and `runtime/client-<profile>-a` world/settings. Existing caches/configs are retained; source/config changes do not silently overwrite existing server settings. Compare before creating the next fresh fixture.
+4. Launch server with `request '{"action":"server_launch","profile":"campaign"}'`; inspect its launcher log for SERVER STARTED and correct loopback listener. Launch a fresh `a` client with matching profile. Use Join → Favorites → Add Server, IP `127.0.0.1`, profile port; add distinct test account and connect. Use controller `test_password` only in the password field. Main user saves/settings are never copied or replaced.
+5. After character creation / Click to Start, right-click → Pokeys faction contacts / observer bulletin. Contact relay is the known house at 7990 / 11756 / ground floor. See `M2-01-faction-contact.md` and `M5-01-observer.md` for exact actions and acceptance limits. Migration admin uses existing native debug controls; never give ordinary release players admin access.
+6. Exit through Escape → Quit to Desktop → Yes. Confirm client exit 0, server `players` empty, then `server_command` `quit`, exit 0 / Shutdown handling finished / no listeners. Forced termination is not clean-save evidence.
+
+## Day-100 candidate
+
+`config/server/day100_SandboxVars.lua` is a separate **unaccepted survival candidate**, not an overlay to paste over a running save. Calendar starts October 17, 1993 (100 days after July 9), with native three-month erosion/spoilage because `TimeSinceApo` is month-granular. The observer bulletin supplies explicit authored prehistory; no 100-day NPC simulation or exact prior world-age clock is claimed. Horde is deliberately disabled until direction/offline/global-cap fixes pass. Small population values are proposed experiments, not tuned performance promises. Test October weather, loot, power/water, calendar and visible history on a new world before adopting it.
+
+## Backups and update rollback
+
+Stop and confirm the server has exited before copying world/config/accounts. Preserve the entire profile cache privately, including `Saves`, `Server`, `db`, local staged mods and their version fingerprints. Do not copy a live database as though it were a valid offline backup. Credentials and raw saves remain ignored and must not go into the development ZIP.
+
+The automated SHA256 backup/restore helper is **vanilla-only**. Other profiles are explicitly refused; do not point it at a modded world by renaming paths. For these experimental profiles retain an offline complete cache before upgrades and restore to a different disposable cache after checking the corresponding dependency versions. Never delete the only original. Inventory and campaign ModData are not atomic under hard crash; a pending action remains locked for inspection, not blindly replayed/reset. Clean restart acceptance is narrower than crash recovery.
+
+## Development artifact
+
+After a clean local commit: `python3 scripts/package_dev.py`. Produces an exclusively created `runtime/dist/pokeys-development-<revision>.zip` with original tracked source/config/tests/Markdown and `PACKAGE.json` per-file hashes. No upstream payload, credentials, saves or `.local-git` metadata. Re-running for the same revision refuses overwrite. The archive is a review/installation kit, not a portable tested deployment or Workshop upload. Keep the full local repository for revision history. A remote host/k3s container, Steam auth/WAN, Windows/other friends' paths and final load order need separate validation.

@@ -65,8 +65,13 @@ local function command(name, args)
 end
 
 -- A client cannot assert completion; server history is the sole proof.
-local state = command("state").state
+local state = command("state", {completed=true, mission="pokeys_medical_relief_01",
+    account="steam:forged-account", reward="Base.Axe", count=999}).state
 assert(not state.completed and state.credit == "not credited" and (effects.standing["account:" .. player.account] or 0) == 0)
+local sentCount = #sent
+Server.command("OtherModule", "state", player, {completed=true})
+Server.command("PokeysV2", "complete", player, {mission="pokeys_medical_relief_01"})
+assert(#sent == sentCount and store["Pokeys100DaysGone.V2Bridge"].grants[player.account] == nil)
 player.x = 8010
 assert(not TM42.isMissionReady(player, TM42.CustomMissionDefs[1], {}))
 player.x = 7990
@@ -86,7 +91,7 @@ Server.credit(player)
 assert(effects.standing["account:" .. player.account] == 1.5 and effects.repairs == 1)
 
 -- Successful aid adds one item and installs the shared cooldown; repeats do not add.
-assert(command("aid").code == "aid_received")
+assert(command("aid", {item="Base.Axe", count=999, account="steam:other"}).code == "aid_received")
 assert(effects.inventory == 1 and effects.standing["account:" .. player.account] == 1.5 and effects.repairs == 1)
 assert(command("aid").code == "shared_aid_cooldown")
 assert(effects.inventory == 1)

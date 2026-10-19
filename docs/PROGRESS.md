@@ -10,6 +10,10 @@
 
 - Extended the harness to fail after Jeem standing mutation but before relay recovery repair. The adapter records `incident`; replay after a mocked `OnInitGlobalModData` reopen does not apply a second standing delta. A second completed account is refused during the shared aid cooldown, confirming sequential cross-account ownership at the mocked shared-state boundary. The aid pending latch is likewise re-opened before retry refusal. HR-010 now covers ambiguous partial reputation/recovery as well as aid delivery. No production behavior changed; the same in-memory mock is not process-restart persistence and these checks do not model simultaneous clients.
 
+### Follow-up — client payload authority
+
+- Exercised forged completion/account/reward fields, wrong-module requests, unsupported completion commands, and a forged aid item/count/account payload. The adapter ignored/refused them; its fixed server-side reward remained one Disinfectant. This is a mocked input-boundary regression, not network packet security review or actual client/server acceptance.
+
 ## 2026-10-19 — second V3 scene scan and V1 regression confidence
 
 - Rechecked current boss/relic leads against primary pages. Added **ApocalipseBR Regiões** (B42 ≥42.14 / MP-designed, outfit-registered boss API, editable custom zones) to the V3 report and human-review guardian choice. Its region/zombie/PvP controls could support a deliberately authored boss site, but there is no loot/relic/faction-claim bridge and no exact-stack runtime test. Added Nocturnal Reign only as a public GitHub prototype lead (author says B42.19 co-op/dedicated, broad day/night AI plus Zombie Lord; not a verified Workshop release). No V3 code/profile/manifest/collection changes.

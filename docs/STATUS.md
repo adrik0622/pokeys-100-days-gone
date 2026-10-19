@@ -1,10 +1,10 @@
 # Pokeys 100 Days Gone — development status
 
-Source companion **0.3.0**, native Linux Build 42.21.0 / `4a0e9546ec`. **Not v1.0; no accepted release stack.** User target 4–8, capacity unverified. No second human tester; autonomous vanilla A/B passed and remains parked. **55 project checks pass.**
+Source companion **0.3.0**, native Linux Build 42.21.0 / `4a0e9546ec`. **Not v1.0; no accepted release stack.** User target 4–8, capacity unverified. No second human tester; autonomous vanilla A/B passed and remains parked. **60 project checks pass.**
 
 ## v2.0 direction approved; implementation stack undecided
 
-[SC-002](SCOPE_CHANGES.md) replaces the rigid show-business/simplicity rule with fit-for-purpose engineering and opens living-world/faction/choice expansion for v2. [Concept, staged roadmap and next three tasks](V2_LIVING_WORLD.md); [dated landscape survey and installed airdrop source inspection](V2_MOD_SURVEY.md). The Mission, Random Zeds, A-Life/Jeem and Military Drop are candidates, not enabled/accepted dependencies. Save Our Station's published B42 port remains pending. Current PvP=false, standing schema, profiles, collection and saves are unchanged. v1 acceptance below remains honest and separate.
+[SC-002](SCOPE_CHANGES.md) opens fit-for-purpose living-world engineering; **[SC-003](SCOPE_CHANGES.md) clarifies consequence, NOT an anti-player-killing policy**. [Concept](V2_LIVING_WORLD.md), [survey](V2_MOD_SURVEY.md), [actual A-Life/Jeem trial](V2-01-alife-jeem.md). A-Life 1.4.5 and Jeem 0.7.4 are now downloaded/pinned and tested in separate opt-in worlds with Bandits OFF, not promoted to the collection or release. Core-only dedicated join/census/spawn and clean stop observed; combination has visible Delbert Pham, native conversation and one bandage gift → +3 Jeem standing / opinion +17→+19 / inventory 2→1. Persistence check in progress. Not player-kill, damage, hostile/ownership/Viewpoint or capacity acceptance. The Mission, Random Zeds and Military Drop remain unenabled research leads; SOS B42 port pending. Retained PvP=false, companion schema, v1 worlds/profiles and three-member collection unchanged.
 
 ## Current stage: first combined join/UI/restart slice observed, full loop pending
 
@@ -20,7 +20,7 @@ The local foundation works. Explicit opt-in `integrated` profile now combines al
 | D: directing leader → v1.1 (SC-001) | Original ask preserved; candidate research recorded; simple Screamer trial authorized | Full leader no longer mandatory v1.0. Optional calling threat must earn inclusion; no verified leader/coordination claim |
 | E: optional active play | Isolated 18.11 s / combined 18.83 s GUI calibration; window width 4 h → 0.5 h; clean-restart precision in both | Ordinary-player adversarial engine cases, move/death interruption, feature A/B and human feel/tuning |
 | F: recovery loop | Real debug-event completion → 24 h disruption → server-refused aid → bandage favor → 12 h recovery | Natural exploration/combat/horde cycles, three accepted forced cycles, ordinary trigger, integrated restarts/sessions/playtest; leader assertions deferred |
-| M6: release/deployment | Day-100 calendar/headless startup observed, spoilage candidate + authored history; eight explicit pinned profiles; original-only packager; installation/recovery guide | Day-100 joined-client survival/balance, friend/remote guide, final combined stack and full acceptance |
+| M6: release/deployment | Day-100 calendar/headless startup observed, spoilage candidate + authored history; ten explicit pinned profiles (including two isolated v2 NPC trials); original-only packager; installation/recovery guide | Day-100 joined-client survival/balance, friend/remote guide, final combined stack and full acceptance |
 
 Evidence: [combined slice/restart](M4-01-integrated.md), [Screamer audit](M4-optional-screamer.md), [presentation](M1-01-presentation.md), [owner seams](OWNER_SEAMS.md), [migration/recovery](M3-01-migration.md), [calibration](M5-01-observer.md), [contact](M2-01-faction-contact.md), [parked A/B](M0-04-multi-client.md). Raw/offline worlds/logs remain ignored under `runtime/evidence/`; selected screenshots versioned. Main saves/install/live services untouched. Collection 3822649790 remains hidden with only three presentation references; subscription/research/candidate catalog is not Workshop membership.
 

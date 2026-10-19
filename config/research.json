@@ -17,7 +17,7 @@
     },
     {
       "workshop_id": "3268487204", "mod_id": "Bandits2", "version": "V2, numeric modversion absent",
-      "role": "Current physical NPC trial owner; isolated encounter and combined join/UI trials, not release accepted; v2 alternatives are survey-only",
+      "role": "Retained v1 physical NPC trial owner, not release accepted; OFF in separately authorized isolated A-Life/Jeem trials",
       "requires": [],
       "files": {
         "mods/Bandits/42.21/mod.info": "026723713770c55c1f297ae2593f16a8c86d7cb5645ee597503cf3b5d10ece0f",

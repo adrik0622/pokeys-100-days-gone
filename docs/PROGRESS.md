@@ -10,6 +10,8 @@ This is the durable dated progress record. New sweep entries appear first; the e
 
 ### Trial preparation
 
+- Added V2-01 source/runtime card, candidate-only B-010 admin UI workaround, updated continuation/status/survey and action pins. Actual combined native gift removed one of two fixture bandages, logged +3 Jeem standing, showed opinion +17→+19, and marked the action Asked; no duplicate action sent. Existing upstream consequence path is promising; player-kill attribution, hostile/damage/ownership/Viewpoint and ordinary-player gates remain. Sixty checks pass; all seven full installed catalog fingerprints match. Fresh-process persistence check follows.
+
 - Core medic moved to 7988/11735 according to the live census. Added a fixed native-admin approach command at 7988/11738, guarded by matching owned A-Life client/server, to inspect that contact without arbitrary console access or a second spawn. This is fixture movement, not ordinary exploration/AI acceptance.
 - Combination startup reached SERVER STARTED with A-Life 1.4 overlap detection and Jeem installer 68 ok/0 disabled. One position-locked friendly medic spawned on the open road at 7996/11756 and was actually visible/speaking. Combination approach endpoint is separately fixed to 7995/11756; no caller-supplied coordinates/commands. Gameplay/persistence checks continue in V2-01.
 - Combination native conversation identified Delbert Pham, starting opinion +17/Likes you; Jeem promoted the crew after talking. Aid request was refused (cannot spare supplies), not an invented reward. Extended existing fixed two-bandage fixture to only the combined admin account for a native gift test; targets/count/item remain non-configurable. No core-profile or normal-world supplies authorized by this action.

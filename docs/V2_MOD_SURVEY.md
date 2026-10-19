@@ -21,7 +21,7 @@ Evidence labels: **author-documented** = published claim/settings; **source-insp
 | [Extensive Power Rework — Slapstick Fork](https://steamcommunity.com/sharedfiles/filedetails/?id=3775553383), 3775553383 / EPR_Slapstick | Town power/water restoration infrastructure; author labels 42.20, release 0.18.9 | **Later infrastructure trial lead**, not SOS/AEBS replacement. Exact 42.21/dedicated, generator/water effects, save changes and maintenance burden need inspection. Do not combine power owners/forks |
 | [Neat Lockpicking](https://steamcommunity.com/sharedfiles/filedetails/?id=3783535220), 3783535220 / NeatLockpicking | Lockpick/crowbar/hotwire minigames; requires NeatUI | Author advertises B42 SP/MP, but hotwire replaces native action. **Optionality review first**; exact 42.21/Viewpoint/dedicated behavior unverified. Existing calibration already serves the first active-play need |
 
-These are alternatives by responsibility, not a proposed Subscribe All list. Bandits remains the current sole NPC trial owner. Prior leader/Screamer findings remain in [SC-001](SCOPE_CHANGES.md) and [audit](M4-optional-screamer.md); this survey does not reinstate them.
+These are alternatives by responsibility, not a proposed Subscribe All list. Follow-on [SC-003](SCOPE_CHANGES.md) authorized A-Life/Jeem download and isolated trials with Bandits OFF; [actual source/runtime findings](V2-01-alife-jeem.md) supersede the original survey-only status for those two items. Bandits remains the owner only in retained v1 fixtures; never combine both owners. Prior leader/Screamer findings remain in [SC-001](SCOPE_CHANGES.md) and [audit](M4-optional-screamer.md); this survey does not reinstate them.
 
 ## What the named candidates actually buy us
 

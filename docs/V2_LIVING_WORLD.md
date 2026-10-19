@@ -97,7 +97,9 @@ Effort assessment: authored needs and pure policy rules are relatively small ori
 
 Only these are detailed now; later features remain outcome-level backlog. Owner: local agent for source/code/isolated tests; user only for policy choices that genuinely change deployment. No second human is an immediate prerequisite.
 
-### V2-01 — choose the NPC/faction capability boundary (ready)
+### V2-01 — choose the NPC/faction capability boundary (active isolated trials)
+
+Current [source/runtime card](V2-01-alife-jeem.md): exact inputs pinned, both dedicated profiles started, combined visible contact and one native gift consequence observed. Restart/hostile/handoff/Viewpoint gates remain; this does not adopt a replacement or waive v1 acceptance.
 
 Outcome: a source-evidenced decision between keeping Bandits plus a small campaign layer and an isolated A-Life replacement, before substantial NPC rewrites.
 

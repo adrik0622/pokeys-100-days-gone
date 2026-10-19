@@ -6,6 +6,8 @@ Approved [SC-002](docs/SCOPE_CHANGES.md): **v2.0 targets the living-world spirit
 
 Clarification [SC-003](docs/SCOPE_CHANGES.md): **consequence, not an anti-player-killing policy**, is the pillar. Every action should have causal effects players can feel, with faction-specific responses rather than universal PvP punishment. A-Life/Jeem isolated testing is authorized with Bandits disabled; retained profiles/worlds stay intact.
 
+[A-Life 1.4.5 + Jeem 0.7.4 trial](docs/V2-01-alife-jeem.md) now has dedicated join, a visible/talking medic and one native gift with inventory/standing/opinion changes. Separate candidate worlds only, no release/Workshop promotion or player-kill consequence claim.
+
 Approved [SC-001](docs/SCOPE_CHANGES.md): the full directing leader is now a **v1.1 target, not mandatory for v1.0**. A simpler existing Screamer-based threat is an optional bounded trial. The core forecast → horde → faction aftermath → recovery loop remains v1.0 scope; the original brief is preserved unchanged.
 
 Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.

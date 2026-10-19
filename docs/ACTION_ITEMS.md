@@ -25,6 +25,7 @@ The next narrow actions below are retained for later diagnosis, not the automati
 | B-007 | Inventory and ModData not atomic under hard crash; pending latch is conservative, not crash certification | Preserve incidents, inspect actual saves; never auto-reset/replay item payout | Clean restarts and focused duplicate/partial-failure tests already pass |
 | B-008 | High native client RAM and unknown friend/group conditions | Fresh client processes, bounded samples; no 4–8 rendered local clients or invented safe caps | Source/solo fixtures and artifact preparation |
 | B-009 | Workshop branding upload failed twice; collection membership/text works | Cosmetic retry only after gameplay risk work; no new authentication blocker | Hidden collection and explicit referenced profiles already exist |
+| B-010 | A-Life Advanced admin overlay covers toggle/controls at 1600x900 in both isolated trials | Close/reopen console preserves spec; later inspect author UI/layout without unauthorized upstream fork | Native conversation/gifts and separate mission/drop research; no user action needed |
 
 Review: inspect the known-bugs record and objective matrix in STATUS. No user scope waiver is assumed. Faction names/prehistory and proposed survival balance are reviewable creative candidates, not requirements to answer before feature work continues. If upstream collaboration or redistributing a modified dependency becomes necessary, prepare the minimal evidence/report and ask for that specific authorization; nothing has been sent/reuploaded.
 
@@ -34,7 +35,7 @@ Review: inspect the known-bugs record and objective matrix in STATUS. No user sc
 
 | ID | Uncertainty / action | What can continue |
 | --- | --- | --- |
-| V2-R1 | Inspect exact A-Life/Jeem, Military Drop, The Mission and Random Zeds payload/hooks/licenses before selection; pin actual versions, resolve dependency discrepancies | Authoring our faction needs/choice outcomes; existing baseline work |
+| V2-R1 | A-Life 1.4.5/Jeem 0.7.4 payloads pinned, core ownership/standing seams inspected and first combined contact/gift observed; persistence/hostile/handoff/Viewpoint/permissions remain. Military Drop, The Mission and Random Zeds still need payload/hook/license inspection | Continue bounded NPC trials and independent drop/mission source work; no automatic adoption |
 | V2-R2 | Prove server-trustworthy NPC/player violence attribution, faction mapping, self-defense and duplicate handling before imposing affinity effects | Pure rules/anti-farm tests and PvE supply jobs; keep PvP off |
 | V2-R3 | Inspect drop claimant/delivery evidence, guard dispatch/handoff, created-crate lifetime and shared zombie budget; current empty/ack flags are insufficient | Isolated source work and one low-count owner trial; no runtime bug claim from inspection |
 | V2-R4 | No verified released Save Our Station B42 port; do not install its B41 map into retained worlds | Original bounded relay-health/repair at existing locations if needed; no copied assets |

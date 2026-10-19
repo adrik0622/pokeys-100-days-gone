@@ -6,6 +6,11 @@
 - Continued with a separate isolated headless `day100` dedicated-server check (PID 586160; loopback only). `PokeysObserver` and `PokeysCampaign` loaded, campaign schema/calendar opened, server reached `SERVER STARTED`, accepted save/quit, logged `Shutdown handling finished`, exited 0 and released UDP port 19830. This proves dedicated startup/shutdown and module load, not client join or gameplay acceptance. No main saves/services touched; raw logs remain ignored in runtime.
 - Next: resume visible-client controls and integration checks once a PZ window launches in the active desktop session; headless V1/V2 work can continue meanwhile.
 
+## 2026-10-19 — Reattempted vanilla launch after desktop-bridge restart
+
+- The user restarted the desktop bridge. Fresh status showed no old tracked processes; a new isolated vanilla client (PID 587734) was launched. It exited 0 before creating a window, screenshot was refused with zero owned game windows, and the appended launcher log again ended at LWJGL `GLFW.nglfwGetVideoMode` / `Display.init`. No inputs were sent. This confirms bridge restart alone did not resolve monitor enumeration; it does not indicate mod failure.
+- Recorded the attempt in [M0-03](M0-03-desktop-smoke.md) and updated HR-008. The earlier headless dedicated `day100` test remains cleanly exited with no listener. Next GUI step still depends on a PZ window appearing in the controller's desktop session.
+
 ## 2026-10-19 — Comprehensive V2/V3 report reconciled with current evidence
 
 - Updated `V2_V3_MODPACK_REPORT.md` against the roadmap, current source and the latest isolated contract trial. Added the project-owned companion as a first-class mod entry, documented its opt-in `PokeysV2.Enabled` setting and fixed contract knobs, and distinguished its successful dedicated clean-restart slice from the new mocked server-adapter regression harness.

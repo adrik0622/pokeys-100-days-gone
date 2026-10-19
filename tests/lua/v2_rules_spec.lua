@@ -16,7 +16,7 @@ player.x = 7990; player.dead = true; assert(not V.near(player)); player.dead = f
 assert(V.reserve(d, "steam:account-1", 12))
 assert(not V.reserve(d, "steam:account-1", 13))
 assert(not V.reserve(d, "", 12) and not V.reserve(d, string.rep("x", 161), 12))
-assert(not V.reserve(d, "bad-clock", math.huge))
+assert(not V.reserve(d, "bad-clock", math.huge) and not V.reserve(d, "negative-clock", -1))
 assert(d.grants["steam:account-1"].status == "pending")
 d.grants["steam:account-1"].status = "applied"
 d.lastAid = 0
@@ -37,7 +37,7 @@ assert(not V.aidAllowed(d, "steam:account-1", 59, true, "allied", false)) -- clo
 assert(not V.aidAllowed(d, "steam:account-1", 107.99, true, "allied", false))
 assert(V.aidAllowed(d, "steam:account-1", 108, true, "allied", false))
 
-local reopened = V.open({schema=1, grants={ ["steam:account-1"]={status="applied",hours=12} },
+local reopened = V.open({schema=1, grants={ ["steam:account-1"]={status="applied",hours=12,delta=1.5} },
     revision=2, lastAid=60})
 assert(not V.reserve(reopened, "steam:account-1", 200))
 assert(not V.aidAllowed(reopened, "steam:account-1", 100, true, "allied", false))
@@ -45,10 +45,18 @@ for _, bad in ipairs({
     {schema=2, grants={}, revision=0},
     {schema=1, grants={x={status="unknown"}}, revision=0},
     {schema=1, grants={}, revision=0/0},
+    {schema=1, grants={}, revision=-1},
+    {schema=1, grants={x={status="pending"}}, revision=0},
+    {schema=1, grants={x={status="pending",hours=0/0}}, revision=0},
+    {schema=1, grants={x={status="applied",hours=2}}, revision=1},
+    {schema=1, grants={x={status="applied",hours=2,delta=math.huge}}, revision=1},
+    {schema=1, grants={[string.rep("x",161)]={status="pending",hours=2}}, revision=1},
     {schema=1, grants={}, revision=0, lastAid="yesterday"},
+    {schema=1, grants={}, revision=0, aidPending={hours=1}},
+    {schema=1, grants={}, revision=0, aidPending={hours=1,by=string.rep("x",65)}},
 }) do assert(not pcall(V.open, bad), "invalid state must fail closed") end
 
 local full = {schema=1, grants={}, revision=0}
-for i=1,4096 do full.grants[tostring(i)]={status="applied"} end
+for i=1,4096 do full.grants[tostring(i)]={status="applied",hours=0,delta=0} end
 assert(not V.reserve(full, "too-many", 1)) -- no pruning can reopen a duplicate
 print("PASS: V2 bridge pure rules, one-shot credit, aid gates, cooldown and fail-closed save")

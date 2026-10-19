@@ -46,7 +46,7 @@ function Server.credit(player)
     if not V.reserve(data, key, hour()) then return end
     local ok, failure = pcall(function()
         local delta = J.Standing.rate(V.faction, 2, playerKey)
-        assert(type(delta) == "number", "Jeem rate unavailable")
+        assert(V.finite(delta) and delta >= 0, "Jeem rate unavailable")
         local before, after = J.Standing.add(playerKey, V.faction, delta,
             {kind = "pokeys_medical_relief", x = V.x, y = V.y})
         assert(before ~= nil and after ~= nil, "Jeem standing refused")
@@ -79,6 +79,7 @@ function Server.command(module, command, player, args)
     if module ~= V.module or not player or not V.enabled() then return end
     if command ~= "state" and command ~= "aid" then return end -- no completion/rep/item-supplied RPC
     local user, ms = player:getUsername(), getTimestampMs()
+    if type(user) ~= "string" or #user == 0 or #user > 64 then return end
     if rate[user] and ms-rate[user] < 500 then return end
     rate[user] = ms
     Server.credit(player)

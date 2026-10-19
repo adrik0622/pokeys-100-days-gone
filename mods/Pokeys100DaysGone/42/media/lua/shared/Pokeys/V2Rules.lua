@@ -42,22 +42,30 @@ function V.installMission(native)
 end
 
 local function finite(n) return type(n) == "number" and n == n and n > -math.huge and n < math.huge end
+V.finite = finite
 function V.open(d)
     local empty = true
     for _ in pairs(d) do empty = false; break end
     if empty then d.schema, d.grants, d.revision = 1, {}, 0 end
-    assert(d.schema == 1 and type(d.grants) == "table" and finite(d.revision), "invalid v2 bridge state")
+    assert(d.schema == 1 and type(d.grants) == "table" and finite(d.revision)
+        and d.revision >= 0 and d.revision == math.floor(d.revision), "invalid v2 bridge state")
     for key, grant in pairs(d.grants) do
-        assert(type(key) == "string" and type(grant) == "table"
+        assert(type(key) == "string" and #key > 0 and #key <= 160 and type(grant) == "table"
             and (grant.status == "pending" or grant.status == "applied" or grant.status == "incident"), "invalid v2 grant")
+        assert(finite(grant.hours) and grant.hours >= 0, "invalid v2 grant time")
+        assert(grant.delta == nil or (finite(grant.delta) and grant.delta >= 0), "invalid v2 grant delta")
+        assert(grant.status ~= "applied" or grant.delta ~= nil, "applied v2 grant missing delta")
     end
-    assert(d.lastAid == nil or finite(d.lastAid), "invalid aid clock")
-    assert(d.aidPending == nil or type(d.aidPending) == "table", "invalid aid latch")
+    assert(d.lastAid == nil or (finite(d.lastAid) and d.lastAid >= 0), "invalid aid clock")
+    assert(d.aidPending == nil or (type(d.aidPending) == "table"
+        and finite(d.aidPending.hours) and d.aidPending.hours >= 0
+        and type(d.aidPending.by) == "string" and #d.aidPending.by > 0 and #d.aidPending.by <= 64),
+        "invalid aid latch")
     return d
 end
 
 function V.reserve(d, key, hour)
-    if type(key) ~= "string" or #key > 160 or #key == 0 or not finite(hour) then return false end
+    if type(key) ~= "string" or #key > 160 or #key == 0 or not finite(hour) or hour < 0 then return false end
     if d.grants[key] then return false end
     local count = 0
     for _ in pairs(d.grants) do count = count + 1 end

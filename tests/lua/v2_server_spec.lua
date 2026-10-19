@@ -163,6 +163,22 @@ now = now + 600
 Server.command("PokeysV2", "aid", bad, {})
 assert(failed.aidPending and failed.lastAid == previousAid)
 assert(effects.inventory == 2)
+
+-- An invalid authenticated name is ignored instead of indexing the volatile throttle table with nil.
+local unnamed = {getUsername=function() return nil end}
+local sentBeforeUnnamed = #sent
+Server.command("PokeysV2", "state", unnamed, {})
+assert(#sent == sentBeforeUnnamed)
+
+-- A broken upstream reputation-rate calculation must fail before mutating standing.
+local invalidRate = {account="steam:fixture-invalid-rate", username="bad-rate", x=7990, y=11756, z=0}
+history[invalidRate.account] = {completed={pokeys_medical_relief_01=true}}
+local rate = ProjectALifeJimmy.Standing.rate
+ProjectALifeJimmy.Standing.rate = function() return math.huge end
+Server.credit(invalidRate)
+ProjectALifeJimmy.Standing.rate = rate
+assert(store["Pokeys100DaysGone.V2Bridge"].grants[invalidRate.account].status == "incident")
+assert(effects.standing["account:" .. invalidRate.account] == nil)
 Observer.repair = oldRepair
 
 -- The feature is opt-in; malformed saved state stays untouched and cannot grant aid.

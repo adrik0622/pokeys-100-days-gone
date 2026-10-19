@@ -2,6 +2,16 @@
 
 The original [PROJECT_BRIEF.txt](../PROJECT_BRIEF.txt) is preserved unchanged. This dated record overrides only the specific requirements listed below; it does not retroactively change test evidence or waive unrelated quality requirements.
 
+## SC-004 — 2026-10-18: select A-Life + Jeem; unattended v2 implementation sweep
+
+**User decision:** after watching the isolated trial, the user selected A-Life + Jeem as the NPC/living-world direction instead of Bandits. This is a product/dependency direction, not a claim that every compatibility or release gate passed. Preserve Bandits worlds/configuration and their bug evidence for rollback/history; no new development profile should combine the NPC owners.
+
+**Authorized work:** finish setting up that direction, make evidence-backed implementation/configuration decisions toward v2.0 while the user is unavailable until morning, investigate and integrate relevant existing mods where they serve the pillars, record blockers and continue independent work. Produce a local illustrated report with diagrams, actual screenshots, player-facing changes, each mod's controls/knobs, dispositions and decisions/input needed. Reuse existing systems before adding overlapping infrastructure. Preserve the consequence clarification and fit-for-purpose engineering rule.
+
+**Boundary:** isolated reversible development and private dependency references are permitted within the existing project workflow. No permission to overwrite retained worlds, publish/reupload upstream code/assets, contact authors, add Git remotes, change host services, buy anything or weaken trust policies. No automatic release acceptance, capacity claim, policy waiver, universal PvP punishment or destructive ledger migration. Document exact runtime/source/test evidence, choose provisional defaults where reversible, and pin genuinely user-dependent choices for morning instead of guessing irreversible policy.
+
+**Working record:** [unattended sweep plan](V2_SWEEP_PLAN.md). Existing v1 acceptance remains honest; v2 work does not require calling v1 complete.
+
 ## SC-003 — 2026-10-18: consequence, not an anti-player-killing policy; A-Life/Jeem trial
 
 **Correction:** the user explicitly clarified that there is no anti-player-killing policy. The pillar is consequence: every action should have effects players can feel, including killing another player. Earlier anti-PK/anti-griefing framing in the v2 concept and our explanation was an incorrect inference. SC-002's historical discussion remains below, but this clarification governs current design.

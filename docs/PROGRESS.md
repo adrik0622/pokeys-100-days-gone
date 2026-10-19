@@ -2,6 +2,12 @@
 
 This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 — SC-004: A-Life/Jeem selected; unattended v2 sweep
+
+- User selected A-Life + Jeem as the living-world/NPC direction instead of Bandits after watching runtime evidence. Recorded selection separately from unpassed technical gates; preserve retained v1/Bandits worlds and logs as rollback/history, never combine NPC owners.
+- Authorized broad evidence-led v2 setup/integration decisions while unavailable until morning, documenting blockers and continuing independent work. Planned source/dependency spikes for drops, missions and variety, then one connected consequence slice and recovery checks. Final local illustrated report will explain mod behavior, exact knobs/tweaks, player changes, dispositions and user-needed decisions. No release waiver, public reupload, author contact, host service or destructive migration implied.
+- Existing controller alive, all tracked clients/server exited 0/no listeners, worktree clean at 0b0e6b6. Preserve successful trial and start new compositions/worlds for broader integration.
+
 ## 2026-10-18 — SC-003: consequence clarification; A-Life/Jeem testing authorized
 
 ### Observed combined native consequence and fresh-process restart

@@ -14,6 +14,26 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_day100_profile_stages_only_original_companion_and_uses_distinct_calendar(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control, "stage_campaign") as local, patch.object(control, "stage_upstream") as upstream, \
+             patch.object(control.shutil, "copy2") as copy, patch.object(control.subprocess, "Popen"):
+            result=control.Desktop().launch_server("day100")
+            self.assertEqual(result["ports"],[19830,19831])
+            local.assert_called_once()
+            upstream.assert_not_called()
+            copy.assert_any_call(Path(directory)/"config/server/day100_SandboxVars.lua",
+                                 Path(directory)/"runtime/server/day100/Server/pokeys-m0-day100_SandboxVars.lua")
+
+    def test_encounter_approach_is_fixed_and_bound_to_matching_client_and_server(self):
+        desktop=control.Desktop()
+        with patch.object(desktop,"window",return_value=42), patch.object(control,"run") as run:
+            with self.assertRaises(RuntimeError): desktop.dispatch({"action":"test_encounter_approach","client":"a"})
+            desktop.server=Mock(); desktop.server.poll.return_value=None
+            desktop.server_profile="encounter"; desktop.client_profiles["a"]="encounter"
+            desktop.dispatch({"action":"test_encounter_approach","client":"a","command":"unrelated"})
+            self.assertEqual(run.call_args.args[-1],"/teleportto 8045,11756,0")
+
     def test_encounter_profile_never_adds_horde_or_viewpoint(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
              patch.object(control, "stage_campaign"), patch.object(control, "stage_upstream") as stage, \

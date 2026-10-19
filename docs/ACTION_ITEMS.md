@@ -1,14 +1,25 @@
-# User actions and roadblocks
+# User actions and pinned roadblocks
 
-Only concrete user-dependent actions belong in the open table. Technical work that the agent can continue is recorded in status/progress instead of being escalated for routine permission.
+No immediate credential/MFA, controller restart or second-human-test action is required. User is unavailable until morning; routine safe implementation/diagnostics continue without waiting. Do not contact authors, publish/upload a mod/fork, add a remote or change host services without separate authorization.
 
-| ID | State | User action | Why / what it blocks | Independent work |
-| --- | --- | --- | --- | --- |
-| A-001 | Resolved | Start the foreground desktop controller in a normal terminal | Task sandbox cannot connect to X11; user started it and GUI smoke passed | Controller is currently available; no repeat setup is needed while it stays running |
-| A-002 | Resolved for local baseline; human-tester request superseded | None. User confirmed 4–8 players and no second tester; autonomous A/B test passed. Do not request another tester again for the local baseline | Local two-process movement/transfer/reconnect/restart/clean exits are verified in M0-04, without certifying remote/platform/authentication/capacity | Presentation-profile dedicated trial is agent-owned next work. Friend platforms remain unknown but do not block Linux-local integration |
+| ID | State | User action / why |
+| --- | --- | --- |
+| A-001 | Resolved | Existing foreground host controller works; sandbox X11 restriction is bypassed through it. Do not repeat setup while alive |
+| A-002 | Resolved for local baseline | 4–8 target confirmed; no second tester available. Autonomous vanilla A/B movement/transfer/reconnect/restart passed and is parked. Capacity/remote/platform gates remain distinct |
+| A-003 | Deferred, nonblocking | When friends are available, record their platforms and perform real install/Steam/WAN/group playtest. Do not repeatedly request this during local development |
 
-No Steam login/MFA intervention was needed; collection creation succeeded in the existing session. No new user-dependent blocker is established. Future human playtesting remains distinct from the automated two-client experiment, and is unavailable now.
+## Technical pins — agent-owned, not requests for routine permission
 
-Technical issues, **not presently user-dependent**: Workshop image upload failed twice with a generic banner; collection text/membership work. Task-shell DNS is restricted, but Steam and the fixed host-side anonymous SteamCMD action worked. Neither issue justifies asking for a password, an API key, broader system permissions, or a duplicate collection.
+| ID | Roadblock and evidence | Next narrow action | Independent progress |
+| --- | --- | --- | --- |
+| B-001 | Viewpoint dedicated shotgun PlayerHitSquare inconsistencies, M1-01 raw logs | Same native-only single-client weapon comparison; trace exact packet construction/validation. Do not mask with more firearm mods | Campaign/calibration/recovery, NPC-only fixture, packaging/day-100 |
+| B-002 | Bandits repeating Expected a table at BanditServerCommands.lua:341 during real close hostile encounter; M2-02 | Log exact command/args type observationally; inspect sender. Supported add-on or author fix/explicitly permissioned patch after diagnosis | Horde-only observer/recovery, survival candidate, install artifacts |
+| B-003 | Horde direction selected only inside start, not forecast | Establish supported preselection hook; never broadcast a guessed direction | Time-window calibration and authored briefing already work |
+| B-004 | Current-event loaded-only cap; prior/unloaded survivors unaccounted | Persistent conservative birth/death budget + split-group/unload tests, fail safe on ambiguity | Existing finite-budget experiments, packaging; no capacity claim |
+| B-005 | Last target group leaving can still allow births while another group keeps world active | No-more-births/abort policy at owner boundary; preserve ordinary survivors, verify offline settlement policy | Other source work and empty-server PauseEmpty behavior |
+| B-006 | No verified recognizable leader, owner-aware coordination/death/unload implementation | After M3 seam, prove appearance/sound + persistent identity + bounded real rally + death/handoff. A stat buff is not a substitute | All independent preparation/faction/recovery/installation work |
+| B-007 | Inventory and ModData not atomic under hard crash; pending latch is conservative, not crash certification | Preserve incidents, inspect actual saves; never auto-reset/replay item payout | Clean restarts and focused duplicate/partial-failure tests already pass |
+| B-008 | High native client RAM and unknown friend/group conditions | Fresh client processes, bounded samples; no 4–8 rendered local clients or invented safe caps | Source/solo fixtures and artifact preparation |
+| B-009 | Workshop branding upload failed twice; collection membership/text works | Cosmetic retry only after gameplay risk work; no new authentication blocker | Hidden collection and explicit referenced profiles already exist |
 
-Current direction: further A/B testing is parked at the user's request. The faction-contact companion passed one-client interaction/restart; no new user action is required. Agent-owned follow-ups include physical encounter/forecast integration and investigating higher native client memory after in-process rejoin. Hard-crash inventory/campaign atomicity and unrun feature multiplayer checks remain explicit limitations, not a request for another tester.
+Morning review: inspect these pins and the objective matrix in STATUS. No user scope waiver is assumed. Faction names/prehistory and proposed survival balance are reviewable creative candidates, not requirements to answer before diagnostics continue. If upstream collaboration or redistributing a modified dependency becomes necessary, prepare the minimal evidence/report and ask for that specific authorization; nothing was sent/reuploaded in this sweep.

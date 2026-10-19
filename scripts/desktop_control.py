@@ -128,7 +128,7 @@ def stage_campaign(cache):
 
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter"}:
+    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100"}:
         raise ValueError("Unknown isolated client profile")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
@@ -146,7 +146,7 @@ def prepare_profile(profile, client="main"):
     mods = cache / "mods"
     mods.mkdir(exist_ok=True)
     mod_ids = []
-    if profile in {"campaign", "presentation", "migration", "encounter"}:
+    if profile in {"campaign", "presentation", "migration", "encounter", "day100"}:
         stage_campaign(cache)
         mod_ids.append("Pokeys100DaysGone")
     if profile == "presentation":
@@ -199,7 +199,7 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter"}:
+        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100"}:
             raise ValueError("Unknown isolated server profile")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
@@ -207,7 +207,7 @@ class Desktop:
         cache = ROOT / "runtime/server" / profile
         name = f"pokeys-m0-{profile}"
         port = {"vanilla": 19860, "dual": 19870, "campaign": 19880, "presentation": 19890,
-                "migration": 19850, "encounter": 19840}[profile]
+                "migration": 19850, "encounter": 19840, "day100": 19830}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
@@ -219,7 +219,9 @@ class Desktop:
             shutil.copy2(ROOT / "config/server/migration_SandboxVars.lua", sandbox)
         if profile == "encounter" and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/encounter_SandboxVars.lua", sandbox)
-        if profile in {"campaign", "presentation", "migration", "encounter"}:
+        if profile == "day100" and not sandbox.exists():
+            shutil.copy2(ROOT / "config/server/day100_SandboxVars.lua", sandbox)
+        if profile in {"campaign", "presentation", "migration", "encounter", "day100"}:
             stage_campaign(cache)
         if profile == "migration":
             stage_upstream(cache, [("3782615002", "HordeNights")])
@@ -497,7 +499,7 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[456789][01]\s", line)]}
+                                      if re.search(r":198[3456789][01]\s", line)]}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
             targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin"}
@@ -570,7 +572,16 @@ class Desktop:
             crop = f"{geometry['WIDTH']}x{geometry['HEIGHT']}+{geometry['X']}+{geometry['Y']}"
             run("import", "-window", "root", "-crop", crop, "+repage", path)
             return {"path": str(path), "geometry": geometry}
-        if action == "test_admin_password" and scope == "game":
+        if action == "test_encounter_approach" and scope == "game":
+            server = getattr(self, "server", None)
+            profile = self.profile if client == "main" else self.client_profiles.get(client)
+            if self.server_profile != "encounter" or profile != "encounter" or not server or server.poll() is not None:
+                raise RuntimeError("Approach fixture requires the owned encounter client/server")
+            # Type only this native admin command into an already-open game chat.
+            # Verified in installed UI_ServerOptionDesc_TeleportTo; no shell/other target.
+            run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
+                "/teleportto 8045,11756,0")
+        elif action == "test_admin_password" and scope == "game":
             server = getattr(self, "server", None)
             if self.server_profile not in {"migration", "encounter"} or not server or server.poll() is not None:
                 raise RuntimeError("Admin fixture requires the running isolated migration/encounter server")

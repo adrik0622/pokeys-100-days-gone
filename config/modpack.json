@@ -84,7 +84,7 @@
       "payload_sha256": "d2d1a70ea0131315b04f78af8cbeefb8d3491075b931f8a08a7ac9af34f1e1f6",
       "payload_file_count": 1492, "payload_bytes": 165776091,
       "purpose": "Only physical human NPC candidate, isolated one-shot encounter fixture",
-      "requires": [], "evidence": "Public spawn/hostility/brain/cluster hooks source inspected; runtime trial in progress; not in collection"
+      "requires": [], "evidence": "One physical armed hostile human/attack observed; repeated server command-handler table exception blocks reliability. Not in collection"
     }
   ],
   "local_items": [

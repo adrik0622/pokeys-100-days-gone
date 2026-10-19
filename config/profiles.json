@@ -22,5 +22,9 @@
   "encounter": {
     "workshop_ids": ["3268487204"], "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "One-shot Bandits-only human encounter fixture; no Viewpoint/horde"
+  },
+  "day100": {
+    "workshop_ids": [], "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "Companion-only survival calendar candidate; horde disabled fail-safe, eight-slot setting NOT capacity proof"
   }
 }

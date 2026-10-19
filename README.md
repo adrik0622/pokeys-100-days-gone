@@ -4,9 +4,9 @@ A small private Project Zomboid survival multiplayer project. Original requireme
 
 Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.
 
-Current milestone: disposable local baseline on Build 42.21.0, revision `4a0e9546ec`. Vanilla/Viewpoint GUI smoke and one-client dedicated recovery passed. Two vanilla clients passed shared movement, cross-player item transfer, disconnect/rejoin, server restart and clean exits in an isolated non-Steam network fixture. The hidden development Workshop collection is populated. Steam-networking, presentation-modded dedicated, combat and capacity gates remain open; no release stack is accepted.
+Current build: native Linux 42.21.0, revision `4a0e9546ec`. Local vanilla recovery and autonomous two-client networking passed; further A/B runs are parked. Viewpoint dedicated join/first-person rendering now works, but shotgun `PlayerHitSquare` packet warnings block combat acceptance. No release stack or v1.0 is accepted.
 
-First gameplay slice is now implemented: the original Lua companion provides three faction contact records, shared standing, a repeatable medical-supply favor and Allied-gated assistance with group cooldowns. One-client dedicated interaction and clean-restart persistence passed. These are contact records, not physical NPCs; horde/leader/calibration work remains unfinished. Further A/B testing is parked at the user's request.
+Original companion source is **0.3.0 development**: shared faction standing/favors/aid; authored day-100 briefing; real-schedule observer bulletin; optional tuning (18.11-second real GUI success and clean-restart persistence); real debug-horde completion → supply disruption → favor-driven recovery. A one-shot admin Bandits encounter fixture is separate. Advance direction, strict global cap/offline safety, leader, complete combat and full integrated acceptance remain unfinished. Development collection remains hidden, with only the three presentation references; catalog candidates are not silently claimed as members.
 
 - [Current status](docs/STATUS.md)
 - [Progress toward v1.0](docs/PROGRESS.md)
@@ -19,6 +19,12 @@ First gameplay slice is now implemented: the original Lua companion provides thr
 - [Dedicated-server baseline and recovery test](docs/M0-02-dedicated-baseline.md)
 - [Two autonomous clients, persistence and resource limits](docs/M0-04-multi-client.md)
 - [First faction contact, shared standing and earned assistance](docs/M2-01-faction-contact.md)
+- [Hostile physical scout and NPC reliability roadblock](docs/M2-02-physical-encounter.md)
+- [Presentation dedicated test and combat roadblock](docs/M1-01-presentation.md)
+- [Physical owner hooks and pinned technical gaps](docs/OWNER_SEAMS.md)
+- [Migration / faction recovery engine evidence](docs/M3-01-migration.md)
+- [Observer calibration and trust boundary](docs/M5-01-observer.md)
+- [Development installation, day-100 candidate and packaging](docs/INSTALL.md)
 
 The task sandbox cannot access X11 or the desktop bus directly. Start the scoped controller once in a normal desktop terminal:
 

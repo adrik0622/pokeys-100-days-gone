@@ -1,6 +1,19 @@
 # Progress toward v1.0
 
-This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
+This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
+
+## 2026-10-18 evening — Day-100 engine startup and sweep handoff
+
+- Fresh companion-only day100 server 199871 reached SERVER STARTED on loopback 19830; actual engine log `calendar=1993-10-17 worldAgeHours=2`. Confirms intended calendar without simulating 100 days. Native TimeSinceApo=4 remains the three-month spoilage/erosion approximation; food, utilities, joined-client survival/balance unaccepted. Eight configured slots are not capacity proof.
+- Added read-only native calendar startup diagnostic and isolated day100 composition; no Viewpoint/NPC/horde owner enabled across known defects. Clean server quit with exit 0, no listeners. Raw startup evidence in `runtime/evidence/day100/`.
+- 52 checks pass. Updated continuation, README, status/objective matrix, compact integration plan, installation guide and pinned technical/user ledger. No immediate user credentials/controller/second tester action required; no public upload/fork/author message, remote, host-service change or scope waiver.
+- All disposable clients/server stopped, last exits 0; final resource sample: no tracked live process, 19,669,704 KiB available RAM, 1,192 MiB aggregate GPU use. Original saves/settings untouched; offline worlds/logs and selected evidence preserved. Generate the clean-commit original-only development ZIP next; artifact is not v1.0 or a portable validated deployment.
+
+## 2026-10-18 evening — Physical hostile scout observed; NPC handler roadblock
+
+- One actual Bandits body spawned through original one-shot adapter 60 tiles away. Scoped native admin teleport allowed close inspection: client-visible armed human approached and made repeated hostile melee attacks, with blood/injury moodles. No Viewpoint/firearm/horde integration or full NPC damage/ownership acceptance inferred.
+- Found repeating upstream `Expected a table` at `BanditServerCommands.lua:341` / pairs(args). Preserved raw logs/world and selected screenshots; exact command/sender remains a narrow diagnostic, not hidden by a fork or generic Lua wrapper. No upstream author message sent. Source/observations and next action in `M2-02-physical-encounter.md`.
+- Fixed fixture-only native teleport typing scoped to matching encounter client/server; chat requires select-all to replace /say prefix. 51 checks pass. Client/server exited 0, no listeners. All original worlds/settings remain untouched; injured character/NPC/latch retained.
 
 ## 2026-10-18 evening — Explicit candidate/local deployment manifest
 

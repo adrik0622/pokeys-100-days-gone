@@ -9,6 +9,11 @@ function Server.init()
     if ok then
         data = result
         print("[PokeysCampaign] loaded schema=1 revision=" .. data.revision)
+        local time = getGameTime()
+        if time.getYear and time.getMonth and time.getDay then
+            print("[PokeysCampaign] calendar=" .. time:getYear() .. "-" .. (time:getMonth()+1) ..
+                "-" .. (time:getDay()+1) .. " worldAgeHours=" .. time:getWorldAgeHours())
+        end
     else
         data = nil
         print("[PokeysCampaign] DISABLED: " .. tostring(result))

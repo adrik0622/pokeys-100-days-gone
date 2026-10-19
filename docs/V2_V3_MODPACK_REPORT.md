@@ -112,7 +112,7 @@ The final two lines are the V2 product goal; the full loop is not yet implemente
 
    The server periodically reconciles native mission history rather than accepting client completion RPCs, reserves a replay latch before applying standing, and records incidents rather than retrying ambiguous partial effects. Friendly/allied County EMS can request one Disinfectant at the relay with a 48-hour shared cooldown. The client panel reports only known state; it does not claim physical NPCs defend the relay. This design avoids a new reputation ledger and does not claim anti-PK behavior.
 
-   **Risks before broader V2 acceptance:** reward history and standing update are not one atomic transaction; shared aid interruption must not duplicate; current scanning inspects the first 16 online players rather than a rotating set. `alife_county_ems` worked on the tested payload but needs a stable upstream ID contract before save migration/release. No two-client claim race, restart during reservation, hard process crash, natural item acquisition, or physical faction-camp defense has passed.
+   **Risks before broader V2 acceptance:** reward history and standing update are not one atomic transaction; shared aid interruption must not duplicate; current scanning inspects the first 16 online players rather than a rotating set. Source inspection confirms `alife_county_ems` in the installed A-Life 1.4.5 faction registry and roster; re-verify this identifier against the exact payload on future updates before save migration/release. No two-client claim race, restart during reservation, hard process crash, natural item acquisition, or physical faction-camp defense has passed.
 
 5. **Random Zeds bridge — not written.** Avoid enabling it with Project A-Life until an adapter intercepts shell creation before initial animation/profile mutation and proves that the right physical NPC remains excluded after restart/unload.
 6. **Player-kill consequences — not implemented.** Jeem/A-Life has contextual NPC deed/reputation seams, but no accepted, tested end-to-end player killer attribution. There is no anti-PK design; factions may value an event differently. Defer consequence policy migration and PvP tuning until cause, actor, witness knowledge and repeat protection are reliable.
@@ -197,6 +197,6 @@ See the concise ongoing queue in [HUMAN_REVIEW.md](HUMAN_REVIEW.md). The decisio
 
 1. Test the handoff with two ordinary clients and inspect identity/share behavior; keep Military Drop and other NPC/horde owners out until that slice is understood.
 2. Exercise an interrupted reservation, Jeem unavailable, and aid failure path in disposable worlds; distinguish clean restart from process-crash atomicity.
-3. Confirm `alife_county_ems` is stable upstream and audit character death/account migration before promoting saved standing records.
+3. Re-check `alife_county_ems` against the exact future A-Life payload and audit character death/account migration before promoting saved standing records.
 4. Preserve the completed trial worlds as evidence; bandages were finite admin fixtures, not earned resources. Do not mark the complete V2 or V1 release accepted.
 5. Keep the report and human queue updated as settings/candidates change. Do not add researched V3 content to V2 profiles or workshop collection without a later scope decision.

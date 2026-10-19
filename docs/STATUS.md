@@ -1,6 +1,6 @@
 # Pokeys 100 Days Gone — development status
 
-Source companion **0.4.0**, native Linux Build 42.21.0 / `4a0e9546ec`. **Not v1.0; no accepted release stack.** User target 4–8, capacity unverified. No second human tester; autonomous vanilla A/B passed and remains parked. **67 project checks pass.** An isolated A-Life + Jeem + The Mission + companion test verified a custom contract, one 1.5625-point Jeem credit, one aid bottle, cooldown refusal and clean-restart persistence. This is a narrow faction-contract/aid slice; crash atomicity, ordinary earned supply, PvP consequence and multiplayer claim races remain untested.
+Source companion **0.4.0**, native Linux Build 42.21.0 / `4a0e9546ec`. **Not v1.0; no accepted release stack.** User target 4–8, capacity unverified. No second human tester; autonomous vanilla A/B passed and remains parked. **67 project checks pass.** An isolated A-Life + Jeem + The Mission + companion test verified a custom contract, one 1.5625-point Jeem credit, one aid bottle, cooldown refusal and clean-restart persistence. This is a narrow faction-contract/aid slice; crash atomicity, ordinary earned supply, PvP consequence and multiplayer claim races remain untested. Latest additional client launches now exit before opening a window with LWJGL `GLFW.nglfwGetVideoMode`; see HR-008. Dedicated test processes are shut down.
 
 ## v2.0 direction approved; implementation stack undecided
 

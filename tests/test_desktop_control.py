@@ -14,6 +14,16 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_encounter_profile_never_adds_horde_or_viewpoint(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control, "stage_campaign"), patch.object(control, "stage_upstream") as stage, \
+             patch.object(control.shutil, "copy2"), patch.object(control.subprocess, "Popen") as popen:
+            desktop=control.Desktop()
+            result=desktop.launch_server("encounter")
+            self.assertEqual(result["ports"], [19840,19841])
+            stage.assert_called_once_with(Path(directory) / "runtime/server/encounter", [("3268487204","Bandits")])
+            self.assertNotIn("-javaagent:", str(popen.call_args.args[0]))
+
     def test_aim_shot_checks_focus_and_releases_both_buttons_on_failure(self):
         desktop = control.Desktop()
         with patch.object(desktop, "window", return_value=42), patch.object(control.time, "sleep"), \

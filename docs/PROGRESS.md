@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Isolated physical NPC fixture implementation
+
+- Added one-shot, native-role-admin-only Reclaimer scout request through inspected public `BanditServer.Spawner.Clan`, referencing the original light-encounter clan UUID rather than copying its content. Fixed count/name/hostility/point 60 tiles east; alive/relay, free outdoor loaded square and all-player 55-tile distance checks. Pending attempt latches across ambiguous failure/restart; no replacement/reward automation.
+- Separate encounter-only cache/profile at loopback 19840/19841, Bandits2+companion, no Viewpoint/horde; very low but enabled ambient zombies as author requires. Existing upstream AI/cluster networking remains owner; contact standing/rewards remain ours. This is a development fixture, not a release hostile encounter claim.
+- 49 checks pass, including fixed spawn arguments, admin/distance refusal, repeat/restart/failure latch and isolated profile composition. Physical engine encounter next, independent of blocked Viewpoint hit-square combat.
+
 ## 2026-10-18 evening — Calibration persistence and real event recovery connection
 
 - Fresh client/server restart preserved calibrated forecast and character. Existing upstream admin controls forced event 1 WEST (four physical births/routes), then abort with no disruption; event 2 SOUTHWEST (four births/routes), debug completion left four ordinary survivors and scheduled day 3, without airdrop reward. This is not two fought/accepted release cycles or client-visible attack proof.

@@ -128,7 +128,7 @@ def stage_campaign(cache):
 
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration"}:
+    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter"}:
         raise ValueError("Unknown isolated client profile")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
@@ -146,7 +146,7 @@ def prepare_profile(profile, client="main"):
     mods = cache / "mods"
     mods.mkdir(exist_ok=True)
     mod_ids = []
-    if profile in {"campaign", "presentation", "migration"}:
+    if profile in {"campaign", "presentation", "migration", "encounter"}:
         stage_campaign(cache)
         mod_ids.append("Pokeys100DaysGone")
     if profile == "presentation":
@@ -155,6 +155,9 @@ def prepare_profile(profile, client="main"):
     if profile == "migration":
         stage_upstream(cache, [("3782615002", "HordeNights")])
         mod_ids = ["HordeNights"] + mod_ids
+    if profile == "encounter":
+        stage_upstream(cache, [("3268487204", "Bandits")])
+        mod_ids = ["Bandits2"] + mod_ids
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
         for workshop_id, name in [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
@@ -196,7 +199,7 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration"}:
+        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter"}:
             raise ValueError("Unknown isolated server profile")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
@@ -204,7 +207,7 @@ class Desktop:
         cache = ROOT / "runtime/server" / profile
         name = f"pokeys-m0-{profile}"
         port = {"vanilla": 19860, "dual": 19870, "campaign": 19880, "presentation": 19890,
-                "migration": 19850}[profile]
+                "migration": 19850, "encounter": 19840}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
@@ -214,10 +217,14 @@ class Desktop:
             shutil.copy2(ROOT / "config/server/dual_SandboxVars.lua", sandbox)
         if profile == "migration" and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/migration_SandboxVars.lua", sandbox)
-        if profile in {"campaign", "presentation", "migration"}:
+        if profile == "encounter" and not sandbox.exists():
+            shutil.copy2(ROOT / "config/server/encounter_SandboxVars.lua", sandbox)
+        if profile in {"campaign", "presentation", "migration", "encounter"}:
             stage_campaign(cache)
         if profile == "migration":
             stage_upstream(cache, [("3782615002", "HordeNights")])
+        if profile == "encounter":
+            stage_upstream(cache, [("3268487204", "Bandits")])
         if profile == "presentation":
             stage_presentation(cache)
         credentials = cache / "admin-password.txt"
@@ -490,7 +497,7 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[56789][01]\s", line)]}
+                                      if re.search(r":198[456789][01]\s", line)]}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
             targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin"}
@@ -565,9 +572,9 @@ class Desktop:
             return {"path": str(path), "geometry": geometry}
         if action == "test_admin_password" and scope == "game":
             server = getattr(self, "server", None)
-            if self.server_profile != "migration" or not server or server.poll() is not None:
-                raise RuntimeError("Admin fixture requires the running isolated migration server")
-            credential = ROOT / "runtime/server/migration/admin-password.txt"
+            if self.server_profile not in {"migration", "encounter"} or not server or server.poll() is not None:
+                raise RuntimeError("Admin fixture requires the running isolated migration/encounter server")
+            credential = ROOT / "runtime/server" / self.server_profile / "admin-password.txt"
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
                 credential.read_text().strip())
         elif action == "test_password" and scope == "game":

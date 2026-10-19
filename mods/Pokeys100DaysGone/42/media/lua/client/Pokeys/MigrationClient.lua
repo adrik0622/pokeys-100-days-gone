@@ -55,6 +55,9 @@ function Panel:createChildren()
                 sendClientCommand(p.player, "HordeNights", command, {})
             end)
         end
+        self.scout = button(20, 615, 655, "DEV: one hostile Reclaimer scout (Bandits fixture, once per world)", function(p)
+            sendClientCommand(p.player, "PokeysEncounter", "scout", {})
+        end)
     end
 end
 
@@ -66,6 +69,7 @@ function Panel:prerender()
     line("FIELD OBSERVERS - shared bulletin / relay", 16)
     for i, text in ipairs(M.history) do line(text, 30 + i * 22, 0.8, 0.85, 0.9) end
     local s = self.state
+    if self.scout then self.scout.enable = s and s.npcAvailable or false end
     for _, b in ipairs(self.debugButtons or {}) do b.enable = s and s.available or false end
     if not s or not s.available then
         line("Physical horde owner unavailable: no forecast is simulated.", 172, 1, 0.8, 0.4)
@@ -96,13 +100,16 @@ end
 
 local function open(player)
     if instance then instance:request("cancel"); instance:removeFromUIManager() end
-    instance = Panel:new(80, 100, 700, 620)
+    instance = Panel:new(80, 100, 700, 660)
     instance.player = player
     instance.backgroundColor = { r = 0.05, g = 0.05, b = 0.05, a = 0.97 }
     instance:initialise(); instance:addToUIManager(); instance:request("state")
 end
 
 local function receive(module, command, args)
+    if module == "PokeysEncounter" and command == "result" and instance then
+        instance.message = args.message; return
+    end
     if module ~= M.module or not instance then return end
     if command == "state" then instance.state = args
     elseif command == "result" then

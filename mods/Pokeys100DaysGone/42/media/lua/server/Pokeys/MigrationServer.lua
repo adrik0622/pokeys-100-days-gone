@@ -24,15 +24,21 @@ function Server.init()
     print("[PokeysObserver] " .. (ok and "loaded" or ("DISABLED: " .. tostring(result))))
 end
 
+local function snapshot()
+    local s = M.snapshot(data, forecast(), hour())
+    s.npcAvailable = BanditServer ~= nil and BanditServer.Spawner ~= nil
+    return s
+end
+
 local function send(player, code, session)
     local args = { code = code }
-    if data then args.state = M.snapshot(data, forecast(), hour()) end
+    if data then args.state = snapshot() end
     if session then args.step, args.channel = session.step, session.channel end
     sendServerCommand(player, M.module, "result", args)
 end
 
 local function broadcast()
-    if data then sendServerCommand(M.module, "state", M.snapshot(data, forecast(), hour())) end
+    if data then sendServerCommand(M.module, "state", snapshot()) end
 end
 
 function Server.aidBlocked()

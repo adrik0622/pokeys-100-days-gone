@@ -8,6 +8,12 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 class CampaignTests(unittest.TestCase):
+    def test_encounter_adapter_is_admin_only_fixed_and_one_shot(self):
+        result = subprocess.run(["lua5.1", "tests/lua/encounter_spec.lua"], cwd=ROOT,
+                                text=True, capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("PASS: encounter adapter", result.stdout)
+
     def test_observer_rules_and_real_server_adapter(self):
         result = subprocess.run(["lua5.1", "tests/lua/migration_spec.lua"], cwd=ROOT,
                                 text=True, capture_output=True, timeout=10)

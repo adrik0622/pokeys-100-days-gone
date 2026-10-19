@@ -1,5 +1,11 @@
 # Progress and significant decisions
 
+## 2026-10-19 — Visible vanilla client recovered; retry smoke check
+
+- After the two GLFW/window-creation failures, vanilla PID 592189 opened a visible Build 42.21.0 window in the restarted desktop bridge session. Created and loaded a fresh Rising/Rosewood world; click-to-move carried the character outside. The context menu opened but this retry did not confirm a completed object interaction. The character was attacked in the disposable test world before the door interaction could be completed; Continue showed the character dead. This was not a mod/combat acceptance test; the prior vanilla door open/close test remains the interaction evidence.
+- Quit both GUI sessions normally through the game menu: PID 592189 (fresh run) and PID 596150 (Continue/reopen) each exited 0 and left no owned window. Fresh-world creation, movement, save/reopen and graceful shutdown now pass in the current desktop session. HR-008 is resolved as an immediate environment blocker, with launch repeatability still to monitor; no user intervention is needed now.
+- Evidence and limits recorded in [M0-03](M0-03-desktop-smoke.md); raw screenshots/actions and disposable saves remain ignored under `runtime/`. Next: retry an object interaction early in a safer spawn on a later visible-client check, then resume the relevant V1/V2 joined-client coverage. This does not accept multiplayer, combat, or the mod stack.
+
 ## 2026-10-19 — Steam Link display retry and headless game check
 
 - Retried the isolated vanilla GUI client after the user enabled a Steam Link virtual monitor. The controller reports `:0` at 3440×1440, but PID 585442 exited 0 before a window appeared; a screenshot request correctly refused because it had no owned window. The fresh launcher log again reports `NullPointerException` at LWJGL `GLFW.nglfwGetVideoMode` / `Display.init`. No input was sent. Direct X display inspection remains blocked by sandbox permissions. Updated HR-008 and the desktop smoke record; this remains an environment/display issue, not evidence of mod incompatibility.

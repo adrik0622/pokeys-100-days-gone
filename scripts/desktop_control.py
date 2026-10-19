@@ -30,6 +30,31 @@ KEYS = set("abcdefghijklmnopqrstuvwxyz0123456789") | {
     "Left", "Right", "Up", "Down", "Shift_L", "Control_L", "F1", "F2",
     "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
 }
+PRESENTATION = [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
+                ("3810302175", "PZVoxelStudioViewpoint")]
+
+
+def stage_presentation(cache):
+    """Private local copies only; never overwrite user-owned mod directories."""
+    workshop = GAME.parents[2] / "workshop" / "content" / "108600"
+    for wid, name in PRESENTATION:
+        source = workshop / wid / "mods" / name
+        destination = cache / "mods" / name
+        marker = ".pokeys-upstream-stage"
+        if not source.is_dir() or any(p.is_symlink() for p in source.rglob("*")):
+            raise RuntimeError(f"Missing or symlinked upstream source: {name}")
+        if destination.exists() or destination.is_symlink():
+            if destination.is_symlink() or not (destination / marker).is_file() or \
+                    (destination / marker).read_text() != str(source):
+                raise RuntimeError(f"Refusing to replace an unowned upstream stage: {name}")
+            history = cache / "upstream-stage-history"
+            history.mkdir(exist_ok=True)
+            destination.rename(history / (name + "-" + uuid.uuid4().hex))
+        prepared = cache / "upstream-stage-prepared" / (name + "-" + uuid.uuid4().hex)
+        shutil.copytree(source, prepared)
+        (prepared / marker).write_text(str(source))
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        prepared.rename(destination)
 
 
 def atomic_json(path, value):
@@ -97,8 +122,8 @@ def stage_campaign(cache):
 
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint", "campaign"}:
-        raise ValueError("Profile must be vanilla, viewpoint or campaign")
+    if profile not in {"vanilla", "viewpoint", "campaign", "presentation"}:
+        raise ValueError("Unknown isolated client profile")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
     cache.mkdir(parents=True, exist_ok=True)
@@ -115,9 +140,12 @@ def prepare_profile(profile, client="main"):
     mods = cache / "mods"
     mods.mkdir(exist_ok=True)
     mod_ids = []
-    if profile == "campaign":
+    if profile in {"campaign", "presentation"}:
         stage_campaign(cache)
         mod_ids.append("Pokeys100DaysGone")
+    if profile == "presentation":
+        stage_presentation(cache)
+        mod_ids = [name for _, name in PRESENTATION] + mod_ids
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
         for workshop_id, name in [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
@@ -159,23 +187,25 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual", "campaign"}:
-            raise ValueError("Server profile must be vanilla, dual or campaign")
+        if profile not in {"vanilla", "dual", "campaign", "presentation"}:
+            raise ValueError("Unknown isolated server profile")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
         install = ROOT / "runtime/server/install"
         cache = ROOT / "runtime/server" / profile
         name = f"pokeys-m0-{profile}"
-        port = {"vanilla": 19860, "dual": 19870, "campaign": 19880}[profile]
+        port = {"vanilla": 19860, "dual": 19870, "campaign": 19880, "presentation": 19890}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
             shutil.copy2(ROOT / f"config/server/{profile}.ini", config)
         sandbox = cache / "Server" / f"{name}_SandboxVars.lua"
-        if profile in {"dual", "campaign"} and not sandbox.exists():
+        if profile in {"dual", "campaign", "presentation"} and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/dual_SandboxVars.lua", sandbox)
-        if profile == "campaign":
+        if profile in {"campaign", "presentation"}:
             stage_campaign(cache)
+        if profile == "presentation":
+            stage_presentation(cache)
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
@@ -190,6 +220,8 @@ class Desktop:
                 f"-cachedir={cache}", "-servername", name, "-nosteam",
                 "-ip", "127.0.0.1", "-port", str(port), "-udpport", str(port + 1),
                 "-adminusername", "pokeysadmin", "-adminpassword", credentials.read_text().strip()]
+        if profile == "presentation":
+            args.insert(1, f"-javaagent:{GAME / 'ZombieBuddy.jar'}=policy=deny-new")
         env = os.environ.copy()
         env["LD_LIBRARY_PATH"] = ":".join(str(p) for p in
                                           [install / "linux64", install, install / "jre64/lib"])
@@ -339,7 +371,7 @@ class Desktop:
         cache = prepare_profile(profile, client)
         args = [str(GAME / "ProjectZomboid64")]
         vm_args = ["-Xms256m", "-Xmx3g"] if client != "main" else []
-        if profile == "viewpoint":
+        if profile in {"viewpoint", "presentation"}:
             # pzexe requires a -- separator between JVM and game arguments.
             vm_args.append(f"-javaagent:{GAME / 'ZombieBuddy.jar'}=policy=deny-new")
         if vm_args:
@@ -429,7 +461,7 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[678][01]\s", line)]}
+                                      if re.search(r":198[6789][01]\s", line)]}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
             if self.server_profile != "campaign" or not server or server.poll() is not None:

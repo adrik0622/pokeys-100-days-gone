@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Unattended sweep and owner inspection
+
+- User requested broad progress toward v1.0 while unavailable until morning. Preserve parked vanilla A/B evidence; document blockers and continue independently. No release gates waived.
+- Downloaded Bandits and Horde Nights via existing logged-in Steam subscriptions, not credential/API scraping. Inspected actual server spawn/state/path/cap APIs. Recorded concrete direction, loaded-only cap, offline targeting, leader and NPC command-trust gaps in `OWNER_SEAMS.md`. No upstream fork or release inclusion.
+- Added isolated presentation+companion client/server trial on loopback 19890/19891. Real owned upstream staging preserves prior copies and refuses foreign directories; Java loader keeps `policy=deny-new`. 41 checks pass. First modded dedicated startup/client join is in progress; startup alone is not acceptance.
+
 ## 2026-10-18 — Handoff and local inventory
 
 - Imported the original brief and curated handoff. Established the v1.0 boundary and dependent gates without repeating the kickoff.

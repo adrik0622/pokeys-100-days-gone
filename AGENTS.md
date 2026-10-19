@@ -13,6 +13,8 @@ Read `README.md`, `docs/STATUS.md`, `docs/PROGRESS.md`, and `docs/ACTION_ITEMS.m
 
 ## Goal and workflow
 
+- Unattended sweep direction (2026-10-18 evening): advance all scoped objectives toward v1.0, pin roadblocks for morning, and continue independent work without waiting for routine replies. Preserve parked A/B tests and honest acceptance gates. Leave disposable clients/server stopped at handoff.
+
 - Latest user direction (2026-10-18): **park further M0-04/A-B baseline testing and implement scoped gameplay**. Preserve existing evidence and open gates; do not keep replaying the vanilla dual test. Current feature slice is `M2-01-faction-contact.md`: original companion standing/favor/earned assistance. Physical NPCs, Viewpoint integration, forecasts/hordes/leader and calibration remain separate unfinished requirements. Do not imply their gates passed because this independent Lua slice works.
 - User-confirmed target: **4–8 players**, with scaling beyond that desirable only if measurements support it. This is a planning target, not verified capacity. **No second human tester is available.** Do not repeatedly request one or make that an immediate development blocker. Two autonomous local vanilla clients now passed movement/transfer/reconnect/server-restart/clean exits (M0-04). Separate local protocol tests from Steam authentication, cross-platform/remote networking, group capacity and eventual human playtesting.
 - Deliver the bounded v1.0 in `PROJECT_BRIEF.txt`: reliable private dedicated multiplayer, Viewpoint and credible shooting, minimal faction presence and persistent consequential standing, forecasted recurring horde, a recognizable killable directing leader, one optional bounded interaction, and a repeatable recovery loop.

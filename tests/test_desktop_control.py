@@ -14,6 +14,34 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_presentation_stages_real_copies_and_refuses_foreign_directories(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control, "GAME", Path(directory) / "steamapps/common/PZ/game"):
+            workshop = control.GAME.parents[2] / "workshop/content/108600"
+            for wid, name in control.PRESENTATION:
+                source = workshop / wid / "mods" / name / "42"
+                source.mkdir(parents=True)
+                (source / "mod.info").write_text("id=" + name)
+            cache = Path(directory) / "cache"
+            control.stage_presentation(cache)
+            self.assertFalse((cache / "mods/Viewpoint").is_symlink())
+            self.assertIn("Viewpoint", (cache / "mods/Viewpoint/42/mod.info").read_text())
+            control.stage_presentation(cache)
+            self.assertEqual(len(list((cache / "upstream-stage-history").iterdir())), 3)
+            (cache / "mods/Viewpoint/.pokeys-upstream-stage").unlink()
+            with self.assertRaisesRegex(RuntimeError, "unowned upstream"):
+                control.stage_presentation(cache)
+
+    def test_presentation_server_retains_deny_new_agent_policy(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control.shutil, "copy2"), patch.object(control, "stage_campaign"), \
+             patch.object(control, "stage_presentation"), patch.object(control.subprocess, "Popen") as popen:
+            result = control.Desktop().launch_server("presentation")
+            args = popen.call_args.args[0]
+            self.assertIn("policy=deny-new", args[1])
+            self.assertEqual(result["ports"], [19890, 19891])
+            self.assertLess(args.index(args[1]), args.index("zombie.network.GameServer"))
+
     def test_campaign_stage_is_local_only_and_cannot_replace_existing_directory(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)):
             source = Path(directory) / "mods/Pokeys100DaysGone/42"

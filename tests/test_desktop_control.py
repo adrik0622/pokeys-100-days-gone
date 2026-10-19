@@ -14,6 +14,25 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_migration_fixture_uses_only_selected_horde_and_local_companion(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
+             patch.object(control, "stage_campaign"), patch.object(control, "stage_upstream") as stage, \
+             patch.object(control.shutil, "copy2"), patch.object(control.subprocess, "Popen") as popen:
+            desktop = control.Desktop()
+            result = desktop.launch_server("migration")
+            self.assertEqual(result["ports"], [19850, 19851])
+            stage.assert_called_once_with(Path(directory) / "runtime/server/migration", [("3782615002", "HordeNights")])
+            self.assertNotIn("-javaagent:", str(popen.call_args.args[0]))
+            desktop.server.poll.return_value = None
+            desktop.dispatch({"action": "server_combat_supplies", "count": 999, "username": "unrelated"})
+            self.assertEqual(desktop.server.stdin.write.call_args_list[0].args,
+                             ("additem pokeysadmin Base.Shotgun 1\n",))
+            self.assertEqual(desktop.server.stdin.write.call_args_list[1].args,
+                             ("additem pokeysadmin Base.ShotgunShells 20\n",))
+            desktop.server_profile = "vanilla"
+            with self.assertRaises(RuntimeError):
+                desktop.dispatch({"action": "server_combat_supplies"})
+
     def test_presentation_stages_real_copies_and_refuses_foreign_directories(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
              patch.object(control, "GAME", Path(directory) / "steamapps/common/PZ/game"):

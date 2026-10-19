@@ -2,6 +2,11 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Small physical migration fixture prepared
+
+- Added a separate Horde Nights+companion-only loopback fixture at 19850/19851. Four-event-zombie birth budget/cap, zero scaling/sprinters/ambient population and no airdrops. Disabled exact-time native indicator so calibration has an information benefit. Values are experiments, not a measured safe release budget; cap/offline gaps remain documented.
+- Added fixed finite native combat gear and an isolated migration-admin password input action for existing debug controls. Neither accepts arbitrary usernames, item types, counts or console commands; secrets remain out of responses/logs/Git. 43 checks pass.
+
 ## 2026-10-18 evening — Observer/calibration/recovery implementation
 
 - Implemented companion 0.2.0 observer bulletin using only the selected physical owner's actual schedule; absent owner yields no invented warning. Baseline/calibrated arrival windows, server-owned 15–25 second channel task, shared persistent precision, interruption/cancel/cooldown/retry protection. Direction remains explicitly unresolved until upstream chooses it.

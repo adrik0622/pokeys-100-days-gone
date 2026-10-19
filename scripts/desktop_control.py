@@ -522,7 +522,7 @@ class Desktop:
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
             targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin",
-                       "integrated": "pokeys_integrated_a"}
+                       "integrated": "pokeys_integrated_a", "alife-jeem": "pokeysadmin"}
             if self.server_profile not in targets or not server or server.poll() is not None:
                 raise RuntimeError("Test supplies require the running isolated campaign server")
             command = "additem " + targets[self.server_profile] + " Base.Bandage 2"

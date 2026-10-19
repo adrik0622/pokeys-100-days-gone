@@ -14,6 +14,16 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_alife_gift_supplies_are_two_bandages_to_fixed_combination_account(self):
+        desktop = control.Desktop()
+        desktop.server = Mock(); desktop.server.poll.return_value = None
+        desktop.server_profile = "alife-jeem"
+        desktop.dispatch({"action": "server_campaign_supplies", "username": "unrelated", "count": 999})
+        desktop.server.stdin.write.assert_called_once_with("additem pokeysadmin Base.Bandage 2\n")
+        desktop.server_profile = "alife"
+        with self.assertRaises(RuntimeError):
+            desktop.dispatch({"action": "server_campaign_supplies"})
+
     def test_alife_approach_is_fixed_and_requires_matching_running_trial(self):
         desktop = control.Desktop()
         desktop.server = Mock(); desktop.server.poll.return_value = None

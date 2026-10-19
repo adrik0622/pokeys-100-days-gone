@@ -2,6 +2,8 @@
 
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 
+Approved [SC-001](docs/SCOPE_CHANGES.md): the full directing leader is now a **v1.1 target, not mandatory for v1.0**. A simpler existing Screamer-based threat is an optional bounded trial. The core forecast → horde → faction aftermath → recovery loop remains v1.0 scope; the original brief is preserved unchanged.
+
 Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.
 
 Current build: native Linux 42.21.0, revision `4a0e9546ec`. Local vanilla recovery and autonomous two-client networking passed; further A/B runs are parked. Viewpoint dedicated join/first-person rendering works; shotgun packet warnings and the other reported issues are [pinned known bugs/limitations](docs/KNOWN_BUGS.md), not immediate stops to development play. Combat correctness and the combined campaign remain unaccepted; no release stack or v1.0 is accepted.

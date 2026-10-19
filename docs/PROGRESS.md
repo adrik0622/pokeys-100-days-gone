@@ -2,6 +2,12 @@
 
 This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 — SC-001 approved: full leader deferred, bounded existing-mod trial
+
+- Preserved original PROJECT_BRIEF verbatim; added `SCOPE_CHANGES.md` recording original objective D/M4/acceptance, the user's explicit approval, and the revised boundary. Full event-linked directing leader is a v1.1 target, no longer mandatory for v1.0. Core forecast/horde/player-and-faction aftermath/recovery remains; no unrelated quality checks are waived.
+- Authorized optional Screamer Zed inspection/trial using an upstream dependency reference, not copied code. Only promote if bounded integration is demonstrated; substantial custom AI/networking or a failed seam means defer and continue core work. Candidate research is author documentation, not installed-source or runtime proof.
+- Updated current README/status/action/known-issues/continuation notes so future chats do not reinstate the original leader gate. No gameplay/source/config change or new acceptance in this scope-record step. Local revision records the decision before experiments.
+
 ## 2026-10-18 — Known issues pinned; Workshop description and v1.0 progress clarified
 
 - User explicitly parked the reported issues because they are not immediate blockers to playing. Added `KNOWN_BUGS.md` with the existing B-001–B-009 IDs, distinguishing reproduced bugs, source/engineering limitations, missing leader/content and unrun acceptance. Preserved evidence, narrow diagnostic plans, risk precautions and original v1.0 outcomes; no defect is marked fixed and no original release requirement is silently waived.

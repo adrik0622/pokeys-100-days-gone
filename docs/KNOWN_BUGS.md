@@ -2,7 +2,7 @@
 
 Updated 2026-10-18. Companion source **0.3.0 development**, native Linux Build 42.21.0 / `4a0e9546ec`.
 
-User decision: **pin these issues; they are not immediate blockers to development play or independent feature work.** This is a priority decision, not evidence that the defects are fixed, all systems work together, or the original v1.0 acceptance requirements have been waived. Keep experiments isolated and preserve worlds/backups. Do not automatically enable candidate dependencies or change survival settings to hide a limitation.
+User decision: **pin these issues; they are not immediate blockers to development play or independent feature work.** This is not evidence that defects are fixed or all systems work together. A separate approved [SC-001](SCOPE_CHANGES.md) defers only the directing leader to v1.1; unrelated v1.0 requirements remain. Keep experiments isolated and preserve worlds/backups. Do not automatically enable candidate dependencies or change survival settings to hide a limitation.
 
 IDs match the historical pins in [ACTION_ITEMS](ACTION_ITEMS.md). Missing features and unrun checks are separated below so they are not misreported as reproduced bugs. The Workshop description contains a concise player-facing summary; this file is the detailed local record.
 
@@ -28,7 +28,7 @@ Horde source evidence and smallest possible integration seams: [OWNER_SEAMS](OWN
 
 ## Unfinished features — not bugs
 
-- **B-006 / directing leader:** not implemented or verified. v1.0 still needs readable appearance/sound, one actual coordination effect, death stopping that effect, and safe identity/ownership/unload/restart behavior. A stat buff alone does not meet this requirement.
+- **B-006 / directing leader:** not implemented or verified; **deferred to v1.1 by approved [SC-001](SCOPE_CHANGES.md)**, not a mandatory v1.0 gap. Original requirements remain the v1.1 target. An optional simple Screamer must pass its own bounded trial; a stat buff is not fulfillment of the original ask.
 - Physical NPC release encounters and the full forecast → combat/leader → faction aftermath → recovery loop remain partially integrated. The current one-shot NPC and small forced horde are separate test fixtures, not normal recurring campaign content.
 
 ## Unrun acceptance — not reproduced failures
@@ -37,4 +37,4 @@ Horde source evidence and smallest possible integration seams: [OWNER_SEAMS](OWN
 - Warning/active-event restart and ownership handoff, feature-modded shared observations, and engine movement/death interruption for calibration.
 - Joined-client day-100 survival/loot/utilities/balance, repeated integrated sessions, friend installation/Steam/WAN/platform checks and a 60–90 minute intended-group playtest. Target **4–8 players**, capacity unverified; no second human tester is currently available.
 
-These remain v1.0 completion/acceptance work, not requests to stop development play. Current progress and evidence are in [STATUS](STATUS.md); no immediate user credential, controller or second-tester action is needed.
+The unrun core checks remain v1.0 completion/acceptance work, not requests to stop development play. Leader-specific assertions are deferred by SC-001. Current progress and evidence are in [STATUS](STATUS.md); no immediate user credential, controller or second-tester action is needed.

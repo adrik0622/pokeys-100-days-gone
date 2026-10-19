@@ -1,6 +1,6 @@
 # Pokeys 100 Days Gone — continuation instructions
 
-Read `README.md`, `docs/STATUS.md`, `docs/PROGRESS.md`, and `docs/ACTION_ITEMS.md` at the start of project work. Read `PROJECT_BRIEF.txt` for the full v1.0 requirements and `HANDOFF.txt` for the original research record. Follow these instructions in future chats as well as this one.
+Read `README.md`, `docs/STATUS.md`, `docs/PROGRESS.md`, `docs/ACTION_ITEMS.md` and `docs/SCOPE_CHANGES.md` at the start of project work. Read `PROJECT_BRIEF.txt` for the original requirements and `HANDOFF.txt` for the original research record. Approved scope changes override only their specified original requirements. Follow these instructions in future chats as well as this one.
 
 ## Revisioning and evidence
 
@@ -13,13 +13,15 @@ Read `README.md`, `docs/STATUS.md`, `docs/PROGRESS.md`, and `docs/ACTION_ITEMS.m
 
 ## Goal and workflow
 
+- Approved SC-001 (2026-10-18): **full directing leader deferred to v1.1; not a mandatory v1.0 gate**. Preserve the original brief and consult `docs/SCOPE_CHANGES.md` for original ask, approval and exact acceptance changes. A simple Screamer Zed may be optional v1.0 only after a bounded isolated inspection/trial; do not let it delay core campaign integration or build substantial custom AI/networking for it. All unrelated requirements remain.
+
 - Latest user priority (2026-10-18): pin the reported technical issues as **known bugs/limitations, not immediate blockers to development play**; maintain `docs/KNOWN_BUGS.md` and the Workshop description. Prioritize remaining scoped features instead of automatically returning to every gun/NPC/director diagnostic. Preserve evidence and isolated saves; do not claim a combined campaign, resolved defects, or waived v1.0 requirements. Missing leader/recurring content and unrun acceptance are not reproduced bugs.
 
 - Unattended sweep direction (2026-10-18 evening): advance all scoped objectives toward v1.0, pin roadblocks for morning, and continue independent work without waiting for routine replies. Preserve parked A/B tests and honest acceptance gates. Leave disposable clients/server stopped at handoff.
 
 - Preserve parked M0-04/A-B baseline evidence. Evening sweep advanced companion source to 0.3.0: faction contacts, real-schedule observer/calibration, authored prehistory, faction disruption/recovery and a one-shot admin NPC fixture. Read `M1-01-presentation.md`, `OWNER_SEAMS.md`, `M3-01-migration.md`, `M5-01-observer.md` and current status. Do not replay vanilla A/B or infer full integrated acceptance from independent fixtures.
 - User-confirmed target: **4–8 players**, with scaling beyond that desirable only if measurements support it. This is a planning target, not verified capacity. **No second human tester is available.** Do not repeatedly request one or make that an immediate development blocker. Two autonomous local vanilla clients now passed movement/transfer/reconnect/server-restart/clean exits (M0-04). Separate local protocol tests from Steam authentication, cross-platform/remote networking, group capacity and eventual human playtesting.
-- Deliver the bounded v1.0 in `PROJECT_BRIEF.txt`: reliable private dedicated multiplayer, Viewpoint and credible shooting, minimal faction presence and persistent consequential standing, forecasted recurring horde, a recognizable killable directing leader, one optional bounded interaction, and a repeatable recovery loop.
+- Deliver the bounded v1.0 in `PROJECT_BRIEF.txt` as amended by SC-001: reliable private dedicated multiplayer, Viewpoint and credible shooting, minimal faction presence and persistent consequential standing, forecasted recurring horde, one optional bounded interaction, and a repeatable recovery loop. Full recognizable killable directing leader is v1.1; simple calling-threat trial is optional.
 - Keep faction surplus/shortage trades as stretch scope. Defer continuous NPC simulation, recruitment/base workers, a full economy, map/render/firearm engines, and generic quest infrastructure.
 - Prefer configuration, then supported integrations, then a small patch, then custom behavior for an evidenced gap. Use one owner for each firearm, NPC, and horde behavior. Complete a playable slice before adding breadth.
 - Advance independent useful work when one path is blocked. Do not silently waive dependent test gates. Ask for user intervention only when a concrete action actually requires it; user authorization already given in this conversation remains valid.

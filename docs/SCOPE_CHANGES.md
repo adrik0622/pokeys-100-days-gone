@@ -1,0 +1,32 @@
+# Approved scope changes
+
+The original [PROJECT_BRIEF.txt](../PROJECT_BRIEF.txt) is preserved unchanged. This dated record overrides only the specific requirements listed below; it does not retroactively change test evidence or waive unrelated quality requirements.
+
+## SC-001 — 2026-10-18: directing leader moves from mandatory v1.0 to v1.1
+
+**Original ask:** brief objective D required one recognizable horde leader with a readable appearance/sound and an actual coordination effect. Killing it must stop that effect while existing zombies remain dangerous. M4, the horde/leader test card and definition-of-done item 4 included the leader in the mandatory integrated slice.
+
+**Discussion and approval:** user asked whether this belongs in v1.0 and whether existing mods could supply it. Recommendation was to defer the full feature, while allowing one bounded trial of a simpler existing calling/rallying zombie. User approved: “Sure, let's record the original ask, and how we've modified that. Then continue with integrating and testing.”
+
+**Revised release boundary:**
+
+- **v1.0 core:** preparation → forecast → horde pressure → visible faction aftermath → recovery, with presentation, human encounters/standing and optional calibration. A directing leader is **not required** to release v1.0.
+- **v1.0 optional:** a simple Screamer-based tactical threat may be included only if a narrow compatibility trial proves useful, recognizable and multiplayer-safe without substantial custom AI/networking or replacing the selected horde owner. It is not promised content and must not delay the core campaign.
+- **v1.1 target:** the original event-linked recognizable leader, bounded coordination, death stopping coordination, persistent identity and ownership/unload/restart handling. No stat-buff substitute is called fulfillment of that original ask.
+
+**Acceptance changes:** remove mandatory leader/leader-death assertions from the v1.0 M4 slice, horde test card and definition-of-done item 4. Keep forecast, player/faction impact, persistent aftermath, ordinary survivors and the other multiplayer/restart/repeated-cycle checks. If an optional Screamer is included, test its actual effects, limits, shared visibility/audio and lifecycle separately. All other original requirements remain unless separately amended; pinned bugs are disclosed, not declared fixed.
+
+**Reason:** current owner exposes useful event/tag/path seams but no verified leader integration. Requiring a custom entity lifecycle would put disproportionate uncertainty on the first release. The campaign loop can stand on its own; leader tactics are a follow-on enhancement.
+
+### Candidate evidence (author documentation, not our runtime acceptance)
+
+Reviewed 2026-10-18:
+
+- [Screamer Zed B42](https://steamcommunity.com/sharedfiles/filedetails/?id=3756523429), Mod ID `ScreamerZed`: distinctive zombie, pre-call warning/cancellation on death, existing loaded zombies converge; configurable runner conversion, no new spawns claimed. Author claims SP/MP and commented on 42.20. Exact 42.21/Horde Nights behavior must be inspected/tested. Author explicitly asks not to copy code; dependency reference only.
+- [Dynamic Evolution Z](https://steamcommunity.com/sharedfiles/filedetails/?id=3676814360): configurable leader/evolution/migration layers, advertised gathering/cohesion/Howler behavior and B42 MP. Broader overlap; not selected or installed by this decision.
+- [Nocturnal Reign](https://github.com/CosmicQ/pz-nocturnal-reign): documented pack gathering/alerts and modular Lord mechanics; author reports 42.19 dedicated tests, not our 42.21 stack. Public MIT license does not establish engine compatibility. Not selected.
+- [Hordes Alpha 0.7.2](https://steamcommunity.com/sharedfiles/filedetails/?id=3618306391&searchtext=hordes): leader-following behavior, but author warns of MP synchronization problems and recommends SP. Not selected.
+
+### Bounded trial / stopping rule
+
+Inspect the actual Screamer payload and isolate it before any Horde Nights combination. Prefer configuration and public hooks; do not copy/patch its source or add a competing director. Check dedicated startup, visible identity/call and an actual convergence/death consequence; then shared observation and reconnect/restart if the first seam works. If source inspection already shows a substantial dedicated ownership/persistence gap or the runtime trial fails, record it, defer the optional feature and continue core campaign integration. Subscription/download is not collection membership or gameplay acceptance. Existing saves and normal client settings remain untouched.

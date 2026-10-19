@@ -14,6 +14,22 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_alife_approach_is_fixed_and_requires_matching_running_trial(self):
+        desktop = control.Desktop()
+        desktop.server = Mock(); desktop.server.poll.return_value = None
+        desktop.server_profile = "alife"
+        desktop.client_profiles["a"] = "alife-jeem"
+        with patch.object(desktop, "window", return_value=42), patch.object(control, "run") as run:
+            with self.assertRaises(RuntimeError):
+                desktop.dispatch({"action": "test_alife_contact_approach", "client": "a"})
+            run.assert_not_called()
+            desktop.client_profiles["a"] = "alife"
+            desktop.dispatch({"action": "test_alife_contact_approach", "client": "a", "command": "unrelated", "x": 0})
+            self.assertEqual(run.call_args.args[-1], "/teleportto 7988,11738,0")
+            desktop.server.poll.return_value = 0
+            with self.assertRaises(RuntimeError):
+                desktop.dispatch({"action": "test_alife_contact_approach", "client": "a"})
+
     def test_alife_trials_have_one_npc_owner_and_separate_worlds(self):
         for profile, port in [("alife", 19810), ("alife-jeem", 19800)]:
             with self.subTest(profile=profile), tempfile.TemporaryDirectory() as directory, \

@@ -10,6 +10,8 @@ This is the durable dated progress record. New sweep entries appear first; the e
 
 ### Trial preparation
 
+- Core medic moved to 7988/11735 according to the live census. Added a fixed native-admin approach command at 7988/11738, guarded by matching owned A-Life client/server, to inspect that contact without arbitrary console access or a second spawn. This is fixture movement, not ordinary exploration/AI acceptance.
+
 - Subscribed/downloaded original A-Life 1.4.5 (1,691 files / 52,325,148 bytes) and Jeem 0.7.4 (263 / 8,805,189) via Steam UI; pinned complete payload/metadata hashes in the candidate catalog, not collection members. A-Life's 42.20 directory actually declares versionMin=42.21.0; Jeem requires/loads after ProjectALifeNPCs. No Java dependency added.
 - Added separate alife (19810/19811) and alife-jeem (19800/19801) loopback caches/worlds and fixed controller lifecycle support, with ONLY the selected NPC input(s). No Bandits, companion, horde or presentation owner. Native admin tools, very low ambient zombies, population/raid/encounter controls and reduced logical budgets are test settings, not measured release limits. Jeem residents/raids/random traders disabled while standing remains enabled.
 - First core server PID 242678 launched from preparation working tree after SC-003 commit 8514369; do not call this a clean-commit runtime. No joined NPC, consequence or persistence result claimed yet. Automated checks and profile isolation are validated before client observation; runtime results follow in the trial card/progress.

@@ -601,6 +601,15 @@ class Desktop:
             # Verified in installed UI_ServerOptionDesc_TeleportTo; no shell/other target.
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
                 "/teleportto 8045,11756,0")
+        elif action == "test_alife_contact_approach" and scope == "game":
+            server = getattr(self, "server", None)
+            profile = self.profile if client == "main" else self.client_profiles.get(client)
+            if self.server_profile not in ALIFE_TRIALS or profile != self.server_profile or not server or server.poll() is not None:
+                raise RuntimeError("Contact fixture requires the matching owned A-Life client/server")
+            # Fixed native admin movement for the isolated contact fixture only.
+            # No caller-controlled command, coordinates, actor or inventory.
+            run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
+                "/teleportto 7988,11738,0")
         elif action == "test_admin_password" and scope == "game":
             server = getattr(self, "server", None)
             if self.server_profile not in {"migration", "encounter", *ALIFE_TRIALS} or not server or server.poll() is not None:

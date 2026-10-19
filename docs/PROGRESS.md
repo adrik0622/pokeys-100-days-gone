@@ -2,6 +2,12 @@
 
 This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Verified development artifact
+
+- Created `runtime/dist/pokeys-development-c65c4a9bb7fd.zip` from clean local commit `c65c4a9bb7fd81aa6d0d651cfc657aeed5567fd8`: 65 archive entries (64 original source/config/doc/test files + PACKAGE.json). SHA256 `29e0767a4f4c0cab0fecdeb70df3e400b370148761cfc1d785507c748bb1a93d`.
+- Independently checked ZIP CRC, every packaged source hash and DEVELOPMENT_NOT_V1/upstream-exclusion markers. No runtime, saves, credentials, upstream payloads, evidence images or Git metadata included. Artifact is a local review/development kit, not an upload or validated friend installer. This later documentation-only record is intentionally outside the artifact's recorded source revision.
+- Final 52 tests and full five-item installed payload checks passed; local worktree clean before packaging. All tracked clients/server exited 0, no test listener; controller left available. Technical pins and next narrow diagnostics are in ACTION_ITEMS/INTEGRATION. v1.0, leader, complete combat, strict horde cap/offline safety and intended-group capacity remain unaccepted.
+
 ## 2026-10-18 evening — Day-100 engine startup and sweep handoff
 
 - Fresh companion-only day100 server 199871 reached SERVER STARTED on loopback 19830; actual engine log `calendar=1993-10-17 worldAgeHours=2`. Confirms intended calendar without simulating 100 days. Native TimeSinceApo=4 remains the three-month spoilage/erosion approximation; food, utilities, joined-client survival/balance unaccepted. Eight configured slots are not capacity proof.

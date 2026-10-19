@@ -65,10 +65,23 @@ def client_name(value):
     return value
 
 
+def link_campaign(cache):
+    source = ROOT / "mods/Pokeys100DaysGone"
+    if not (source / "42/mod.info").is_file():
+        raise FileNotFoundError(source)
+    destination = cache / "mods/Pokeys100DaysGone"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.exists() or destination.is_symlink():
+        if not destination.is_symlink() or destination.resolve() != source.resolve():
+            raise RuntimeError("Refusing to replace an existing campaign mod directory")
+    else:
+        destination.symlink_to(source, target_is_directory=True)
+
+
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint"}:
-        raise ValueError("Profile must be vanilla or viewpoint")
+    if profile not in {"vanilla", "viewpoint", "campaign"}:
+        raise ValueError("Profile must be vanilla, viewpoint or campaign")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
     cache.mkdir(parents=True, exist_ok=True)
@@ -85,6 +98,9 @@ def prepare_profile(profile, client="main"):
     mods = cache / "mods"
     mods.mkdir(exist_ok=True)
     mod_ids = []
+    if profile == "campaign":
+        link_campaign(cache)
+        mod_ids.append("Pokeys100DaysGone")
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
         for workshop_id, name in [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
@@ -126,27 +142,30 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual"}:
-            raise ValueError("Server profile must be vanilla or dual")
+        if profile not in {"vanilla", "dual", "campaign"}:
+            raise ValueError("Server profile must be vanilla, dual or campaign")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
         install = ROOT / "runtime/server/install"
         cache = ROOT / "runtime/server" / profile
         name = f"pokeys-m0-{profile}"
-        port = 19860 if profile == "vanilla" else 19870
+        port = {"vanilla": 19860, "dual": 19870, "campaign": 19880}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
             shutil.copy2(ROOT / f"config/server/{profile}.ini", config)
         sandbox = cache / "Server" / f"{name}_SandboxVars.lua"
-        if profile == "dual" and not sandbox.exists():
+        if profile in {"dual", "campaign"} and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/dual_SandboxVars.lua", sandbox)
+        if profile == "campaign":
+            link_campaign(cache)
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
             credentials.chmod(0o600)
         # Bind explicitly to loopback, with no UPnP or public listing. This
-        # profile has no mod payloads and cannot alter the user's normal saves.
+        # Profiles cannot alter the user's normal saves. Campaign adds only
+        # our local Lua prototype; no upstream gameplay framework is enabled.
         args = [str(install / "jre64/bin/java"), "-Djava.awt.headless=true", "-Xms512m", "-Xmx4g",
                 "-Dzomboid.steam=0", "-Dzomboid.znetlog=1", "-Djava.library.path=linux64/:.",
                 "-Djava.security.egd=file:/dev/urandom", "-XX:+UseZGC", "-XX:-OmitStackTraceInFastThrow",
@@ -393,7 +412,15 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[67][01]\s", line)]}
+                                      if re.search(r":198[678][01]\s", line)]}
+        if action == "server_campaign_supplies":
+            server = getattr(self, "server", None)
+            if self.server_profile != "campaign" or not server or server.poll() is not None:
+                raise RuntimeError("Test supplies require the running isolated campaign server")
+            command = "additem pokeys_campaign_a Base.Bandage 2"
+            server.stdin.write(command + "\n")
+            server.stdin.flush()
+            return {"sent": command, "note": "Existing game admin command; fixture only, confirm inventory"}
         if action == "server_command":
             server = getattr(self, "server", None)
             command = request.get("command")

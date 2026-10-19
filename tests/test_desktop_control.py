@@ -14,6 +14,29 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_campaign_stage_is_local_only_and_cannot_replace_existing_directory(self):
+        with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)):
+            source = Path(directory) / "mods/Pokeys100DaysGone/42"
+            source.mkdir(parents=True)
+            (source / "mod.info").touch()
+            cache = control.prepare_profile("campaign", "a")
+            self.assertEqual((cache / "mods/Pokeys100DaysGone").resolve(), source.parent)
+            self.assertIn("mod = Pokeys100DaysGone", (cache / "mods/default.txt").read_text())
+            other = Path(directory) / "different-cache"
+            (other / "mods/Pokeys100DaysGone").mkdir(parents=True)
+            with self.assertRaisesRegex(RuntimeError, "Refusing to replace"):
+                control.link_campaign(other)
+
+    def test_campaign_supplies_are_fixed_and_refused_on_other_servers(self):
+        desktop = control.Desktop()
+        desktop.server = Mock()
+        desktop.server.poll.return_value = None
+        with self.assertRaisesRegex(RuntimeError, "campaign server"):
+            desktop.dispatch({"action": "server_campaign_supplies"})
+        desktop.server_profile = "campaign"
+        desktop.dispatch({"action": "server_campaign_supplies", "username": "unrelated", "count": 900})
+        desktop.server.stdin.write.assert_called_once_with("additem pokeys_campaign_a Base.Bandage 2\n")
+
     def test_select_all_holds_and_releases_both_polled_keys(self):
         desktop = control.Desktop()
         with patch.object(desktop, "window", return_value=42), patch.object(control, "run") as run, \

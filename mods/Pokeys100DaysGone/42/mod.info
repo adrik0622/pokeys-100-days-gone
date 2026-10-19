@@ -1,0 +1,6 @@
+name=Pokeys 100 Days Gone - Campaign Prototype
+id=Pokeys100DaysGone
+modversion=0.1.0
+versionMin=42.21.0
+versionMax=42.21.0
+description=Development-only shared faction standing, medical supply favor and earned assistance. No NPC or horde spawning. Not a release build.

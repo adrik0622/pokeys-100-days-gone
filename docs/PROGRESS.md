@@ -1,5 +1,18 @@
 # Progress and significant decisions
 
+## 2026-10-19 — Comprehensive V2/V3 report reconciled with current evidence
+
+- Updated `V2_V3_MODPACK_REPORT.md` against the roadmap, current source and the latest isolated contract trial. Added the project-owned companion as a first-class mod entry, documented its opt-in `PokeysV2.Enabled` setting and fixed contract knobs, and distinguished its successful dedicated clean-restart slice from the new mocked server-adapter regression harness.
+- Refreshed current Workshop-page claims. Steam now shows removed/incompatible banners for Military Drop and RarityThreads, and the Military Drop page lists the current required Belt Radio + TooltipLib dependency path. Prior local Military Drop 0.5.4 runtime evidence remains valid for that pinned payload; future subscription/update access is uncertain. Added HR-011; no dependency was rehosted, updated, or promoted.
+- Made the human-review queue visible in the report and clarified availability uncertainty for the Cheols/Howler candidate pages. V3 remains research-only; no mods, profiles, collection membership or game scope changed.
+- Next independent V2 verification: rerun project tests, Lua syntax, manifest/profile validation, and inspect controller status without launching a game client. This refresh itself adds no gameplay acceptance.
+
+## 2026-10-19 — V2 bridge opt-in and corrupt-state fail-closed regression
+
+- Extended `tests/lua/v2_server_spec.lua` to verify `PokeysV2.Enabled=false` keeps the adapter inert and does not register/serve the opt-in contract in this fixture. Injected malformed schema-99 GlobalModData and verified the adapter reports unavailable, leaves the saved data untouched, and grants no aid. This is source-level mocked behavior; no production Lua or saved runtime data changed.
+- Verification: focused Lua harness passed; full suite **68 passed, 34 subtests**; companion Lua 5.1 syntax passed; manifest validates 12 upstream items / 14 profiles; candidate `faction-contract-trial` renders the expected four Workshop IDs/Mod IDs; whitespace check passed. Controller status shows main and named clients exited 0 with no windows. No client/server was launched.
+- Next: keep malformed/pending incidents fail-closed pending HR-010, and resume real two-client ownership or process-persistence tests only when visible GUI launch works (HR-008). V1/V2 full acceptance remains open.
+
 ## 2026-10-19 — V2 server bridge replay and partial-aid boundary test
 
 - Added `tests/lua/v2_server_spec.lua` and wired it into `pytest`. It runs the actual companion server adapter against mocked game/Jeem/The Mission APIs to check server-owned completion history, mission registration/relay radius, deferred credit while Jeem is unavailable, exactly-once credit across a data re-open, and one successful aid item followed by the shared cooldown.

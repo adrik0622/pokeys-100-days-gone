@@ -164,4 +164,26 @@ Server.command("PokeysV2", "aid", bad, {})
 assert(failed.aidPending and failed.lastAid == previousAid)
 assert(effects.inventory == 2)
 Observer.repair = oldRepair
+
+-- The feature is opt-in; malformed saved state stays untouched and cannot grant aid.
+local registered = #TM42.CustomMissionDefs
+SandboxVars.PokeysV2.Enabled = false
+callbacks.OnInitGlobalModData()
+local sentBeforeDisabled = #sent
+Server.start()
+Server.command("PokeysV2", "state", player, {})
+assert(#sent == sentBeforeDisabled and effects.inventory == 2)
+assert(#TM42.CustomMissionDefs == registered)
+
+SandboxVars.PokeysV2.Enabled = true
+local malformed = {schema=99, grants={}, revision=0}
+store["Pokeys100DaysGone.V2Bridge"] = malformed
+callbacks.OnInitGlobalModData()
+now = now + 600
+Server.command("PokeysV2", "state", player, {})
+assert(sent[#sent][4].state.available == false)
+assert(store["Pokeys100DaysGone.V2Bridge"] == malformed)
+now = now + 600
+Server.command("PokeysV2", "aid", player, {})
+assert(effects.inventory == 2 and store["Pokeys100DaysGone.V2Bridge"] == malformed)
 print("PASS: V2 server adapter trusts native history, credits once, and fail-closes partial credit/aid delivery")

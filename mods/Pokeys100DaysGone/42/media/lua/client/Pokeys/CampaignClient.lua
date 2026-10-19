@@ -95,7 +95,7 @@ local function open(player)
 end
 
 local function context(playerIndex, menu, worldObjects, test)
-    if test then return end
+    if test or require("Pokeys/V2Rules").enabled() then return end
     local player = getSpecificPlayer(playerIndex)
     if player and not player:isDead() then
         menu:addOption("Pokeys: faction contacts", player, open)

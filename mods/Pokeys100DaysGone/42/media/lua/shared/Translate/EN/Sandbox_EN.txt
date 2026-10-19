@@ -1,0 +1,5 @@
+Sandbox_EN = {
+    Sandbox_PokeysV2 = "Pokeys v2 development",
+    Sandbox_PokeysV2_Enabled = "Enable opt-in v2 bridge (replaces legacy contact ledger UI/actions)",
+    Sandbox_PokeysV2_Enabled_tooltip = "Development only. Native The Mission owns the authored relief job; Jeem owns standing. Requires explicit matching profiles. Does not migrate or reset legacy v1 data.",
+}

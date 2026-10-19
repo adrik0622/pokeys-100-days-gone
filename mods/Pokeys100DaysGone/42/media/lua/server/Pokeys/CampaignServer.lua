@@ -5,6 +5,9 @@ local Server = {}
 local data
 
 function Server.init()
+    if require("Pokeys/V2Rules").enabled() then
+        data = nil; print("[PokeysCampaign] legacy ledger inactive in opt-in v2 world; existing data untouched"); return
+    end
     local ok, result = pcall(Campaign.open, ModData.getOrCreate(Campaign.key))
     if ok then
         data = result

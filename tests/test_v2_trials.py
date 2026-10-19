@@ -22,7 +22,10 @@ class V2TrialTests(unittest.TestCase):
                 self.assertEqual(result["ports"], [spec["port"], spec["port"] + 1])
                 self.assertEqual(result["bind_ip"], "127.0.0.1")
                 self.assertNotIn("javaagent", str(popen.call_args.args[0]))
-                local.assert_not_called()
+                if spec.get("project_mod"):
+                    local.assert_called_once_with(Path(directory) / "runtime/server" / name)
+                else:
+                    local.assert_not_called()
                 stage.assert_called_once_with(Path(directory) / "runtime/server" / name, spec["items"])
                 stage.reset_mock()
                 cache = control.prepare_profile(name, "a")
@@ -30,14 +33,19 @@ class V2TrialTests(unittest.TestCase):
                 enabled = (cache / "mods/default.txt").read_text()
                 for mid in spec["mods"]:
                     self.assertIn(f"mod = {mid},", enabled)
-                for mid in ["Bandits", "HordeNights", "Viewpoint", "ProjectALife", "Pokeys100DaysGone"]:
+                for mid in ["Bandits", "HordeNights", "Viewpoint", "ProjectALife"]:
                     self.assertNotIn(mid, enabled)
+                if spec.get("project_mod"):
+                    self.assertIn("mod = Pokeys100DaysGone,", enabled)
+                else:
+                    self.assertNotIn("mod = Pokeys100DaysGone,", enabled)
 
     def test_supplies_ignore_arbitrary_arguments_and_refuse_other_worlds(self):
         d = control.Desktop(); d.server = Mock(); d.server.poll.return_value = None
         for profile, expected in [
             ("supply-trial", ["additem pokeys_supply_a Base.WalkieTalkie5 1\n", "additem pokeys_supply_a Base.Battery 1\n"]),
             ("mission-trial", ["additem pokeys_mission_a Base.Bandage 2\n"]),
+            ("contract-trial", ["additem pokeys_contract_a Base.Bandage 2\n"]),
         ]:
             d.server_profile = profile; d.server.stdin.write.reset_mock()
             d.dispatch({"action": "server_v2_supplies", "username": "unrelated", "count": 999})
@@ -45,7 +53,9 @@ class V2TrialTests(unittest.TestCase):
         d.server.poll.return_value = 0
         with self.assertRaises(RuntimeError): d.dispatch({"action": "server_v2_supplies"})
         with self.assertRaises(ValueError): d.dispatch({"action": "server_restore", "snapshot": "unrelated"})
-        d.server.poll.return_value = None; d.server_profile = "alife-jeem"
+        d.server_profile = "alife-jeem"
+        with self.assertRaises(RuntimeError): d.dispatch({"action": "server_v2_supplies"})
+        d.server_profile = "contract-trial"
         with self.assertRaises(RuntimeError): d.dispatch({"action": "server_v2_supplies"})
 
 

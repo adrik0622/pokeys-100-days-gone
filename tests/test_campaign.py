@@ -37,3 +37,9 @@ class CampaignTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
         self.assertIn("PASS: campaign rules", result.stdout)
         self.assertIn("PASS: server authority", result.stdout)
+
+    def test_v2_bridge_pure_rules(self):
+        result = subprocess.run(["lua5.1", "tests/lua/v2_rules_spec.lua"], cwd=ROOT,
+                                text=True, capture_output=True, timeout=10)
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn("PASS: V2 bridge pure rules", result.stdout)

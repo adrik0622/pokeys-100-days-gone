@@ -47,5 +47,9 @@
   "mission-trial": {
     "workshop_ids": ["3640172314"],
     "purpose": "V2 isolated The Mission gather contract/reward persistence; walking/kill rewards disabled, no NPC/horde/presentation"
+  },
+  "contract-trial": {
+    "workshop_ids": ["3640172314"], "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "V2 isolated original County EMS Mission/Jeem bridge smoke; custom contract enabled, Jeem/NPC and drop owners absent"
   }
 }

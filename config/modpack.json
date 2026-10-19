@@ -152,8 +152,8 @@
     }
   ],
   "local_items": [
-    { "mod_id": "Pokeys100DaysGone", "version": "0.3.0", "source": "mods/Pokeys100DaysGone",
-      "status": "Original development companion; standing/favors, observer/calibration/recovery and admin one-shot NPC fixture; NOT v1.0" }
+    { "mod_id": "Pokeys100DaysGone", "version": "0.4.0", "source": "mods/Pokeys100DaysGone",
+      "status": "Original development companion; adds untested V2 Mission/Jeem relay bridge to 0.3 features; pure rules tests pass, no engine profile staged; NOT v1.0" }
   ],
   "accepted_release_stack": false,
   "notes": [

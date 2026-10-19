@@ -47,6 +47,8 @@ V2_TRIALS = {
         "mods": ["TooltipLib", "batman_BeltRadio", "batman_MilitaryDrop"]},
     "mission-trial": {"port": 19780, "items": [("3640172314", "TheMission")],
                       "mods": ["TheMission42"]},
+    "contract-trial": {"port": 19770, "items": [("3640172314", "TheMission")],
+                        "mods": ["TheMission42", "Pokeys100DaysGone"], "project_mod": True},
 }
 
 
@@ -160,7 +162,8 @@ def prepare_profile(profile, client="main"):
     mods = cache / "mods"
     mods.mkdir(exist_ok=True)
     mod_ids = []
-    if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
+    if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"} or \
+            (profile in V2_TRIALS and V2_TRIALS[profile].get("project_mod")):
         stage_campaign(cache)
         mod_ids.append("Pokeys100DaysGone")
     if profile == "presentation":
@@ -250,7 +253,8 @@ class Desktop:
             shutil.copy2(ROOT / "config/server/integrated_SandboxVars.lua", sandbox)
         if profile in {*ALIFE_TRIALS, *V2_TRIALS} and not sandbox.exists():
             shutil.copy2(ROOT / f"config/server/{profile}_SandboxVars.lua", sandbox)
-        if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
+        if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"} or \
+                (profile in V2_TRIALS and V2_TRIALS[profile].get("project_mod")):
             stage_campaign(cache)
         if profile == "migration":
             stage_upstream(cache, [("3782615002", "HordeNights")])
@@ -538,7 +542,8 @@ class Desktop:
         if action == "server_v2_supplies":
             server = getattr(self, "server", None)
             targets = {"supply-trial": ("pokeys_supply_a", [("Base.WalkieTalkie5", 1), ("Base.Battery", 1)]),
-                       "mission-trial": ("pokeys_mission_a", [("Base.Bandage", 2)])}
+                       "mission-trial": ("pokeys_mission_a", [("Base.Bandage", 2)]),
+                       "contract-trial": ("pokeys_contract_a", [("Base.Bandage", 2)])}
             if self.server_profile not in targets or not server or server.poll() is not None:
                 raise RuntimeError("V2 supplies require the running isolated supply/mission fixture")
             username, items = targets[self.server_profile]

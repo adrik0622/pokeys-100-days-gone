@@ -2,6 +2,18 @@
 
 The original [PROJECT_BRIEF.txt](../PROJECT_BRIEF.txt) is preserved unchanged. This dated record overrides only the specific requirements listed below; it does not retroactively change test evidence or waive unrelated quality requirements.
 
+## SC-002 — 2026-10-18: fit-for-purpose engineering and the v2.0 living world
+
+**Original ask/policy:** the brief's spirit section emphasized inexpensive staged representations of a living world. Section 4 prescribed settings → maintained integration → patch → custom for every requirement. Continuous NPC simulation, a full economy and generic quest infrastructure were deferred from the bounded v1.0 product.
+
+**User's clarification and expansion:** staging is appropriate when it is the simplest effective solution, but simple original engineering may be better. Necessary entity/NPC rewrites are eligible, with their substantial maintenance acknowledged. The texture-map example illustrates openness to efficient state tracking, not a request to implement a GPU-backed entity engine. v1.0 establishes the foundation; v2.0 should express the spirit through a changing living world, rewarding optional minigames, pervasive faction relevance and decisions with tradeoffs. Investigate The Mission, Random Zombies, Save Our Station, contested/horde/reputation-requested airdrops and other available solutions before deciding what to write. Most factions should disapprove of player killing; a morally gray faction should respect it. v4.0 is the provisional major-polish target, not a firm release commitment.
+
+**Current rule:** choose the simplest effective solution over its lifetime, comparing player-visible causality, exact-build/MP feasibility, implementation/integration, runtime and maintenance costs. Staging, abstract simulation, continuous simulation and custom code are alternatives to evaluate, not a moral hierarchy. No mandatory exhaustion of mod options before writing a demonstrably smaller original feature. More invasive rewrites need a scoped experiment and cost/risk review before implementation; permission to consider them is not a mandate for a new engine.
+
+**Boundary/acceptance:** v2 design/research and staged follow-on development are in scope. Candidate descriptions are not selection, subscription, collection membership or runtime acceptance. Preserve the current v1 fixtures and unfinished acceptance. SC-001's v1.1 leader target remains unless separately reprioritized. Do not silently enable PvP, replace the group-wide ledger, adopt every mod or promise infinite content. Baseline survival must remain useful without minigames/faction chores; meaningful responsibility must distinguish aggression, self-defense, accidents and ambiguous attribution. Quality/recovery/performance checks continue during feature work; major presentation/balance polish may come later.
+
+**Implementation plan and evidence:** [v2 concept, outcomes, next three tasks](V2_LIVING_WORLD.md), [mod survey and actual installed airdrop seams](V2_MOD_SURVEY.md). This sweep changes documentation/research fingerprints only; gameplay/source version remains 0.3.0.
+
 ## SC-001 — 2026-10-18: directing leader moves from mandatory v1.0 to v1.1
 
 **Original ask:** brief objective D required one recognizable horde leader with a readable appearance/sound and an actual coordination effect. Killing it must stop that effect while existing zombies remain dangerous. M4, the horde/leader test card and definition-of-done item 4 included the leader in the mandatory integrated slice.

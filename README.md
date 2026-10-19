@@ -2,6 +2,8 @@
 
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 
+Approved [SC-002](docs/SCOPE_CHANGES.md): **v2.0 targets the living-world spirit**—recurring faction needs, meaningful choices, optional active play and consequential encounters. “It's show business” is one tool; choose the simplest effective engineering approach, including custom simulation when justified. [Living-world design and roadmap](docs/V2_LIVING_WORLD.md) · [Dated mod survey and airdrop source findings](docs/V2_MOD_SURVEY.md). These are plans/research, not newly enabled mods or a claim that v1.0 is complete.
+
 Approved [SC-001](docs/SCOPE_CHANGES.md): the full directing leader is now a **v1.1 target, not mandatory for v1.0**. A simpler existing Screamer-based threat is an optional bounded trial. The core forecast → horde → faction aftermath → recovery loop remains v1.0 scope; the original brief is preserved unchanged.
 
 Planning target: **4–8 players**, with additional scale considered after measurement. No second human tester is available; two independently controlled local clients now work. Target capacity remains unverified.
@@ -15,7 +17,7 @@ Original companion source is **0.3.0 development**: shared faction standing/favo
 - [Combined campaign test](docs/M4-01-integrated.md)
 - [Optional Screamer source audit and deferral](docs/M4-optional-screamer.md)
 - [Known bugs, limitations and unfinished features](docs/KNOWN_BUGS.md)
-- [Progress toward v1.0](docs/PROGRESS.md)
+- [Progress and significant decisions](docs/PROGRESS.md)
 - [User action items](docs/ACTION_ITEMS.md)
 - [Versioned dependency manifest](config/modpack.json)
 - [Development Workshop collection](docs/WORKSHOP.md)

@@ -7,6 +7,8 @@ No immediate credential/MFA, controller restart or second-human-test action is r
 | A-001 | Resolved | Existing foreground host controller works; sandbox X11 restriction is bypassed through it. Do not repeat setup while alive |
 | A-002 | Resolved for local baseline | 4–8 target confirmed; no second tester available. Autonomous vanilla A/B movement/transfer/reconnect/restart passed and is parked. Capacity/remote/platform gates remain distinct |
 | A-003 | Deferred, nonblocking | When friends are available, record their platforms and perform real install/Steam/WAN/group playtest. Do not repeatedly request this during local development |
+| A-004 | v2 policy review, nonblocking | Before any PvP-enabled deployment, choose cooperative PvE vs consensual/open PvP and how self-defense/duels/accidents are classified. Current PVP=false remains. Blocks live PK consequence acceptance, not source survey, PvE contracts or mocked justice-rule tests |
+| A-005 | v2 policy review, nonblocking | Review proposed personal responsibility across character death versus shared faction access; identify whether Road Reclaimers should become the gray faction. Blocks final migration/balance/lore decisions, not isolated prototypes. Existing schema-1 group ledger and hostile scout stay intact |
 
 ## Technical pins — deferred follow-ups, not a stop-work queue
 
@@ -25,3 +27,17 @@ The next narrow actions below are retained for later diagnosis, not the automati
 | B-009 | Workshop branding upload failed twice; collection membership/text works | Cosmetic retry only after gameplay risk work; no new authentication blocker | Hidden collection and explicit referenced profiles already exist |
 
 Review: inspect the known-bugs record and objective matrix in STATUS. No user scope waiver is assumed. Faction names/prehistory and proposed survival balance are reviewable creative candidates, not requirements to answer before feature work continues. If upstream collaboration or redistributing a modified dependency becomes necessary, prepare the minimal evidence/report and ask for that specific authorization; nothing has been sent/reuploaded.
+
+## v2 investigation pins — not reproduced bugs or deployment promises
+
+[SC-002](SCOPE_CHANGES.md) approves expanded direction and appropriate custom engineering, not every candidate. See [concept/next tasks](V2_LIVING_WORLD.md) and [dated survey](V2_MOD_SURVEY.md).
+
+| ID | Uncertainty / action | What can continue |
+| --- | --- | --- |
+| V2-R1 | Inspect exact A-Life/Jeem, Military Drop, The Mission and Random Zeds payload/hooks/licenses before selection; pin actual versions, resolve dependency discrepancies | Authoring our faction needs/choice outcomes; existing baseline work |
+| V2-R2 | Prove server-trustworthy NPC/player violence attribution, faction mapping, self-defense and duplicate handling before imposing affinity effects | Pure rules/anti-farm tests and PvE supply jobs; keep PvP off |
+| V2-R3 | Inspect drop claimant/delivery evidence, guard dispatch/handoff, created-crate lifetime and shared zombie budget; current empty/ack flags are insufficient | Isolated source work and one low-count owner trial; no runtime bug claim from inspection |
+| V2-R4 | No verified released Save Our Station B42 port; do not install its B41 map into retained worlds | Original bounded relay-health/repair at existing locations if needed; no copied assets |
+| V2-R5 | Exact-stack/Linux/Viewpoint/ownership/dependency drift and capacity remain unverified for new candidates | Fresh bounded isolated tests, no automatic collection promotion, no 4–8 rendered local clients |
+
+No new immediate user action is required. First implementation should follow capability/owner decisions, not turn all survey rows on together. Larger NPC/entity rewrites remain eligible after a bounded cost/risk design review.

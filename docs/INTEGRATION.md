@@ -2,6 +2,8 @@
 
 Observed 2026-10-18, native Linux 42.21.0 / `4a0e9546ec`. No accepted release stack. Approved [SC-001](SCOPE_CHANGES.md) defers the full directing leader to v1.1; a narrow existing-mod Screamer trial is optional, never a v1.0 gate. Manifest separates actual collection members, unaccepted catalog candidates and original local source. Full payload pins cover all five upstream items; hash drift requires inspection/retest, not blind repinning. Upstream supplied only by reference.
 
+Latest direction: [SC-002](SCOPE_CHANGES.md) opens v2 living-world design and replaces the rigid configuration-first ladder with fit-for-purpose lifetime-cost decisions. [V2_LIVING_WORLD](V2_LIVING_WORLD.md) contains the next three expansion tasks; [V2_MOD_SURVEY](V2_MOD_SURVEY.md) separates new author-documented candidates from installed airdrop/death source findings. Current owners/profiles below remain unchanged. NPC replacement and drop/reputation capabilities should be evaluated before writing overlapping custom systems; do not mix A-Life and Bandits or silently enable PvP. The v1 feature lane below remains available, not the automatic priority over the user's new v2 request.
+
 | Owner / item | Exact input, dependencies and settings | Evidence / open seam |
 | --- | --- | --- |
 | [ZombieBuddy](https://steamcommunity.com/sharedfiles/filedetails/?id=3619862853) loader | 2.3.4, client/server agent, existing deny-new policy | GUI and presentation dedicated start/join observed. Source loader skips client-scoped JARs on dedicated. Trust policy unchanged |

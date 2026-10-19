@@ -9,17 +9,22 @@
       "files": {
         "mods/HordeNights/42/mod.info": "bb4fe4b95fbc19b2fc41b56bb13358b4f07e06a992e5fe2c07bdff826661a811",
         "mods/HordeNights/42/media/lua/server/HordeNights/HordeManager.lua": "394416b0601f13e39a0c3d0325ba955c217e985e439313d8274513b865a5833b",
-        "mods/HordeNights/42/media/lua/server/HordeNights/HordeSpawner.lua": "57c5285c15886bcae094152f7c7878354354bb40e6878d696b7e64be1ebf523c"
+        "mods/HordeNights/42/media/lua/server/HordeNights/HordeSpawner.lua": "57c5285c15886bcae094152f7c7878354354bb40e6878d696b7e64be1ebf523c",
+        "mods/HordeNights/42/media/lua/server/HordeNights/HordeSupplyDrop.lua": "83fb1f80108fbc450108ed14a1169945679ac6bbbf527b5eb4134c8f06b75a4e",
+        "mods/HordeNights/42/media/lua/client/HordeNights/HordeBanditIntegration.lua": "7842f473d6c0a4ed786e2ed4f2fa2f19fd5ac46ca8f4a482c80973c2a799b499",
+        "mods/HordeNights/42/media/sandbox-options.txt": "54e6f1d1afb59af4b27e112f8c9c657e23771c056b997c462d167399349fecc8"
       }
     },
     {
       "workshop_id": "3268487204", "mod_id": "Bandits2", "version": "V2, numeric modversion absent",
-      "role": "Only physical NPC candidate; isolated encounter and combined join/UI trials, not release accepted",
+      "role": "Current physical NPC trial owner; isolated encounter and combined join/UI trials, not release accepted; v2 alternatives are survey-only",
       "requires": [],
       "files": {
         "mods/Bandits/42.21/mod.info": "026723713770c55c1f297ae2593f16a8c86d7cb5645ee597503cf3b5d10ece0f",
         "mods/Bandits/42.21/media/lua/server/BanditServerSpawner.lua": "6cfe6b19ff8c0dbba73e7041d19c945029b2255df377972507240fa8c2dbe0f3",
-        "mods/Bandits/42.21/media/lua/server/BanditServerSync.lua": "925d9b7b7b6b51693eaf36a795ee1cd104a6e164c6c686112a9db175c0c19098"
+        "mods/Bandits/42.21/media/lua/server/BanditServerSync.lua": "925d9b7b7b6b51693eaf36a795ee1cd104a6e164c6c686112a9db175c0c19098",
+        "mods/Bandits/42.21/media/lua/client/BanditUpdate.lua": "7c202dc0cbbcb2c4251a277b87fe1a3b454ca69021b7d9a9b0e0ffc032242287",
+        "mods/Bandits/common/bandits/clans.txt": "2d1bf7e87c4c171b62f58b42451b4eac502407bd74faa299746cc8223c1c97ab"
       }
     },
     {

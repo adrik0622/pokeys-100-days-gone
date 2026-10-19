@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Playable relay calibration observed
+
+- Live Horde Nights schedule appeared in observer bulletin with actionable baseline and honest unresolved direction. All authored prehistory messages visible. Manual timing expired correctly; uncertain OCR cancelled without guessing.
+- Fixed screenshot/OCR-only smoke matched actual displayed channels and completed tuning in **18.11 seconds** including UI/OCR overhead. Shared arrival width tightened 4 h → 0.5 h. Duplicate Lock did not repeat completion; no item reward. Selected evidence versioned, raw logs/world retained offline. Restart persistence next.
+- Added only missing English OCR data from official Tesseract repo into ignored runtime (pinned SHA, no system change), fixed UI test and current-step parsing check. Added admin-only shortcuts to existing Horde Nights role-checked debug handlers for repeatable force/end/abort tests; no new event scheduler. 47 checks pass.
+
 ## 2026-10-18 evening — Abort is not a migration consequence
 
 - Review caught Horde Nights' abort also setting `CompletionRecorded`. Tightened observer bridge to require an increase in its actual survived counter as well as a new terminal event identity and real births. Added abort regression; no consequence for an aborted/zero-spawn event. Additive observer field establishes a baseline on existing development state, without retroactive damage.

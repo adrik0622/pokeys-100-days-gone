@@ -7,6 +7,7 @@ No network listener, shell commands, system services, or arbitrary application i
 
 import argparse
 import fcntl
+import hashlib
 import json
 import math
 import os
@@ -21,6 +22,7 @@ import sys
 import time
 import uuid
 from urllib.parse import urlparse
+from urllib.request import urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 STATE = ROOT / "runtime" / "desktop-control"
@@ -447,6 +449,21 @@ class Desktop:
             return {"attached": value}
         if action == "status":
             return self.status()
+        if action == "calibration_ocr_setup":
+            # Existing host Tesseract lacks language data. Fetch DATA ONLY from
+            # the official project, to ignored project runtime, not /usr/share.
+            destination = ROOT / "runtime/tools/tessdata/eng.traineddata"
+            if not destination.exists():
+                with urlopen("https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/main/eng.traineddata", timeout=20) as response:
+                    payload = response.read(8 * 1024 * 1024 + 1)
+                if not 100000 < len(payload) <= 8 * 1024 * 1024:
+                    raise RuntimeError("Unexpected OCR language-data size")
+                destination.parent.mkdir(parents=True, exist_ok=True)
+                destination.write_bytes(payload)
+            digest = hashlib.sha256(destination.read_bytes()).hexdigest()
+            if digest != "7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2":
+                raise RuntimeError("OCR language-data drift; inspect official source before changing pin")
+            return {"path": str(destination), "sha256": digest}
         if action == "resources":
             return self.resources()
         if action == "server_install":
@@ -629,8 +646,10 @@ class Desktop:
                 run("xdotool", "mousedown", 1)
                 time.sleep(0.12)
             finally:
-                run("xdotool", "mouseup", 1)
-                run("xdotool", "mouseup", 3)
+                try:
+                    run("xdotool", "mouseup", 1)
+                finally:
+                    run("xdotool", "mouseup", 3)
         elif action == "text":
             text = request.get("text")
             if scope == "workshop":

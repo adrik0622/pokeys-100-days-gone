@@ -2,6 +2,18 @@
 
 Status: original implementation and Lua adapter checks; engine check pending. Companion 0.2.0. This is **not M3/M4/M5 acceptance**. Physical-owner gaps are in `OWNER_SEAMS.md`.
 
+## Engine observations — 2026-10-18 evening
+
+Migration-only dedicated 184809 / native client 184882, same 42.21.0 build, checksums enabled. Existing native admin account Morgan Observer used solely for isolated debug controls; ordinary-player authority remains adapter-tested, not feature A/B accepted.
+
+- Live owner scheduled world day 1 / 22:00. Bulletin displayed real baseline (e.g. 41.87–45.87 remaining world hours), unresolved direction and all five authored history entries. No invented physical migration.
+- Manual screenshot round trips exceeded the task deadline and server correctly refused expiry. First OCR attempt stopped/cancelled when its third challenge could not be read confidently; no guessed completion. Retained raw screenshots.
+- `scripts/calibration_smoke.py` then read the three displayed channels and clicked the corresponding UI buttons at 6.14 / 10.15 / 14.15 seconds. Lock completed visibly; end-to-end **18.11 seconds including capture/OCR overhead**. Result window 42.69–43.19 hours (half-hour width), versus baseline four-hour width. Repeat Lock left calibrated state and returned interrupted/no active task. No item payout.
+- Existing Tesseract lacked English data. Downloaded only official [tessdata_fast](https://github.com/tesseract-ocr/tessdata_fast) English model into ignored `runtime/tools/tessdata`, not a system install. SHA256 `7d4322bd2a7749724879683fc3912cb542f19906c83bcc1a52132556427170b2`; pinned before reuse. No model payload redistributed. Fixed text-strip enlargement improves OCR; uncertain step/channel fails closed and cancels. This uses screenshots and controller input only, not direct Lua/RPC/memory reads.
+- Client and server clean stops followed; restart persistence is being checked. Save/logs under `runtime/evidence/migration/`; selected images under `docs/evidence/2026-10-18-observer/`. Source abort correction/admin shortcuts were written after first staging; next fresh launch restages them before physical aftermath checks.
+
+47 checks currently pass. Unit coverage and this one-client success do not accept direction, physical horde/leader, optional-interaction A/B, ordinary-player engine adversarial cases, interruption by movement/death or scheduled/active restart gates.
+
 Smallest gap: Horde Nights exposes its real next-start world hour but no optional calibration or faction aftermath. No unrelated minigame framework is justified. Our add-on reads that schedule; it never schedules/spawns another horde or fabricates a warning when the owner is absent. Pre-arrival direction honestly remains unresolved. Baseline arrival interval +/-2 world hours; calibrated +/-15 minutes, shared for the same owner schedule. Disable upstream exact-time indicator in this trial or there is no player-facing advantage.
 
 Right-click world → **Pokeys: observer bulletin**. Authored day-12/43/71/96/100 messages establish Mutual Aid, Observers and Reclaimers; clearly text fiction, not simulated NPC history. Late joiners can read it and the baseline anywhere. Relay task requires the existing house within 4 tiles, ground floor, alive.

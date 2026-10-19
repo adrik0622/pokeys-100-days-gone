@@ -44,6 +44,18 @@ function Panel:createChildren()
     button(535, 535, 140, "Close", function(p)
         p:request("cancel"); p:removeFromUIManager(); instance = nil
     end)
+    local role = self.player:getRole()
+    if role and role:getName() == "admin" then
+        self.debugButtons = {}
+        for i, entry in ipairs({ {"Force real horde", "DebugForceHorde"},
+            {"Complete real horde", "DebugCompleteHorde"}, {"Abort real horde", "DebugAbortHorde"} }) do
+            local command = entry[2]
+            self.debugButtons[i] = button(20 + (i-1)*220, 575, 215, "DEV: " .. entry[1], function(p)
+                -- Existing upstream admin handler remains the authority.
+                sendClientCommand(p.player, "HordeNights", command, {})
+            end)
+        end
+    end
 end
 
 function Panel:prerender()
@@ -54,6 +66,7 @@ function Panel:prerender()
     line("FIELD OBSERVERS - shared bulletin / relay", 16)
     for i, text in ipairs(M.history) do line(text, 30 + i * 22, 0.8, 0.85, 0.9) end
     local s = self.state
+    for _, b in ipairs(self.debugButtons or {}) do b.enable = s and s.available or false end
     if not s or not s.available then
         line("Physical horde owner unavailable: no forecast is simulated.", 172, 1, 0.8, 0.4)
     elseif s.active then
@@ -83,7 +96,7 @@ end
 
 local function open(player)
     if instance then instance:request("cancel"); instance:removeFromUIManager() end
-    instance = Panel:new(80, 100, 700, 585)
+    instance = Panel:new(80, 100, 700, 620)
     instance.player = player
     instance.backgroundColor = { r = 0.05, g = 0.05, b = 0.05, a = 0.97 }
     instance:initialise(); instance:addToUIManager(); instance:request("state")

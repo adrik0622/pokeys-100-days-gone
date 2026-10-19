@@ -59,3 +59,10 @@ This is the durable chronological record. Each significant change or decision re
 - Added a separate loopback-only `dual` vanilla server profile and fixed shared spawn, preserving the earlier vanilla world. Both native clients launched concurrently and authenticated against it; first character entered. Shared-state/restart/exit acceptance is in progress in `M0-04-multi-client.md`.
 - Caught/fixed missed native Ctrl+A at reduced frame rate before using the malformed port. Thirty-four automated checks pass, including owned-vs-unowned PID handling, slot/cache isolation, low-memory launch refusal, server-profile boundaries and held-shortcut release.
 - Resource samples show this experiment consumes substantial RAM beyond Java heap sizes. Monitor available RAM and aggregate GPU usage during world loading; no 4–8-player capacity or sustained-performance claim is made.
+
+## 2026-10-18 — Two clients share movement and inventory state
+
+- Both characters entered the same room. A-only `S` movement was visible from B without moving B; B's separately targeted movement was visible from A. Server `players` listed both distinct usernames.
+- A dropped **ID Card: Alpha Baseline**. Both clients' Ground inventories showed the same named card. B took it; B's inventory then contained Alpha's card plus its own Bravo card, while A's Ground inventory became empty and A's carried weight stayed reduced. Selected screenshots are versioned under `docs/evidence/2026-10-18-dual/`.
+- Closed A through Quit to Desktop / Yes, exit code 0. Server listed only B afterward; B stayed in the same room with both cards and no A character present. Relaunch/reconnect and the two-client server-restart check remain in progress.
+- With both clients in world, a sample showed ~3.3 GiB RAM available, ~5.1–5.2 GiB PSS per client, ~5.2 GiB server PSS, zero process swap, and 10,127 MiB **host aggregate** GPU use. These short samples do not establish safe sustained margins or release capacity.

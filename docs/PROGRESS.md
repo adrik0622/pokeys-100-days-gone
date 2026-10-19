@@ -2,6 +2,11 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Abort is not a migration consequence
+
+- Review caught Horde Nights' abort also setting `CompletionRecorded`. Tightened observer bridge to require an increase in its actual survived counter as well as a new terminal event identity and real births. Added abort regression; no consequence for an aborted/zero-spawn event. Additive observer field establishes a baseline on existing development state, without retroactive damage.
+- 46 checks pass; migration-only engine startup is in progress with 0.2.0 staged before this source correction. Restage/restart before accepting physical aftermath; do not mistake unstaged source edits for running code.
+
 ## 2026-10-18 evening — Presentation dedicated join; firearm packet roadblock
 
 - Dedicated+ordinary client loaded pinned presentation dependencies with deny-new loader policy and checksums; first-person world, native shotgun equip/load and bounded firing input exercised. Full installed presentation payload fingerprints match original pins. Client exited 0; server confirmed no players, then clean shutdown.

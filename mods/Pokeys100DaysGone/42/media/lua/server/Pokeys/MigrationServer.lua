@@ -13,7 +13,8 @@ local function forecast()
     if not HordeSandbox.get("Enabled") then return nil end
     return { id = s.CurrentHordeNightID, active = s.HordeNightActive == true,
         start = HordeManager.nextStartWorldHour(s), direction = s.HordeNightActive and s.HordeDirection or nil,
-        completed = s.CompletionRecorded == true, spawned = s.NightBudgetSpawned or 0 }
+        completed = s.CompletionRecorded == true, spawned = s.NightBudgetSpawned or 0,
+        survived = s.HordeNightsSurvived or 0 }
 end
 
 function Server.init()

@@ -14,12 +14,14 @@ function M.open(d)
     for _ in pairs(d) do empty = false; break end
     if empty then
         d.schema, d.calibratedKey, d.lastEvent = 1, "", -1
-        d.disruptedUntil, d.revision = 0, 0
+        d.disruptedUntil, d.revision, d.lastSurvived = 0, 0, -1
     end
     assert(d.schema == 1 and type(d.calibratedKey) == "string", "Invalid observer schema")
+    if d.lastSurvived == nil then d.lastSurvived = -1 end -- Additive 0.2.0 development migration.
     assert(Campaign.finite(d.lastEvent) and d.lastEvent % 1 == 0 and d.lastEvent >= -1 and
         Campaign.finite(d.disruptedUntil) and d.disruptedUntil >= 0 and
-        Campaign.finite(d.revision) and d.revision >= 0, "Invalid observer state")
+        Campaign.finite(d.revision) and d.revision >= 0 and d.revision % 1 == 0 and
+        Campaign.finite(d.lastSurvived) and d.lastSurvived >= -1, "Invalid observer state")
     return d
 end
 
@@ -77,9 +79,14 @@ end
 -- Poll real owner completion identity, not a parallel event timer. No item reward.
 function M.observe(d, f, hour)
     if not f then return false end
-    if d.lastEvent == -1 then d.lastEvent = f.id; return false end
-    if not f.active and f.completed and f.id > d.lastEvent and f.spawned > 0 then
+    if d.lastEvent == -1 or d.lastSurvived == -1 then
+        d.lastEvent, d.lastSurvived = f.id, f.survived; return false
+    end
+    if not f.active and f.completed and f.id > d.lastEvent then
         d.lastEvent = f.id
+        local success = f.survived > d.lastSurvived and f.spawned > 0
+        d.lastSurvived = f.survived
+        if not success then return false end -- Upstream abort also sets CompletionRecorded.
         d.disruptedUntil = math.max(d.disruptedUntil, hour + 24)
         d.revision = d.revision + 1
         return true

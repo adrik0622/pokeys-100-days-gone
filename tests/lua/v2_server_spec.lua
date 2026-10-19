@@ -103,6 +103,19 @@ Server.credit(deferred)
 assert(store["Pokeys100DaysGone.V2Bridge"].grants[deferred.account].status == "applied")
 assert(effects.standing["account:" .. deferred.account] == 1.5)
 
+-- If standing succeeds but recovery repair fails, an incident latch prevents a second delta.
+local incident = {account="steam:fixture-incident", username="incident", x=7990, y=11756, z=0}
+history[incident.account] = {completed={pokeys_medical_relief_01=true}}
+local repair = Observer.repair
+Observer.repair = function() error("injected recovery-owner failure") end
+Server.credit(incident)
+assert(store["Pokeys100DaysGone.V2Bridge"].grants[incident.account].status == "incident")
+assert(effects.standing["account:" .. incident.account] == 1.5)
+Observer.repair = repair
+Server.credit(incident)
+assert(store["Pokeys100DaysGone.V2Bridge"].grants[incident.account].status == "incident")
+assert(effects.standing["account:" .. incident.account] == 1.5)
+
 -- A partial add followed by notification failure remains pending and never retries blindly.
 local bad = {account="steam:fixture-2", username="fixture2", x=7990, y=11756, z=0}
 for key, fn in pairs({getUsername=function(self) return self.username end,
@@ -127,4 +140,4 @@ Server.command("PokeysV2", "aid", bad, {})
 assert(failed.aidPending and failed.lastAid == previousAid)
 assert(effects.inventory == 2)
 Observer.repair = oldRepair
-print("PASS: V2 server adapter trusts native history, credits once, and fail-closes partial aid delivery")
+print("PASS: V2 server adapter trusts native history, credits once, and fail-closes partial credit/aid delivery")

@@ -1,5 +1,11 @@
 # Progress and significant decisions
 
+## 2026-10-19 — second V3 scene scan and V1 regression confidence
+
+- Rechecked current boss/relic leads against primary pages. Added **ApocalipseBR Regiões** (B42 ≥42.14 / MP-designed, outfit-registered boss API, editable custom zones) to the V3 report and human-review guardian choice. Its region/zombie/PvP controls could support a deliberately authored boss site, but there is no loot/relic/faction-claim bridge and no exact-stack runtime test. Added Nocturnal Reign only as a public GitHub prototype lead (author says B42.19 co-op/dedicated, broad day/night AI plus Zombie Lord; not a verified Workshop release). No V3 code/profile/manifest/collection changes.
+- Continued the independent V1 confidence work without relaunching the known-broken GUI: full `pytest -q` **67 passed, 34 subtests**; Lua 5.1 bridge rules passed; manifest JSON parsed; `scripts/modpack.py validate` accepted 12 catalog items / 14 explicit profiles as valid but not release accepted; integrated profile rendered as a candidate only. Python source compilation passed for `scripts/` and `tests/`. A first compile command referenced a nonexistent `src/` directory; rerun against actual project directories passed.
+- This adds regression confidence, not new gameplay/runtime acceptance. Physical encounter cycles, day-100 joined survival, integrated horde/recovery play, multiplayer ownership races and visible client testing remain open; HR-008 is unchanged. Next useful V1 step remains a joined-client test once a visible window can launch, or safe source/recovery checks meanwhile.
+
 ## 2026-10-19 — V2/V3 mod-scene report and bridge boundary tests
 
 - Added [V2/V3 modpack report](V2_V3_MODPACK_REPORT.md) with Mermaid ownership/player-loop diagrams, actual V1/V2 status, mod roles/dependencies/compatibility/settings, source/runtime evidence boundaries, V2 optional candidates and a read-only V3 boss/relic survey. It explicitly labels companion 0.4 contract/aid source as untested and unstaged; no V3 code or profile was added.

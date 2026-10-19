@@ -10,3 +10,5 @@ Only concrete user-dependent actions belong in the open table. Technical work th
 No Steam login/MFA intervention was needed; collection creation succeeded in the existing session. No new user-dependent blocker is established. Future human playtesting remains distinct from the automated two-client experiment, and is unavailable now.
 
 Technical issues, **not presently user-dependent**: Workshop image upload failed twice with a generic banner; collection text/membership work. Task-shell DNS is restricted, but Steam and the fixed host-side anonymous SteamCMD action worked. Neither issue justifies asking for a password, an API key, broader system permissions, or a duplicate collection.
+
+Current direction: further A/B testing is parked at the user's request. The faction-contact companion passed one-client interaction/restart; no new user action is required. Agent-owned follow-ups include physical encounter/forecast integration and investigating higher native client memory after in-process rejoin. Hard-crash inventory/campaign atomicity and unrun feature multiplayer checks remain explicit limitations, not a request for another tester.

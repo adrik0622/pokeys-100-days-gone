@@ -1,6 +1,6 @@
 # M2-01 — First faction-contact slice
 
-Status 2026-10-18: **implemented, automated checks pass; engine check in progress**. Owner: agent. The user asked to park further A/B testing and implement scoped gameplay. This is an independent companion slice, not acceptance of full M1/M2 or a substitute for physical human encounters.
+Status 2026-10-18: **implemented; one-client engine interaction and clean-restart persistence passed**. Owner: agent. The user asked to park further A/B testing and implement scoped gameplay. This is an independent companion slice, not acceptance of full M1/M2 or a substitute for physical human encounters.
 
 ## Player-facing change
 
@@ -61,4 +61,19 @@ Admins see three DEV buttons: set Mutual Aid to Allied, reset favor cooldown, re
 
 Automated: `python3 -m unittest discover -s tests -v` runs Lua 5.1 syntax and the **actual Lua rules/server adapter** against a small engine boundary. Covers cooldown edges, cross-player retries, inventory filtering/sync, admin rejection, saved-state-shaped reload, unknown schema, partial failure and snapshot isolation. It is not an engine/network/save-to-disk test.
 
-Rollback: stop the campaign fixture; omit Mod ID `Pokeys100DaysGone` and retain its runtime world for diagnosis. No main game files/settings or upstream payload changes to undo. Next: verify the contact in engine, then connect standing/contacts to an inspected physical encounter owner and real forecast owner without waiving M1/M2/M3 gates.
+Rollback: stop the campaign fixture; omit Mod ID `Pokeys100DaysGone` and retain its runtime world for diagnosis. No main game files/settings or upstream payload changes to undo. Next: connect standing/contacts to an inspected physical encounter owner and real forecast owner without waiving M1/M2/M3 gates.
+
+## Engine observations
+
+- Corrected server PID 160906 reached SERVER STARTED and `[PokeysCampaign] loaded schema=1 revision=0`. Native startup backup completed; `unzip -t .../backups/startup/backup_1.zip` passed all entries. No repeat of the first Kahlua/symlink/scanner failures was found in this corrected server log. Vanilla upstream diagnostics remain; not an error-free game startup claim.
+- Client PID 161525 joined as ordinary `pokeys_campaign_a`, character **Faye Green**, at the fixed contact. Lua checksum validation remained enabled. Opened the real context menu/ledger: initial standing 0/25/-50, aid disabled. Attempting donation without gear returned the missing-supplies message, revision still 0.
+- Existing admin console supplied exactly two fixture bandages. Client inventory showed `Bandage (2)`, weight 1.31. Donation consumed both (weight back to 1.11), displayed Allied (+20), revision 2 and enabled assistance. No admin standing override was used.
+- Assistance created one native `Base.Disinfectant`; Build 42 displays **Rubbing Alcohol (Bottle)** (inventory weight 1.81, including native fluid). Server logged one successful aid at revision 4. Favor/aid controls were disabled at 24/48 hours; refresh and clicking the disabled control did not change revision/item ownership. Adversarial server packet retries are covered by Lua adapter tests, not claimed as engine-tested here.
+- Closed the ledger, returned normally to the main menu, and server `players` confirmed zero before `quit`. Server exited 0. Retained full offline world/logs under `runtime/evidence/campaign/before-restart/`.
+- Restarted as PID 166106; loaded **schema=1 revision=4** directly from disk. Rejoined the same Faye Green without character creation. Ledger retained Allied (+20), other standings 25/-50, revision 4 and remaining 24/48 hours (rounded up). Both action buttons stayed disabled; inventory still had one Rubbing Alcohol (Bottle), no bandages and weight 1.81. Player DB retained living row 1 at `(7990.5,11756.5,0)`.
+- `global_mod_data.bin` SHA256 was identical in the before/after offline copies: `53b8661ee42cb29757ae66805e7e27d70f2cf035f4aed22ad30653ad766609f0`. Final evidence is under `runtime/evidence/campaign/after-restart/`; selected screenshots under `docs/evidence/2026-10-18-campaign/`.
+- Final client Quit to Desktop → Yes exited **0**; server confirmed zero players, then quit with **0**, `Shutdown handling finished`, no test listener. No forced termination, second client or user test operator. Final resource sample: 19,909,056 KiB available RAM; no tracked live processes; 1,170 MiB host GPU usage.
+
+Resource caution: one-client early loading had ~9 GiB available RAM, but the same client after in-process rejoin reached **9,283,373 KiB PSS (~8.85 GiB)** despite its 3 GiB Java heap; server ~5.1 GiB PSS and available host RAM ~4.92 GiB. No swap observed. This is higher native/process memory after reload, not attributed to the companion by controlled comparison and not a demonstrated sustained leak. Future desktop runs should start from a fresh process and sample resources. Do not add a second client to this state or claim a memory budget/capacity result. Investigation is agent-owned and does not block independent scoped implementation.
+
+Remaining feature checks: actual A/B broadcast/concurrent requests (parked), native admin-role controls, dirty/favorite/nested-bag engine cases, cooldown expiry over gameplay time, hard-crash recovery and presentation/NPC/horde integration. Lua adapter tests include a synchronization failure **after** item creation and confirm the pending latch prevents a second item, including after reinitialization. This is not an engine crash test.

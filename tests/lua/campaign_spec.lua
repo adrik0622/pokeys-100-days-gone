@@ -72,12 +72,16 @@ local sent, removed, added = {}, 0, 0
 local hour = 100
 local failRemove = false
 local failAdd = false
+local failSync = false
 function isServer() return true end
 ModData = { getOrCreate = function(key) assert(key == C.key); return store end }
 function getGameTime() return { getWorldAgeHours = function() return hour end } end
 function sendServerCommand(...) sent[#sent + 1] = {...} end
 function sendRemoveItemFromContainer() removed = removed + 1 end
-function sendAddItemToContainer() added = added + 1 end
+function sendAddItemToContainer()
+    if failSync then error("injected synchronization failure AFTER item creation") end
+    added = added + 1
+end
 Events = {
     OnInitGlobalModData = { Add = function(f) assert(type(f) == "function") end },
     OnClientCommand = { Add = function(f) assert(type(f) == "function") end },
@@ -159,6 +163,16 @@ a.items = {item("Base.Bandage"),item("Base.Bandage")}
 failRemove = true
 assert(run("donate", a) == "needs_admin_inspection")
 assert(store.standing.mutualAid == 0 and store.blocked)
+store = {}
+S.init()
+failRemove, failAdd, failSync = false, false, true
+b.items = {}
+assert(run("admin", admin, {operation="setStanding", faction="mutualAid", value=20}) == "admin_changed")
+assert(run("aid", b) == "needs_admin_inspection" and #b.items == 1)
+assert(run("aid", b) == "needs_admin_inspection" and #b.items == 1)
+store = copy(store)
+S.init()
+assert(run("aid", a) == "needs_admin_inspection" and #b.items == 1)
 store = {schema=99}
 S.init()
 assert(run("donate", a) == "campaign_unavailable" and store.schema == 99)

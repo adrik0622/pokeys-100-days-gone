@@ -101,8 +101,54 @@
       "metadata_sha256": "6306542000470a2cefdd15ce6ea7c1ede03a6d6d257ec7ceee81ed1a27990c61",
       "payload_sha256": "25481a2c8e789b1adad057351c8d00ce5ee3241313e194ee50d4d910ae22a084",
       "payload_file_count": 263, "payload_bytes": 8805189,
-      "requires": ["ProjectALifeNPCs"], "purpose": "SC-003 isolated A-Life consequence/persistence extension trial",
+      "requires": ["ProjectALifeNPCs"], "purpose": "SC-004 selected A-Life consequence/persistence extension; narrow contact/restart observed",
       "evidence": "Original Steam payload downloaded; requires/loads after A-Life, runtime trial pending, not accepted or in collection"
+    },
+    {
+      "workshop_id": "3694097672", "mod_id": "TooltipLib", "version": "1.7.0",
+      "metadata_path": "mods/TooltipLib/42/mod.info",
+      "metadata_sha256": "01140b0b12d216ccfb731c23b572a486cc99e4a30bbe3f4245baee5f56d503c2",
+      "payload_sha256": "98bee16dfb7559dbc4197faee9d46614855d6060e7c1f5aba115508ae99110a2",
+      "payload_file_count": 21, "payload_bytes": 419561, "requires": [],
+      "purpose": "Required tooltip dependency for Belt Radio / Military Drop trial",
+      "evidence": "Original subscribed payload inspected/pinned; not collection or gameplay acceptance"
+    },
+    {
+      "workshop_id": "3817018338", "mod_id": "batman_BeltRadio", "version": "1.2.0",
+      "metadata_path": "mods/batman_BeltRadio/42.21/mod.info",
+      "metadata_sha256": "c40a7bc025002d50da9a9b322499976ac4ccf10580b029c4305d7fc0bf0a16fb",
+      "payload_sha256": "544e2aa722982cf37142130022e36611603f6677ccaf35ea185c71699c4f52a8",
+      "payload_file_count": 40, "payload_bytes": 104945, "requires": ["TooltipLib"],
+      "purpose": "Required Military Drop dependency; receive-only belt radios, noise and power choices",
+      "evidence": "Original subscribed 42.21 payload inspected/pinned; not collection or gameplay acceptance"
+    },
+    {
+      "workshop_id": "3811752923", "mod_id": "batman_MilitaryDrop", "version": "0.5.4",
+      "metadata_path": "mods/batman_MilitaryDrop/42.21/mod.info",
+      "metadata_sha256": "fd58889c2a778cfb7d3d157c8c6eb8db037d5213e09ac020a09932c301d3c049",
+      "payload_sha256": "3671d26e41f9b1e72b017b3ae2e343fd88ec6330e67759c4e95eeae821d186ff",
+      "payload_file_count": 187, "payload_bytes": 11091260, "requires": ["batman_BeltRadio"],
+      "purpose": "V2 supply request / personal Army trust / contested recovery candidate; one drop owner",
+      "evidence": "Server radio/code/cooldown/trust validation and first-case attribution inspected; isolated runtime pending. Signal Smoke optional in actual metadata"
+    },
+    {
+      "workshop_id": "3640172314", "mod_id": "TheMission42", "version": null,
+      "version_note": "No numeric modversion; Build 42.20.4 author target is not 42.21 certification",
+      "metadata_path": "mods/TheMission/42/mod.info",
+      "metadata_sha256": "62f313653de23f63767818693fa2e10f6e3d51c0854fea6ef0812c1c886f8b82",
+      "payload_sha256": "00988d2c21f145eacec76c4398c61aaf98f29ce2bf114e6e3891515e3b3d322e",
+      "payload_file_count": 28, "payload_bytes": 1193986, "requires": [],
+      "purpose": "V2 optional contract UI/authoring candidate, not a faction simulation",
+      "evidence": "Server rewards and gather consumption inspected; walk progress accepts client snapshots, NPC-kill filtering absent. Trial separates these risks"
+    },
+    {
+      "workshop_id": "3778522347", "mod_id": "RandomZeds", "version": "1.4.3",
+      "metadata_path": "mods/RandomZeds/common/mod.info",
+      "metadata_sha256": "88258e2d8cbb2c07ac6b9fb8e199bf860f45f7f5b0be3d368d0f6c2aeb406f77",
+      "payload_sha256": "d727bf3591b06dda27703d7875bc05d87eeda1d344262e2f283cb7b25aaf6480",
+      "payload_file_count": 91, "payload_bytes": 383543, "requires": [],
+      "purpose": "V2 day/night/weather zombie variety candidate, no extra Java framework",
+      "evidence": "Subscribed/source inspected only; does not itself detect ProjectALifeUID. Requires NPC exclusion integration before combined enabling"
     }
   ],
   "local_items": [

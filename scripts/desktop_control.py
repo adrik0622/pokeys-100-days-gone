@@ -38,6 +38,16 @@ ALIFE_TRIALS = {
     "alife": [("3803984183", "ProjectALifeNPCs")],
     "alife-jeem": [("3803984183", "ProjectALifeNPCs"), ("3806944055", "ProjectALifeJimmy")],
 }
+# Explicit V2 fixtures; folder and Mod ID differ for The Mission. No arbitrary
+# Workshop loader, console or promotion of every subscribed mod.
+V2_TRIALS = {
+    "supply-trial": {"port": 19790, "items": [
+        ("3694097672", "TooltipLib"), ("3817018338", "batman_BeltRadio"),
+        ("3811752923", "batman_MilitaryDrop")],
+        "mods": ["TooltipLib", "batman_BeltRadio", "batman_MilitaryDrop"]},
+    "mission-trial": {"port": 19780, "items": [("3640172314", "TheMission")],
+                      "mods": ["TheMission42"]},
+}
 
 
 def stage_upstream(cache, items):
@@ -132,7 +142,7 @@ def stage_campaign(cache):
 
 def prepare_profile(profile, client="main"):
     client_name(client)
-    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100", "integrated", *ALIFE_TRIALS}:
+    if profile not in {"vanilla", "viewpoint", "campaign", "presentation", "migration", "encounter", "day100", "integrated", *ALIFE_TRIALS, *V2_TRIALS}:
         raise ValueError("Unknown isolated client profile")
     suffix = "" if client == "main" else f"-{client}"
     cache = ROOT / "runtime" / f"client-{profile}{suffix}"
@@ -168,6 +178,9 @@ def prepare_profile(profile, client="main"):
     if profile in ALIFE_TRIALS:
         stage_upstream(cache, ALIFE_TRIALS[profile])
         mod_ids = [name for _, name in ALIFE_TRIALS[profile]]
+    if profile in V2_TRIALS:
+        stage_upstream(cache, V2_TRIALS[profile]["items"])
+        mod_ids = V2_TRIALS[profile]["mods"]
     if profile == "viewpoint":
         workshop = GAME.parents[2] / "workshop" / "content" / "108600"
         for workshop_id, name in [("3619862853", "ZombieBuddy"), ("3809306528", "Viewpoint"),
@@ -209,7 +222,7 @@ class Desktop:
         return dict({"main": self.game} if self.game is not None else {}, **self.clients)
 
     def launch_server(self, profile="vanilla"):
-        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100", "integrated", *ALIFE_TRIALS}:
+        if profile not in {"vanilla", "dual", "campaign", "presentation", "migration", "encounter", "day100", "integrated", *ALIFE_TRIALS, *V2_TRIALS}:
             raise ValueError("Unknown isolated server profile")
         if getattr(self, "server", None) and self.server.poll() is None:
             raise RuntimeError("The disposable server is already running")
@@ -218,7 +231,8 @@ class Desktop:
         name = f"pokeys-m0-{profile}"
         port = {"vanilla": 19860, "dual": 19870, "campaign": 19880, "presentation": 19890,
                 "migration": 19850, "encounter": 19840, "day100": 19830, "integrated": 19820,
-                "alife": 19810, "alife-jeem": 19800}[profile]
+                "alife": 19810, "alife-jeem": 19800,
+                **{k: v["port"] for k, v in V2_TRIALS.items()}}[profile]
         config = cache / "Server" / f"{name}.ini"
         config.parent.mkdir(parents=True, exist_ok=True)
         if not config.exists():
@@ -234,7 +248,7 @@ class Desktop:
             shutil.copy2(ROOT / "config/server/day100_SandboxVars.lua", sandbox)
         if profile == "integrated" and not sandbox.exists():
             shutil.copy2(ROOT / "config/server/integrated_SandboxVars.lua", sandbox)
-        if profile in ALIFE_TRIALS and not sandbox.exists():
+        if profile in {*ALIFE_TRIALS, *V2_TRIALS} and not sandbox.exists():
             shutil.copy2(ROOT / f"config/server/{profile}_SandboxVars.lua", sandbox)
         if profile in {"campaign", "presentation", "migration", "encounter", "day100", "integrated"}:
             stage_campaign(cache)
@@ -248,6 +262,8 @@ class Desktop:
             stage_upstream(cache, PRESENTATION + [("3268487204", "Bandits"), ("3782615002", "HordeNights")])
         if profile in ALIFE_TRIALS:
             stage_upstream(cache, ALIFE_TRIALS[profile])
+        if profile in V2_TRIALS:
+            stage_upstream(cache, V2_TRIALS[profile]["items"])
         credentials = cache / "admin-password.txt"
         if not credentials.exists():
             credentials.write_text(secrets.token_urlsafe(24) + "\n")
@@ -518,7 +534,19 @@ class Desktop:
                     "profile": self.server_profile,
                     "exit_code": server.poll() if server else None,
                     "udp_listeners": [line for line in run("ss", "-H", "-l", "-u", "-n").splitlines()
-                                      if re.search(r":198[0123456789][01]\s", line)]}
+                                      if re.search(r":19[78][0-9][01]\s", line)]}
+        if action == "server_v2_supplies":
+            server = getattr(self, "server", None)
+            targets = {"supply-trial": ("pokeys_supply_a", [("Base.WalkieTalkie5", 1), ("Base.Battery", 1)]),
+                       "mission-trial": ("pokeys_mission_a", [("Base.Bandage", 2)])}
+            if self.server_profile not in targets or not server or server.poll() is not None:
+                raise RuntimeError("V2 supplies require the running isolated supply/mission fixture")
+            username, items = targets[self.server_profile]
+            commands = [f"additem {username} {item} {count}" for item, count in items]
+            for command in commands:
+                server.stdin.write(command + "\n")
+            server.stdin.flush()
+            return {"sent": commands, "note": "Fixed finite native-command fixture; verify UI, no release supply policy"}
         if action == "server_campaign_supplies":
             server = getattr(self, "server", None)
             targets = {"campaign": "pokeys_campaign_a", "migration": "pokeysadmin",

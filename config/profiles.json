@@ -39,5 +39,13 @@
   "day100": {
     "workshop_ids": [], "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "Companion-only survival calendar candidate; horde disabled fail-safe, eight-slot setting NOT capacity proof"
+  },
+  "supply-trial": {
+    "workshop_ids": ["3694097672", "3817018338", "3811752923"],
+    "purpose": "V2 isolated Military Drop radio/requisition/trust trial; zero zombie births, no NPC/horde owner or Java agent"
+  },
+  "mission-trial": {
+    "workshop_ids": ["3640172314"],
+    "purpose": "V2 isolated The Mission gather contract/reward persistence; walking/kill rewards disabled, no NPC/horde/presentation"
   }
 }

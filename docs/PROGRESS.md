@@ -1,5 +1,11 @@
 # Progress and significant decisions
 
+## 2026-10-18 night — V2 supply/contract dependencies pinned; isolated fixtures ready
+
+- Subscribed original Military Drop 0.5.4, Belt Radio 1.2.0, TooltipLib 1.7.0, The Mission (no numeric modversion) and Random Zeds 1.4.3 individually through the owned Steam UI. Full payload fingerprints recorded; no collection promotion or enabled catch-all stack. Actual Military metadata requires Belt → Tooltip; Signal Smoke optional and omitted.
+- Source inspected authoritative radio/trust/drop attribution. Chose Military as requested-drop candidate, not a second Horde Nights drop system. Personal Army trust is separate from Jeem NPC-faction standing. First fixture has zero zombie births, no crashes/decoys/explosives, finite radio supply, ordinary account and explicit test-only frequency/auth/range.
+- Pinned The Mission's client walking-progress and missing NPC-kill filter risks; gather-only trial. Random Zeds needs A-Life shell exclusion before combination; no Synapse. Two new separate loopback fixtures and finite native supply actions have boundary tests. See V2-02; runtime not yet accepted.
+
 This is the durable dated progress record. New sweep entries appear first; the earlier baseline record remains below. Each significant change/decision receives an entry and local Git commit. Detailed test cards remain in milestone documents; raw runtime data remains ignored under `runtime/`.
 
 ## 2026-10-18 — SC-004: A-Life/Jeem selected; unattended v2 sweep

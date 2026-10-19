@@ -2,6 +2,12 @@
 
 This is the durable chronological record. Each significant change or decision receives a dated entry and a local Git commit. Detailed test cards remain in their milestone documents; raw runtime data remains ignored under `runtime/`.
 
+## 2026-10-18 evening — Presentation dedicated join; firearm packet roadblock
+
+- Dedicated+ordinary client loaded pinned presentation dependencies with deny-new loader policy and checksums; first-person world, native shotgun equip/load and bounded firing input exercised. Full installed presentation payload fingerprints match original pins. Client exited 0; server confirmed no players, then clean shutdown.
+- Found real server `PlayerHitSquare` inconsistency warnings for shotgun shots. Preserved raw logs and selected screenshots; M1 damage/collision/recoil/client agreement remain **unaccepted**. Cause not assigned or hidden by adding another firearm owner. Next narrow diagnostic documented in `M1-01-presentation.md`.
+- Added one bounded aim/shot action with focus check/button release regression test. 46 checks pass. Continue independent small horde/calibration fixture; vanilla A/B remains parked.
+
 ## 2026-10-18 evening — Day-100 candidate and original development packaging
 
 - Added distinct survival candidate: October 17 (100 days after July 9), native month-granular three-month spoilage/erosion and existing authored faction prehistory. It is not an exact historical simulation or deployed/tuned preset. Physical horde remains fail-safe disabled in this candidate until known director gaps pass; four-zombie integration fixture stays separate.

@@ -14,6 +14,15 @@ SPEC.loader.exec_module(control)
 
 
 class DesktopControlTests(unittest.TestCase):
+    def test_aim_shot_checks_focus_and_releases_both_buttons_on_failure(self):
+        desktop = control.Desktop()
+        with patch.object(desktop, "window", return_value=42), patch.object(control.time, "sleep"), \
+             patch.object(control, "run", side_effect=["", "99", "", ""]) as run:
+            with self.assertRaisesRegex(RuntimeError, "Focus changed"):
+                desktop.dispatch({"action": "aim_shot"})
+            self.assertEqual(run.call_args_list[-2].args, ("xdotool", "mouseup", 1))
+            self.assertEqual(run.call_args_list[-1].args, ("xdotool", "mouseup", 3))
+
     def test_migration_fixture_uses_only_selected_horde_and_local_companion(self):
         with tempfile.TemporaryDirectory() as directory, patch.object(control, "ROOT", Path(directory)), \
              patch.object(control, "stage_campaign"), patch.object(control, "stage_upstream") as stage, \

@@ -619,6 +619,18 @@ class Desktop:
             dx = int(number(request.get("dx"), -1500, 1500))
             dy = int(number(request.get("dy"), -1000, 1000))
             run("xdotool", "mousemove_relative", "--", dx, dy)
+        elif action == "aim_shot" and scope == "game":
+            # One bounded shot at the current game camera direction. No cursor warp.
+            try:
+                run("xdotool", "mousedown", 3)
+                time.sleep(0.6)
+                if int(run("xdotool", "getactivewindow")) != window:
+                    raise RuntimeError("Focus changed before shot")
+                run("xdotool", "mousedown", 1)
+                time.sleep(0.12)
+            finally:
+                run("xdotool", "mouseup", 1)
+                run("xdotool", "mouseup", 3)
         elif action == "text":
             text = request.get("text")
             if scope == "workshop":

@@ -1,0 +1,11 @@
+# M1-01 — first presentation-modded dedicated seam
+
+Observed 2026-10-18 evening, native Linux client 176591 / dedicated 176418. Separate `presentation` caches, loopback 19890, Steam disabled, Lua checksums enabled. ZombieBuddy 2.3.4, Viewpoint 0.1.6.1, model pack 1.0 and previously verified companion 0.1.0 staged before 0.2.0 development began. No NPC/alternative firearm owner.
+
+Passed narrow observations: server starts with deny-new loader policy; real staged directories allow native backup; ordinary `pokeys_presentation_a` / Victor Presentation authenticates, creates a character and enters the house. Viewpoint Low/Potato + Vanilla shader onboarding finishes; first-person rendering and camera input work. Native JS-2000 Shotgun and twenty 12g rounds supplied through fixed test action; five loaded and weapon equipped. Bounded aim/fire requests display the gun and reduce carried ammo weight.
+
+**M1 combat NOT accepted:** server records `The packet PlayerHitSquare is not consistent` for firearm input (shot IDs and tracer positions retained in raw log). Local rendering/ammo consumption does not prove authoritative collision/damage. Cause is unassigned: Viewpoint integration, native protocol behavior and fixture/camera conditions have not been isolated. Do not add ballistics/recoil/weapon packs to mask this seam. Next narrow diagnostic: fresh single-client native unmodded shotgun test with same weapon/build, compare packet validation; then inspect the exact Viewpoint/native hit-square construction path. This is not a request to replay parked vanilla A/B tests.
+
+No zombie, human NPC or player was shot. Obstruction, target damage, recoil quality and client agreement remain unrun. A/B and remote/Steam tests remain parked/unverified. Manual camera/cursor toggling complicates UI automation; do not infer a failed simulation from an absolute click moving a locked camera.
+
+Client Quit to Desktop / Yes exited 0; server confirmed zero players and cleanly quit. Raw logs: `runtime/evidence/presentation/{client,server}-first-session.log`. Selected images in `docs/evidence/2026-10-18-presentation/`. Sample late in session: client ~8.27 GiB PSS, server ~4.87 GiB, available RAM ~5.91 GiB, no swap. No second rendered client launched and no capacity claim.

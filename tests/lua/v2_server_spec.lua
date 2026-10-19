@@ -29,12 +29,14 @@ ModData = {
 }
 
 local effects = {standing={}, repairs=0, inventory=0}
+local reenterCredit
 ProjectALifeJimmy = {enabled=function(name) return name == "standing" end,
     playerKey=function(player) return "account:" .. player.account end,
     Standing={rate=function() return 1.5 end, add=function(key, faction, delta, deed)
         assert(faction == "alife_county_ems" and deed.kind == "pokeys_medical_relief")
         local before = effects.standing[key] or 0
         effects.standing[key] = before + delta
+        if reenterCredit then reenterCredit() end
         return before, effects.standing[key]
     end},
     StandingService={labelFor=function() return "friendly" end,
@@ -90,11 +92,50 @@ assert(store["Pokeys100DaysGone.V2Bridge"].grants[player.account].status == "app
 Server.credit(player)
 assert(effects.standing["account:" .. player.account] == 1.5 and effects.repairs == 1)
 
+-- A nested same-account completion during the side effect sees the durable pending reservation.
+local contended = {account="steam:fixture-contended", username="contended", x=7990, y=11756, z=0}
+function contended:getUsername() return self.username end
+function contended:getX() return self.x end
+function contended:getY() return self.y end
+function contended:getZ() return self.z end
+function contended:isDead() return false end
+history[contended.account] = {completed={pokeys_medical_relief_01=true}}
+reenterCredit = function() Server.credit(contended) end
+Server.credit(contended)
+reenterCredit = nil
+assert(store["Pokeys100DaysGone.V2Bridge"].grants[contended.account].status == "applied")
+assert(effects.standing["account:" .. contended.account] == 1.5)
+
 -- Successful aid adds one item and installs the shared cooldown; repeats do not add.
 assert(command("aid", {item="Base.Axe", count=999, account="steam:other"}).code == "aid_received")
-assert(effects.inventory == 1 and effects.standing["account:" .. player.account] == 1.5 and effects.repairs == 1)
+assert(effects.inventory == 1 and effects.standing["account:" .. player.account] == 1.5 and effects.repairs == 2)
 assert(command("aid").code == "shared_aid_cooldown")
 assert(effects.inventory == 1)
+
+-- A different account cannot enter the shared aid path while an earlier item effect is in flight.
+local raceOwner = {account="steam:fixture-race-owner", username="race-owner", x=7990, y=11756, z=0}
+local raceCaller = {account="steam:fixture-race-caller", username="race-caller", x=7990, y=11756, z=0}
+for _, p in ipairs({raceOwner, raceCaller}) do
+    function p:getUsername() return self.username end
+    function p:getX() return self.x end
+    function p:getY() return self.y end
+    function p:getZ() return self.z end
+    function p:isDead() return false end
+    history[p.account] = {completed={pokeys_medical_relief_01=true}}
+    Server.credit(p)
+end
+local raceAdds = 0
+function raceOwner:getInventory() return {AddItem=function(_, fullType)
+    effects.inventory = effects.inventory + 1
+    raceAdds = raceAdds + 1
+    Server.command("PokeysV2", "aid", raceCaller, {})
+    return {fullType=fullType}
+end} end
+worldHour = 200
+now = now + 600
+Server.command("PokeysV2", "aid", raceOwner, {})
+assert(raceAdds == 1 and effects.inventory == 2)
+assert(sent[#sent-1][4].code == "inspection_required" and sent[#sent][4].code == "aid_received")
 
 -- A different completed account shares the relay's world-wide aid cooldown.
 local second = {account="steam:fixture-second", username="second", x=7990, y=11756, z=0}
@@ -111,7 +152,7 @@ history[second.account] = {completed={pokeys_medical_relief_01=true}}
 Server.credit(second)
 now = now + 600
 Server.command("PokeysV2", "aid", second, {})
-assert(sent[#sent][4].code == "shared_aid_cooldown" and effects.inventory == 1)
+assert(sent[#sent][4].code == "shared_aid_cooldown" and effects.inventory == 2)
 
 -- Native completion waits for Jeem; it does not invent or mirror a standing balance.
 local jeem = ProjectALifeJimmy
@@ -150,19 +191,19 @@ function bad:getInventory() return {AddItem=function(_, fullType)
 end} end
 history[bad.account] = {completed={pokeys_medical_relief_01=true}}
 Server.credit(bad)
-worldHour = 60 -- shared cooldown has elapsed for this separate injected-failure case
+worldHour = 260 -- shared cooldown has elapsed for this separate injected-failure case
 failContainerSync = true
 now = now + 600
 Server.command("PokeysV2", "aid", bad, {})
 local failed = store["Pokeys100DaysGone.V2Bridge"]
 local previousAid = failed.lastAid
-assert(failed.aidPending and previousAid == 10)
-assert(effects.inventory == 2) -- one server-side item exists before notification fails
+assert(failed.aidPending and previousAid == 200)
+assert(effects.inventory == 3) -- one server-side item exists before notification fails
 callbacks.OnInitGlobalModData()
 now = now + 600
 Server.command("PokeysV2", "aid", bad, {})
 assert(failed.aidPending and failed.lastAid == previousAid)
-assert(effects.inventory == 2)
+assert(effects.inventory == 3)
 
 -- An invalid authenticated name is ignored instead of indexing the volatile throttle table with nil.
 local unnamed = {getUsername=function() return nil end}
@@ -188,7 +229,7 @@ callbacks.OnInitGlobalModData()
 local sentBeforeDisabled = #sent
 Server.start()
 Server.command("PokeysV2", "state", player, {})
-assert(#sent == sentBeforeDisabled and effects.inventory == 2)
+assert(#sent == sentBeforeDisabled and effects.inventory == 3)
 assert(#TM42.CustomMissionDefs == registered)
 
 SandboxVars.PokeysV2.Enabled = true
@@ -201,5 +242,5 @@ assert(sent[#sent][4].state.available == false)
 assert(store["Pokeys100DaysGone.V2Bridge"] == malformed)
 now = now + 600
 Server.command("PokeysV2", "aid", player, {})
-assert(effects.inventory == 2 and store["Pokeys100DaysGone.V2Bridge"] == malformed)
+assert(effects.inventory == 3 and store["Pokeys100DaysGone.V2Bridge"] == malformed)
 print("PASS: V2 server adapter trusts native history, credits once, and fail-closes partial credit/aid delivery")

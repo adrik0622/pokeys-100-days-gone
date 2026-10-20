@@ -54,6 +54,11 @@ V2_TRIALS = {
         ("3640172314", "TheMission")],
         "mods": ["ProjectALifeNPCs", "ProjectALifeJimmy", "TheMission42", "Pokeys100DaysGone"],
         "project_mod": True, "alife_owner": True},
+    "faction-ownership-trial": {"port": 19750, "items": [
+        ("3803984183", "ProjectALifeNPCs"), ("3806944055", "ProjectALifeJimmy"),
+        ("3640172314", "TheMission")],
+        "mods": ["ProjectALifeNPCs", "ProjectALifeJimmy", "TheMission42", "Pokeys100DaysGone"],
+        "project_mod": True, "alife_owner": True},
 }
 
 
@@ -555,9 +560,15 @@ class Desktop:
                        "mission-trial": ("pokeys_mission_a", [("Base.Bandage", 2)]),
                        "contract-trial": ("pokeys_contract_a", [("Base.Bandage", 2)]),
                        "faction-contract-trial": ("pokeys_faction_contract_a", [("Base.Bandage", 2)])}
-            if self.server_profile not in targets or not server or server.poll() is not None:
+            ownership = self.server_profile == "faction-ownership-trial"
+            if (self.server_profile not in targets and not ownership) or not server or server.poll() is not None:
                 raise RuntimeError("V2 supplies require the running isolated supply/mission fixture")
-            username, items = targets[self.server_profile]
+            if ownership:
+                if client not in {"a", "b"}:
+                    raise ValueError("Ownership supplies require the explicit a or b fixture account")
+                username, items = f"pokeys_ownership_{client}", [("Base.Bandage", 2)]
+            else:
+                username, items = targets[self.server_profile]
             commands = [f"additem {username} {item} {count}" for item, count in items]
             for command in commands:
                 server.stdin.write(command + "\n")

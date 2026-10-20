@@ -62,5 +62,10 @@
       "Pokeys100DaysGone"
     ],
     "purpose": "V2 isolated A-Life + Jeem + custom Mission credit test; no Military Drop, horde, Bandits or presentation"
+  },
+  "faction-ownership-trial": {
+    "workshop_ids": ["3803984183", "3806944055", "3640172314"],
+    "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "Fresh V2 two-account contract/Jeem/shared-aid ownership fixture; no ambient zombies, competing NPC/horde/drop owner or presentation; not release accepted"
   }
 }

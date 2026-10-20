@@ -1,5 +1,12 @@
 # Progress and significant decisions
 
+## 2026-10-19 — Fresh V2 two-account ownership fixture prepared
+
+- User requested completing remaining V2 work before moving to V3. Reviewed the roadmap and preserved the V1 foundation, selected A-Life/Jeem direction and SC-005 experience rule. V3/stretches remain unimplemented while V2 acceptance is open.
+- Added `faction-ownership-trial` on loopback 19750/19751 with A-Life + Jeem + The Mission + original companion only, a fresh safe world and two ordinary account targets. This preserves the previously successful one-account fixture. Ambient zombies, competing owners and presentation are absent deliberately; no release survival setting or capacity claim follows.
+- Extended only the fixed test-supply boundary for named A/B accounts and added regression checks for arbitrary argument rejection, world/slot scoping, checksum and owner composition. [V2-03 runtime card](V2-03-ownership.md) specifies independent completions, shared aid exclusion, reconnect/restart and graceful shutdown. Keep memory growth guards intact and inspect a single rendered client before adding the second.
+- Verification: all **70 Python project checks pass**, including companion Lua 5.1 syntax/rule harnesses; manifest/profile rendering validates 12 catalog inputs / 15 explicit profiles. Full payload fingerprints for the three selected upstream inputs match their existing pins. Whitespace check passes. Runtime acceptance is pending; this commit prepares the controlled test and does not claim two-client behavior. Next: run the card if desktop launch and resource headroom permit.
+
 ## 2026-10-19 — Player-experience philosophy and travel/social stretch ideas
 
 - User proposed faction road tolls, non-instant-kill road traps, road ambushes and an in-game casino, with explicit emphasis on a positive experience, continuous foreshadowing and connections to faction/world consequences. Recorded the clarification as SC-005 and expanded the living-world philosophy: advance cues before commitment, usable responses/recovery, pressure balanced with opportunity and social relief, and contextual consequences rather than routine difficulty taxes.

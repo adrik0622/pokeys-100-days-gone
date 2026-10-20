@@ -71,5 +71,37 @@ class V2TrialTests(unittest.TestCase):
             d.dispatch({"action": "test_alife_contact_approach", "scope": "game"})
             self.assertIn("/teleportto 7995,11756,0", run.call_args.args)
 
+    def test_ownership_supplies_are_fixed_per_named_account_and_world(self):
+        d = control.Desktop(); d.server = Mock(); d.server.poll.return_value = None
+        d.server_profile = "faction-ownership-trial"
+        for client in ("a", "b"):
+            with self.subTest(client=client):
+                d.server.stdin.write.reset_mock()
+                d.dispatch({"action": "server_v2_supplies", "client": client,
+                            "username": "unrelated", "count": 999, "item": "Base.Shotgun"})
+                d.server.stdin.write.assert_called_once_with(
+                    f"additem pokeys_ownership_{client} Base.Bandage 2\n")
+        with self.assertRaises(ValueError):
+            d.dispatch({"action": "server_v2_supplies"})
+        d.server.poll.return_value = 0
+        with self.assertRaises(RuntimeError):
+            d.dispatch({"action": "server_v2_supplies", "client": "a"})
+        d.server.poll.return_value = None
+        d.server_profile = "vanilla"
+        with self.assertRaises(RuntimeError):
+            d.dispatch({"action": "server_v2_supplies", "client": "b"})
+
+    def test_ownership_fixture_preserves_checksum_and_single_npc_owner(self):
+        root = Path(__file__).resolve().parents[1]
+        ini = (root / "config/server/faction-ownership-trial.ini").read_text()
+        sandbox = (root / "config/server/faction-ownership-trial_SandboxVars.lua").read_text()
+        self.assertIn("DoLuaChecksum=true", ini)
+        self.assertIn("DefaultPort=19750", ini)
+        self.assertIn("Mods=ProjectALifeNPCs;ProjectALifeJimmy;TheMission42;Pokeys100DaysGone", ini)
+        self.assertNotIn("Bandits", ini)
+        self.assertNotIn("HordeNights", ini)
+        self.assertIn("PopulationMultiplier = 0.0", sandbox)
+        self.assertIn("EnableMissionReset = false", sandbox)
+
 
 if __name__ == "__main__": unittest.main()

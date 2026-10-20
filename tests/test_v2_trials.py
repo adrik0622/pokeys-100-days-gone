@@ -110,6 +110,7 @@ class V2TrialTests(unittest.TestCase):
     def test_recovery_horde_approach_and_single_birth_settings_are_scoped(self):
         root = Path(__file__).resolve().parents[1]
         sandbox = (root / "config/server/faction-recovery-trial_SandboxVars.lua").read_text()
+        self.assertIn("Zombies = 5", sandbox)  # Birth-capable engine; ambient multipliers stay zero.
         self.assertIn("BaseZombiesPerPlayer = 1", sandbox)
         self.assertIn("ActiveHordeCap = 1", sandbox)
         self.assertIn("SupplyDropsEnabled = false", sandbox)

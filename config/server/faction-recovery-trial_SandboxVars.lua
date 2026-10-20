@@ -1,7 +1,7 @@
 -- One debug horde birth away from the relay; no other ambient/physical pressure.
 -- This is a component/recovery fixture, not a fought horde or production budget.
 SandboxVars = {
-    VERSION = 6, Zombies = 6, ZombieRespawn = 4,
+    VERSION = 6, Zombies = 5, ZombieRespawn = 4,
     SurvivorHouseChance = 1, VehicleStoryChance = 1, ZoneStoryChance = 1,
     ZombieConfig = {
         PopulationMultiplier = 0.0, PopulationStartMultiplier = 0.0,

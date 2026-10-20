@@ -1,5 +1,9 @@
 # Progress and significant decisions
 
+## 2026-10-19 — V2 recovery fixture setup correction
+
+- During the pre-join review, matched the recovery world's engine Zombies enum to the earlier successful migration fixture (5), retaining zero ambient population/respawn. Networking-only enum 6 was unsuitable as an assumption for the explicit-birth test. Stopped the initial zero-player server cleanly before updating its cached sandbox value; no character, forced event, spawn failure or gameplay result existed yet. Preserved startup logs/world and did not reset a saved player or prior fixture. The regression check now guards the intended birth-capable/zero-ambient distinction.
+
 ## 2026-10-19 — V2 recovery availability fix and bounded aftermath integration prepared
 
 - Advanced companion source to **0.4.1**. Source inspection found the bridge could treat an unavailable observer ledger as an undisrupted relay and report a recovery repair when nothing changed. It now defers credit before side effects when recovery is unavailable, explicitly refuses aid without clearing saved data, reports bridge failures instead of silently dropping aid requests, and distinguishes a real repair from a healthy no-op. Ambiguous grants still stay locked; no HR-010 reconciliation policy was invented.

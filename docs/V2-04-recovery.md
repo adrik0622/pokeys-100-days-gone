@@ -2,6 +2,8 @@
 
 Prepared 2026-10-19. Companion 0.4.1 and `faction-recovery-trial`, loopback 19740/19741, separate cache/world. Horde Nights is the sole horde owner; A-Life the sole NPC owner, with Jeem and The Mission. All drops, Bandits, Random Zeds and presentation/Java agents are absent. No retained world is modified. Runtime evidence remains pending until recorded below.
 
+The engine Zombies enum is 5, matching the earlier working migration fixture; ambient population/respawn multipliers stay zero. The initial networking-only enum 6 was corrected before any character joined or event was forced, to keep explicit Horde Nights births testable. No spawn failure is claimed from that setup review.
+
 ## Source improvement
 
 The relay now reports remaining world hours of recovery and a server-computed assistance reason before a player requests aid. It explains the two-Bandage cost, one wipes reward, once-per-account introduction and shared aid cooldown. Keeping supplies remains a valid choice. An already pending/incident credit asks for inspection, not another delivery.

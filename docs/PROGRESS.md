@@ -1,5 +1,12 @@
 # Progress and significant decisions
 
+## 2026-10-19 — Player-experience philosophy and travel/social stretch ideas
+
+- User proposed faction road tolls, non-instant-kill road traps, road ambushes and an in-game casino, with explicit emphasis on a positive experience, continuous foreshadowing and connections to faction/world consequences. Recorded the clarification as SC-005 and expanded the living-world philosophy: advance cues before commitment, usable responses/recovery, pressure balanced with opportunity and social relief, and contextual consequences rather than routine difficulty taxes.
+- Added [STRETCH_IDEAS](STRETCH_IDEAS.md) with one entry per idea: player benefit, warning examples, potential faction/contract/route connections and a smallest future trial. Included an illustrative connected expedition without requiring every idea on each trip. Trial details are proposals; no existing-mod/API/build compatibility or engine acceptance is claimed. Road trap fairness includes indirect collision/follow-up danger, and road cues must be readable with vehicles, Viewpoint and poor visibility.
+- Linked the philosophy/idea bank from README, status and continuation instructions. Added only deferred HR-012 for casino games, stakes and reward role; no immediate human intervention is needed. No release assignment, new V1/V2 gate, V3 implementation, gameplay code, mod/profile/Workshop change or game launch occurred. Original brief and existing evidence remain intact.
+- Verification: reviewed the documentation diff and checked local Markdown file links and whitespace. Gameplay tests were not rerun for this documentation-only change. Next: continue the documented V2 ownership/contract work; promote a stretch idea separately before researching or implementing it.
+
 ## 2026-10-19 — GitHub synchronization restored; A-006 resolved
 
 - The user enabled unrestricted execution and shell network access, then requested another push. DNS and ordinary SSH now work. The earlier network-socket denial was specific to the restricted execution environment; no sudo, host configuration change, SSH override or credential change was needed.

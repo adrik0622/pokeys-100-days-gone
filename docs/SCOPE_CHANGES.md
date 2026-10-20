@@ -2,6 +2,16 @@
 
 The original [PROJECT_BRIEF.txt](../PROJECT_BRIEF.txt) is preserved unchanged. This dated record overrides only the specific requirements listed below; it does not retroactively change test evidence or waive unrelated quality requirements.
 
+## SC-005 — 2026-10-19: positive player experience, foreshadowing and stretch ideas
+
+**User ask:** record faction road tolls, road traps that do not instantly kill players, road ambushes and an in-game casino as stretch ideas. These should support player interaction, interconnect with the rest of the world and produce meaningful faction consequences. The goal is a positive experience, with consistent warning cues; adding features is not an excuse to make survival harder or surprise players without foreshadowing.
+
+**Philosophy clarification:** designed encounters and major changes need readable advance cues and a practical opportunity to choose a response before irreversible cost or danger. Include opportunity, relief and social play alongside pressure. Make difficulty serve agency and memorable play, keep baseline survival useful and preserve contextual consequences from SC-003. Foreshadowing is continuous design discipline, not constant alarms or a requirement to reveal every outcome. Evaluate warning distance, approach speed, visibility, escape and recovery, including indirect instant-death risks from traps.
+
+**Scope boundary:** update the philosophy and preserve the concepts in [STRETCH_IDEAS](STRETCH_IDEAS.md); no mod selection, installation, custom implementation or release assignment is approved by recording them. These are not additional V1/V2 gates and do not authorize V3 feature implementation. Existing code, profiles, worlds, release gates and original brief remain intact. The connections/trials in the idea bank are proposals, not claims that current owners expose the needed APIs.
+
+**Follow-up:** choose a bounded idea and inspect reuse/integration options when it is promoted. Casino games, stakes and reward role are a deferred review item (HR-012), not a blocker to current work. The current V2 ownership/contract work continues under the clarified player-experience principle.
+
 ## SC-004 — 2026-10-18: select A-Life + Jeem; unattended v2 implementation sweep
 
 **User decision:** after watching the isolated trial, the user selected A-Life + Jeem as the NPC/living-world direction instead of Bandits. This is a product/dependency direction, not a claim that every compatibility or release gate passed. Preserve Bandits worlds/configuration and their bug evidence for rollback/history; no new development profile should combine the NPC owners.

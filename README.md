@@ -6,6 +6,8 @@ Approved [SC-002](docs/SCOPE_CHANGES.md): **v2.0 targets the living-world spirit
 
 Clarification [SC-003](docs/SCOPE_CHANGES.md): **consequence, not an anti-player-killing policy**, is the pillar. Every action should have causal effects players can feel, with faction-specific responses rather than universal PvP punishment. A-Life/Jeem isolated testing is authorized with Bandits disabled; retained profiles/worlds stay intact.
 
+Clarification [SC-005](docs/SCOPE_CHANGES.md): design for a **positive player experience, readable warning cues and meaningful responses**. Danger, opportunity and social downtime should connect to the world; road traps must not instantly kill players. [Stretch idea bank](docs/STRETCH_IDEAS.md): faction road tolls, recoverable traps, foreshadowed ambushes and an optional casino. These have no release assigned and add no mandatory V1/V2 scope.
+
 [A-Life 1.4.5 + Jeem 0.7.4 trial](docs/V2-01-alife-jeem.md) now has dedicated join, a visible/talking medic, one native gift with inventory/standing/opinion changes, and a narrow same-identity/item restart result with appearance/score caveats. Separate candidate worlds only, no release/Workshop promotion or player-kill consequence claim.
 
 Approved [SC-001](docs/SCOPE_CHANGES.md): the full directing leader is now a **v1.1 target, not mandatory for v1.0**. A simpler existing Screamer-based threat is an optional bounded trial. The core forecast → horde → faction aftermath → recovery loop remains v1.0 scope; the original brief is preserved unchanged.

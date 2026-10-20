@@ -1,6 +1,6 @@
 # v2.0 — the living-world expansion
 
-Design baseline: 2026-10-18, approved direction [SC-002](SCOPE_CHANGES.md). This is a concept and staged implementation plan, not delivered gameplay or a selected dependency stack. Source remains 0.3.0 development; [v1 acceptance](STATUS.md) is unfinished. Mod evidence and specific integration gaps: [V2_MOD_SURVEY](V2_MOD_SURVEY.md).
+Design baseline: 2026-10-18, approved direction [SC-002](SCOPE_CHANGES.md); player-experience clarification updated 2026-10-19 under SC-005. This is a concept and staged implementation plan, not delivered gameplay or a selected dependency stack. See [current implementation and unfinished v1 acceptance](STATUS.md). Mod evidence and specific integration gaps: [V2_MOD_SURVEY](V2_MOD_SURVEY.md).
 
 ## The corrected guiding principle
 
@@ -13,6 +13,19 @@ For each substantial feature, record: player-facing outcome; what must actually 
 An entity/NPC rewrite is eligible when required, but first bound the capability, ownership/network/save changes, compatibility surface, regression matrix and ongoing maintenance. Do not start a general engine rewrite to solve one encounter. A texture map is one possible representation, not a demonstrated solution: storing stats cheaply does not itself provide engine persistence, authoritative networking, pathfinding or ownership. Inspect those seams before choosing a data structure.
 
 Default hypothesis to test: persistent logical factions/squads/events, cheap bounded off-screen updates, physical actors near observers. Preserve identity, casualties, resources and consequences across representation changes. Do not resurrect dead named people, reroll a losing encounter when players leave, spawn visibly, or claim an empty camp was defended by actors the system never accounted for. More detailed simulation is justified where this approach cannot meet the outcome.
+
+## Player experience: readable stakes, agency and relief
+
+User clarification [SC-005](SCOPE_CHANGES.md), 2026-10-19: build a world players want to spend time in. Encounters, difficulty and consequences serve enjoyable choices, memorable journeys and player interaction. Positive outcomes, social play and breathing room matter alongside danger; harder survival is not itself a feature benefit.
+
+- Foreshadow every designed encounter and significant change. Give readable environmental, social, visual or audio cues before irreversible costs or danger, with enough time and space to respond. Radio can improve preparation, but missing a broadcast cannot justify an otherwise unavoidable threat. Foreshadowing should be consistent, not a constant stream of alarms.
+- Preserve uncertainty about exact outcomes while making the relevant risk and stakes understandable. Check cue visibility and response time with vehicles, Viewpoint, night/weather and late arrivals; a tell visible only after impact is insufficient.
+- Provide viable ways to engage, prepare, negotiate, avoid or recover as appropriate. A costly choice can be interesting; repeatedly taxing the only useful route or requiring a minigame to regain baseline survival is not the intended experience.
+- Road traps must not instantly kill players, including through unavoidable collision or a scripted follow-up. Design practical reaction/recovery windows. Ambushes can be dangerous, but must have advance tells and usable responses.
+- Connect encounters to faction identity, needs, route control and persistent aftermath. Consequences can grant help, access, information or a changed opportunity as well as impose costs. Respect contextual violence and knowledge rules from SC-003.
+- Budget and space related events together. Balance pressure with quiet travel, trustworthy opportunities and social downtime; do not stack independent trap/ambush/horde rolls into routine harassment.
+
+[Travel and social stretch ideas](STRETCH_IDEAS.md) records faction tolls, recoverable road traps, foreshadowed ambushes and an optional casino. Their connections and trial boundaries are design proposals, not implemented features or new V1/V2 release requirements. No release is assigned.
 
 ## What v2 should feel like
 

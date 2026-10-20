@@ -1,5 +1,12 @@
 # Progress and significant decisions
 
+## 2026-10-19 — GitHub synchronization restored; A-006 resolved
+
+- The user enabled unrestricted execution and shell network access, then requested another push. DNS and ordinary SSH now work. The earlier network-socket denial was specific to the restricted execution environment; no sudo, host configuration change, SSH override or credential change was needed.
+- Pushed the complete existing local `main` history through `803ab1cb47deba08a70a84145f1e84ead56a0f03` to `git@github.com:adrik0622/pokeys-100-days-gone.git` using `bash scripts/git-local.sh push -u upstream main`. GitHub created `main`; a fresh `ls-remote` returned the identical commit for remote HEAD and `refs/heads/main`, and the clean local branch tracks `upstream/main`. No force push or history rewrite was used.
+- Closed A-006 and refreshed README, status and continuation instructions so future chats use the existing `.local-git/` wrapper and authorized remote. The temporary bundle remains a historical fallback and is no longer needed for synchronization. This follow-up documentation commit is included in the next push and remote verification; no gameplay source, settings or acceptance claims changed, so gameplay tests were not rerun.
+- Next: resume scoped V2 ownership/reward integration work from the preserved fixtures, with the existing human-review queue and evidence boundaries intact.
+
 ## 2026-10-19 — V2 persistent bridge and re-entrant ownership checks; upstream sync pinned
 
 - Hardened the opt-in V2 bridge against malformed persistent state: bounded grant account IDs, finite/nonnegative timestamps and deltas, integral nonnegative revision, applied-grant/delta consistency, validated aid-pending latch fields, finite Jeem reward rate before standing mutation, and safe rejection of missing/oversized usernames. Extended the actual adapter harness to re-enter same-account completion while its durable reservation is pending, and to submit a second account's aid request during the first account's item-add callback; duplicate reputation/item effects were refused in both modeled paths. Full suite **68 passed**, Lua syntax and manifest checks passed. This does not replace a real simultaneous multi-client test. No schema/version or intended gameplay reward changed. See [V2-02](V2-02-supply-contracts.md).

@@ -61,7 +61,7 @@ python3 scripts/modpack.py check-installed --full
 python3 scripts/modpack.py profile --profile presentation-trial
 ```
 
-All project-owned code, configuration, documentation and original assets use local Git revisioning. This task environment protects `.git`, so metadata lives in `.local-git/`. Use the wrapper from any directory:
+All project-owned code, configuration, documentation and original assets use local Git revisioning. Metadata lives in `.local-git/` because earlier task sessions protected `.git`. From the project directory, use the wrapper:
 
 ```bash
 bash scripts/git-local.sh status
@@ -69,4 +69,4 @@ bash scripts/git-local.sh log --oneline
 bash scripts/git-local.sh diff
 ```
 
-No remote is configured. Significant changes are recorded in the progress log and committed locally. Credentials, raw runtime files, saves and upstream dependency payloads remain ignored. Future agents should read `AGENTS.md` first.
+User-authorized remote `upstream` points to `git@github.com:adrik0622/pokeys-100-days-gone.git`; `main` tracks `upstream/main`. The initial history push and remote-commit verification succeeded on 2026-10-19 after shell networking was enabled. Use `bash scripts/git-local.sh push` to synchronize committed work. Significant changes are recorded in the progress log and committed locally. Credentials, raw runtime files, saves and upstream dependency payloads remain ignored. Future agents should read `AGENTS.md` first.

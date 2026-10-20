@@ -1,6 +1,6 @@
 # Known bugs and development limitations
 
-Updated 2026-10-18. Companion source **0.3.0 development**, native Linux Build 42.21.0 / `4a0e9546ec`.
+Updated 2026-10-19. Companion source **0.4.1 development**, native Linux Build 42.21.0 / `4a0e9546ec`.
 
 User decision: **pin these issues; they are not immediate blockers to development play or independent feature work.** This is not evidence that defects are fixed or all systems work together. A separate approved [SC-001](SCOPE_CHANGES.md) defers only the directing leader to v1.1; unrelated v1.0 requirements remain. Keep experiments isolated and preserve worlds/backups. Do not automatically enable candidate dependencies or change survival settings to hide a limitation.
 
@@ -31,6 +31,7 @@ Horde source evidence and smallest possible integration seams: [OWNER_SEAMS](OWN
 
 - **B-006 / directing leader:** not implemented or verified; **deferred to v1.1 by approved [SC-001](SCOPE_CHANGES.md)**, not a mandatory v1.0 gap. Original requirements remain the v1.1 target. An optional simple Screamer must pass its own bounded trial; a stat buff is not fulfillment of the original ask.
 - Physical NPC release encounters and the full forecast → combat/leader → faction aftermath → recovery loop remain partially integrated. The current one-shot NPC and small forced horde are separate test fixtures, not normal recurring campaign content.
+- The V2 medical introduction is once per account, not a repeatable campaign job. Two ordinary accounts now repaired an actual debug-event disruption, with partial/full recovery and aid persistence across clean restarts ([V2-04](V2-04-recovery.md)). After introductions are exhausted, later disruption currently recovers by time rather than further relay deliveries. This is unfinished recurring content, not a duplicated-reward bug; do not reset native mission history to replay it.
 
 ## Unrun acceptance — not reproduced failures
 

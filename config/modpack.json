@@ -93,7 +93,7 @@
       "payload_sha256": "dd47ff5087c42abdd50f572d443a84497d1ab424453586b6073cf00e66c04b91",
       "payload_file_count": 1691, "payload_bytes": 52325148,
       "requires": [], "purpose": "SC-003 isolated replacement NPC-owner trial; never alongside Bandits",
-      "evidence": "Original Steam payload downloaded and relevant source/settings inspected; runtime trial in progress, not accepted or in collection"
+      "evidence": "Native contact/gift/identity restart and isolated Mission/Jeem aid/recovery slices observed on 42.21; no physical combat/ownership/capacity or release acceptance; not in collection"
     },
     {
       "workshop_id": "3806944055", "mod_id": "ProjectALifeJimmy", "version": "0.7.4",
@@ -102,7 +102,7 @@
       "payload_sha256": "25481a2c8e789b1adad057351c8d00ce5ee3241313e194ee50d4d910ae22a084",
       "payload_file_count": 263, "payload_bytes": 8805189,
       "requires": ["ProjectALifeNPCs"], "purpose": "SC-004 selected A-Life consequence/persistence extension; narrow contact/restart observed",
-      "evidence": "Original Steam payload downloaded; requires/loads after A-Life, runtime trial pending, not accepted or in collection"
+      "evidence": "Native gift and isolated Mission credit/shared-aid/aftermath/restart observed on 42.21; requires A-Life, not PvP/physical ownership/release accepted or in collection"
     },
     {
       "workshop_id": "3694097672", "mod_id": "TooltipLib", "version": "1.7.0",

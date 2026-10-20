@@ -19,6 +19,7 @@ Current build: native Linux 42.21.0, revision `4a0e9546ec`. Local vanilla recove
 Original companion source is **0.4.1 development**: shared faction standing/favors/aid; authored day-100 briefing; real-schedule observer bulletin; optional tuning and real debug-horde completion → supply disruption → favor-driven recovery; and an opt-in V2 Mission-to-Jeem relay bridge with recovery/service readiness. An explicit combined development profile exists alongside isolated fixtures; full combat/horde-loop acceptance remains unfinished. Advance direction and strict global cap/offline safety are known limitations; leader is deferred to v1.1. Development collection remains hidden with only three presentation references; the local companion and trial candidates are not silently claimed as Workshop members. See the [comprehensive V2/V3 modpack report](docs/V2_V3_MODPACK_REPORT.md) and [human-review queue](docs/HUMAN_REVIEW.md).
 
 - [Current status](docs/STATUS.md)
+- [V2 event aftermath, player repair and restart evidence](docs/V2-04-recovery.md)
 - [Original ask and approved scope changes](docs/SCOPE_CHANGES.md)
 - [Combined campaign test](docs/M4-01-integrated.md)
 - [Optional Screamer source audit and deferral](docs/M4-optional-screamer.md)

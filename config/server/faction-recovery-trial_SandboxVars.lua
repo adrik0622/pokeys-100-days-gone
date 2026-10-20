@@ -44,5 +44,5 @@ SandboxVars = {
         HelicopterSupplyDropsEnabled = false, SupplyDropBanditsEnabled = false,
         DebugLogging = true,
     },
-    PokeysV2 = { Enabled = true },
+    PokeysV2 = { Enabled = true, RepeatRelief = true },
 }

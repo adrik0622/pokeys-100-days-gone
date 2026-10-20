@@ -22,6 +22,10 @@ function M.open(d)
         Campaign.finite(d.disruptedUntil) and d.disruptedUntil >= 0 and
         Campaign.finite(d.revision) and d.revision >= 0 and d.revision % 1 == 0 and
         Campaign.finite(d.lastSurvived) and d.lastSurvived >= -1, "Invalid observer state")
+    -- Additive optional identity; never guess an older disruption from lastEvent (which includes aborts).
+    assert(d.disruptionEvent == nil or (Campaign.finite(d.disruptionEvent)
+        and d.disruptionEvent >= 1 and d.disruptionEvent <= 2147483647
+        and d.disruptionEvent % 1 == 0 and d.disruptionEvent <= d.lastEvent), "Invalid disruption identity")
     return d
 end
 
@@ -87,6 +91,7 @@ function M.observe(d, f, hour)
         local success = f.survived > d.lastSurvived and f.spawned > 0
         d.lastSurvived = f.survived
         if not success then return false end -- Upstream abort also sets CompletionRecorded.
+        d.disruptionEvent = f.id
         d.disruptedUntil = math.max(d.disruptedUntil, hour + 24)
         d.revision = d.revision + 1
         return true

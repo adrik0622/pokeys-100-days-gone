@@ -37,6 +37,7 @@ f.id,f.active,f.spawned = 1,true,4
 assert(not M.observe(d,f,101))
 f.active,f.completed,f.survived = false,true,1
 assert(M.observe(d,f,102) and d.disruptedUntil == 126)
+assert(d.disruptionEvent == 1)
 assert(not M.observe(d,f,103)) -- restart/retry cannot extend same aftermath
 d = M.open(copy(d)); assert(not M.observe(d,f,103))
 assert(M.repair(d,103) and d.disruptedUntil == 114)
@@ -44,6 +45,11 @@ assert(M.repair(d,103) and d.disruptedUntil == 103)
 assert(not M.repair(d,103))
 f.id = 2 -- Aborted event: CompletionRecorded true but survived counter unchanged.
 assert(not M.observe(d,f,104) and d.disruptedUntil == 103)
+assert(d.lastEvent == 2 and d.disruptionEvent == 1) -- abort cannot mint/relabel a repair receipt
+local old = copy(d); old.disruptionEvent = nil
+assert(M.open(old).disruptionEvent == nil) -- never infer older success from lastEvent
+local bad = copy(d); bad.disruptionEvent = 3
+assert(not pcall(M.open, bad))
 assert(not pcall(M.open,{schema=99}))
 print("PASS: observer rules, real-time bounds, cancel/expiry/distance, duplicate/restart, aftermath")
 
@@ -86,6 +92,7 @@ HordeManager.state.CompletionRecorded=true
 HordeManager.state.HordeNightsSurvived=1
 S.minute(); assert(S.aidBlocked())
 assert(S.disruptionHours()==24)
+assert(S.disruptionEvent()==1)
 assert(S.repair()==true); assert(store.disruptedUntil==112 and S.disruptionHours()==12)
 assert(S.repair()==true and S.disruptionHours()==0)
 assert(S.repair()==false) -- no-op is distinct from unavailable state

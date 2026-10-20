@@ -2,4 +2,6 @@ Sandbox_EN = {
     Sandbox_PokeysV2 = "Pokeys v2 development",
     Sandbox_PokeysV2_Enabled = "Enable opt-in v2 bridge (replaces legacy contact ledger UI/actions)",
     Sandbox_PokeysV2_Enabled_tooltip = "Development only. Native The Mission owns the authored relief job; Jeem owns standing. Requires explicit matching profiles. Does not migrate or reset legacy v1 data.",
+    Sandbox_PokeysV2_RepeatRelief = "Enable recurring event-bound medical relief (isolated development)",
+    Sandbox_PokeysV2_RepeatRelief_tooltip = "Requires the v2 bridge, Jeem and an observed Horde Nights disruption. Introduced accounts may donate two unstarred, unequipped clean Bandages once per event to repair 12 world hours and earn one modest native deed. No extra item reward. Natural recovery remains available. Separate receipts fail closed after uncertain effects; no automatic repair/reset.",
 }

@@ -50,6 +50,10 @@ function Server.disruptionHours()
     return math.max(0, data.disruptedUntil - hour())
 end
 
+function Server.disruptionEvent()
+    return data and data.disruptionEvent or nil
+end
+
 function Server.repair()
     if not data then return nil end
     local changed = M.repair(data, hour())

@@ -4,3 +4,8 @@ option PokeysV2.Enabled {
     type = boolean, default = false,
     page = PokeysV2, translation = PokeysV2_Enabled,
 }
+
+option PokeysV2.RepeatRelief {
+    type = boolean, default = false,
+    page = PokeysV2, translation = PokeysV2_RepeatRelief,
+}

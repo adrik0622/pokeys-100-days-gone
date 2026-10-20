@@ -37,7 +37,7 @@ ProjectALifeJimmy = {enabled=function(name) return name == "standing" end,
         local before = effects.standing[key] or 0
         effects.standing[key] = before + delta
         if reenterCredit then reenterCredit() end
-        return before, effects.standing[key]
+        return "friendly", "friendly" -- actual Jeem API returns labels, not point totals
     end},
     StandingService={labelFor=function() return "friendly" end,
         points=function(key) return effects.standing[key] or 0 end}}

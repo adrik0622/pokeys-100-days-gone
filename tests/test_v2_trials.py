@@ -129,5 +129,16 @@ class V2TrialTests(unittest.TestCase):
                 d.dispatch({"action": "test_recovery_horde_approach"})
             run.assert_not_called()
 
+    def test_recurring_relief_defaults_off_and_only_recovery_fixture_opts_in(self):
+        root = Path(__file__).resolve().parents[1]
+        declaration = (root / "mods/Pokeys100DaysGone/42/media/sandbox-options.txt").read_text()
+        self.assertIn("option PokeysV2.RepeatRelief {\n    type = boolean, default = false", declaration)
+        for path in (root / "config/server").glob("*_SandboxVars.lua"):
+            with self.subTest(profile=path.stem):
+                if path.name == "faction-recovery-trial_SandboxVars.lua":
+                    self.assertIn("RepeatRelief = true", path.read_text())
+                else:
+                    self.assertNotIn("RepeatRelief = true", path.read_text())
+
 
 if __name__ == "__main__": unittest.main()

@@ -1,5 +1,12 @@
 # Progress and significant decisions
 
+## 2026-10-19 — Recurring event-bound relief implemented behind an isolated opt-in
+
+- Closed the source-level once-only recovery gap with [V2-05](V2-05-recurring-relief.md), companion **0.4.2**: an introduced, living player at the relay can donate two clean/non-favorite/unequipped main-inventory Bandages during a verified disruption, once per native account/event. It repairs up to 12 world hours and awards one modest native Jeem deed, with no item/XP reward. Healthy relays refuse supplies; waiting remains valid. The Mission introduction and legacy ledgers stay unchanged.
+- Added a separate bounded receipt namespace/global in-flight latch, phases/confirmed removal counts and fail-closed incidents; no automatic operator reconciliation. Observer success records an optional disruption-event identity. An abort cannot relabel it, and older unknown identities are not guessed/backfilled. Only the recovery fixture enables the new default-OFF sandbox option. No new NPC/horde/drop owner, native private-handler interception or V3 code.
+- Inspected pinned Jeem's real return contracts: rate is a multiplier; add returns standing labels. The new harness and receipts reflect those types instead of assuming numeric return totals. **73 project checks pass**, including actual-adapter mocked replay, new-event/account/abort ordering, protected items, forged fields, nested requests, unavailable/corrupt/full ledgers, clock rollback and nine injected partial-effect paths. Lua 5.1 syntax, 12-input/16-profile manifest and whitespace pass. Corrected an initial test-method placement error; the full suite then passed.
+- Runtime still pending. Preserve the clean 0.4.1 aftermath checkpoints, enable only the stopped recovery fixture's matching cached option, then test a further one-birth debug incident with already introduced accounts and no native reward replay. V2 release/physical/concurrency gates remain open; 0.4.2 source tests do not backdate engine acceptance.
+
 ## 2026-10-19 — Five-mod horde aftermath / ordinary repair / aid restart path observed
 
 - Executed [V2-04](V2-04-recovery.md) on companion 0.4.1. Native Horde Nights event 1 spawned/routed one zombie; admin completion recorded one survivor/zero kills/drops off. The actual completion produced the shared 24-world-hour disruption. This is a real owner aftermath test, **not fought-horde survival**; the survivor remains away from the relay.

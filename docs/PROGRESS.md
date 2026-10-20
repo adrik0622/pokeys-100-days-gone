@@ -1,5 +1,12 @@
 # Progress and significant decisions
 
+## 2026-10-19 — V2 two-account separation/shared aid and fresh-process persistence observed
+
+- Ran the fresh four-mod `faction-ownership-trial` from `e58f715` on Build 42.21.0. A and B completed their own native two-bandage introduction, each receiving Alcohol Wipes and one 1.5625-point Jeem deed. Before delivery B had no inherited completion or standing. A claimed one medical bottle; both its retry and B's eligible request were refused by the shared 48-hour cooldown. Fixture gear was supplied administratively, not earned loot.
+- After a clean server restart and fresh client processes, both existing characters/contracts/credits/standing and the shared cooldown persisted; A retained the single bottle and wipes, B wipes without a bottle. Offline player identity/position/living fields were unchanged, with exactly two player rows. No extra native completion or standing-credit log appeared after restart. All clients and both dedicated processes exited 0 with no test listener; selected screenshots and offline/raw checkpoints are recorded in [V2-03](V2-03-ownership.md).
+- **Boundary:** the second simultaneous rendered client was refused by the unchanged growth-reserve memory guard. Continued through separate account sessions rather than bypassing the guard or stopping independent work. Added HR-013 for host-memory/separate-environment requirements; no second human tester is requested. Sequential shared-state behavior is not a simultaneous-client race or physical NPC ownership test. The early first supply command explicitly returned `No such user`; repeated only after actual spawn, with no ambiguous replay.
+- Existing 70-check suite and matching selected payload pins remain the verified source baseline; this evidence step changes documentation/screenshots only. Next: improve the relay's recovery/availability explanation and test the actual horde-aftermath → medical-delivery → service recovery connection in a separate bounded fixture. V3 and stretch implementation stay parked; V2 release is not accepted.
+
 ## 2026-10-19 — Fresh V2 two-account ownership fixture prepared
 
 - User requested completing remaining V2 work before moving to V3. Reviewed the roadmap and preserved the V1 foundation, selected A-Life/Jeem direction and SC-005 experience rule. V3/stretches remain unimplemented while V2 acceptance is open.

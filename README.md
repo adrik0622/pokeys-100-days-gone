@@ -32,6 +32,7 @@ Original companion source is **0.4.0 development**: shared faction standing/favo
 - [Desktop controller and GUI smoke test](docs/M0-03-desktop-smoke.md)
 - [Dedicated-server baseline and recovery test](docs/M0-02-dedicated-baseline.md)
 - [Two autonomous clients, persistence and resource limits](docs/M0-04-multi-client.md)
+- [V2 separate-account completion, shared aid and restart](docs/V2-03-ownership.md)
 - [First faction contact, shared standing and earned assistance](docs/M2-01-faction-contact.md)
 - [Hostile physical scout and NPC reliability roadblock](docs/M2-02-physical-encounter.md)
 - [Presentation dedicated test and combat roadblock](docs/M1-01-presentation.md)

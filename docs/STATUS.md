@@ -8,7 +8,7 @@ Latest V2 source improvement: schema-1 persistent bridge records and reputation 
 
 ## v2.0 direction approved; implementation stack undecided
 
-Latest verification preparation: **70 project checks pass**, with 15 explicit profiles and matching full payload pins for A-Life, Jeem and The Mission. The new [two-account ownership card](V2-03-ownership.md) uses a fresh safe `faction-ownership-trial` world on 19750/19751; it is prepared, not runtime-accepted. Existing one-account evidence and worlds remain intact.
+Latest verification: **70 project checks pass**, with 15 explicit profiles and matching full payload pins for A-Life, Jeem and The Mission. The fresh safe [two-account ownership fixture](V2-03-ownership.md) on 19750/19751 passed **separate-session** ordinary-account completion/standing isolation, one shared aid bottle/cooldown, and clean-server/fresh-client persistence for both characters and retained items. All clients/servers exited 0, no listener; existing one-account worlds remain intact. Simultaneous B launch was refused by the unchanged memory guard (HR-013), so contention and physical NPC handoff remain open. Next: actual horde-aftermath → contract recovery/service-state integration, not V3 implementation.
 
 [SC-005](SCOPE_CHANGES.md) clarifies the player-experience philosophy: consistent foreshadowing, practical responses and recovery, and opportunity/social relief alongside danger. [Stretch ideas](STRETCH_IDEAS.md) records faction tolls, non-instant-kill road traps, foreshadowed ambushes and an optional casino, with proposed connections to existing systems. These are unimplemented, unscheduled concepts, not additional V1/V2 release gates. Casino stakes/game selection is deferred as HR-012; no immediate intervention is needed.
 

@@ -10,6 +10,8 @@ The strongest V2 evidence is an ordinary-player Military Drop cycle: Morgan requ
 
 The existing workshop collection is hidden and contains only the three presentation references; new V2 items are pinned trial candidates and must not be confused with collection members or a release stack. The local settings catalogue contains 1,091 upstream declarations from nine inputs. It is the practical source of truth for exact names, types, defaults, ranges, pages, source files and fingerprints; this report summarizes recommendations rather than duplicating a thousand-row appendix.
 
+**October 19 ownership follow-up:** the fresh four-mod [two-account fixture](V2-03-ownership.md) now verifies separate-session A/B completion and standing isolation, one shared aid bottle/cooldown and persistence after fresh server/client processes. A retained its bottle and wipes; B retained wipes and was refused another bottle. Neither account's completion replayed after restart. The unchanged memory guard refused a simultaneous second rendered client (HR-013); this adds engine cross-account evidence, not concurrent races, physical NPC handoff or release acceptance. The source suite now has 70 project checks and 15 explicit profiles.
+
 ## Roadmap and evidence labels
 
 | Stage | Current meaning | Report treatment |

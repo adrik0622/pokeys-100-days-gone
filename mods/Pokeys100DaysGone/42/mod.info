@@ -1,6 +1,6 @@
 name=Pokeys 100 Days Gone - Campaign Prototype
 id=Pokeys100DaysGone
-modversion=0.4.0
+modversion=0.4.1
 versionMin=42.21.0
 versionMax=42.21.0
 description=Development companion. Legacy contacts/observer/calibration retained; opt-in v2 relief contract bridges The Mission to native Jeem standing and bounded EMS service. No custom NPC AI, reputation mirror or horde scheduler. Direction/leader/global cap and acceptance unfinished. Not a release build.

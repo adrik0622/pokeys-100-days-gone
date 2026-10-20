@@ -10,6 +10,10 @@ local messages = {
     ems_not_friendly = "County EMS is not friendly. Native Jeem standing controls this service.",
     relay_disrupted = "Supplies disrupted after a migration; relief helps repair the relay.",
     shared_aid_cooldown = "Shared assistance is still on cooldown.", inspection_required = "An interrupted operation is latched. Preserve the save for inspection.",
+    bridge_unavailable = "Relay records unavailable. Ask the host to inspect the saved state.",
+    recovery_unavailable = "Relay recovery unavailable. Ask the host to inspect the saved state.",
+    aid_ready = "Ready: request one shared medical bottle.",
+    clock_unavailable = "World time unavailable. No assistance can be granted yet.",
 }
 function Panel:request(command) sendClientCommand(self.player, V.module, command, {}) end
 function Panel:createChildren()
@@ -28,17 +32,18 @@ end
 function Panel:prerender()
     ISPanel.prerender(self)
     local function line(text, y) self:drawText(text, 20, y, 0.9, 0.95, 0.95, 1, UIFont.Small) end
-    line("Pokeys v2 - living-world relay (development)", 18)
+    line("Pokeys v2 - County EMS relay (development)", 18)
     local s = self.state
     if s then
         line("County EMS / Jeem: " .. s.label .. string.format("; first-hand points %.2f", s.points), 54)
-        line("Native relief completed: " .. tostring(s.completed) .. "; campaign credit: " .. s.credit, 82)
+        line("First delivery completed: " .. tostring(s.completed) .. "; relationship credit: " .. s.credit, 82)
         line(string.format("Applied native standing delta: %.2f. Shared aid cooldown: %.1f h.", s.delta, s.aidHours), 110)
-        line("Migration disruption: " .. tostring(s.disrupted) .. "; interrupted aid: " .. tostring(s.aidPending), 138)
-        line("NPC owner loaded: " .. tostring(s.npcOwner) .. "; Jeem standing: " .. tostring(s.standingOwner), 166)
+        line(s.recoveryAvailable and string.format("Relay recovery remaining: %.1f world hours.", s.disruptionHours)
+            or "Relay recovery records unavailable; assistance is paused.", 138)
+        line("Medical assistance: " .. (messages[s.aidReason] or tostring(s.aidReason)), 166)
     end
-    line("The Mission owns collection/consumption/reward; Jeem owns faction standing.", 198)
-    line("Relay records do not prove a physical camp, PvP consequences or capacity.", 220)
+    line("Delivery: 2 clean Bandages consumed; 1 Alcohol Wipes; once per account.", 198)
+    line("Aid: one shared bottle per 48 world hours. Keeping your supplies is valid.", 220)
     line(self.message or "Waiting for server...", 244)
 end
 local function open(player)

@@ -45,8 +45,16 @@ function Server.aidBlocked()
     return data and data.disruptedUntil > hour()
 end
 
+function Server.disruptionHours()
+    if not data then return nil end -- unavailable is distinct from a healthy relay
+    return math.max(0, data.disruptedUntil - hour())
+end
+
 function Server.repair()
-    if data and M.repair(data, hour()) then broadcast() end
+    if not data then return nil end
+    local changed = M.repair(data, hour())
+    if changed then broadcast() end
+    return changed
 end
 
 function Server.command(module, command, player, args)

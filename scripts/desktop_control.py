@@ -59,6 +59,11 @@ V2_TRIALS = {
         ("3640172314", "TheMission")],
         "mods": ["ProjectALifeNPCs", "ProjectALifeJimmy", "TheMission42", "Pokeys100DaysGone"],
         "project_mod": True, "alife_owner": True},
+    "faction-recovery-trial": {"port": 19740, "items": [
+        ("3782615002", "HordeNights"), ("3803984183", "ProjectALifeNPCs"),
+        ("3806944055", "ProjectALifeJimmy"), ("3640172314", "TheMission")],
+        "mods": ["HordeNights", "ProjectALifeNPCs", "ProjectALifeJimmy", "TheMission42", "Pokeys100DaysGone"],
+        "project_mod": True, "alife_owner": True},
 }
 
 
@@ -560,13 +565,15 @@ class Desktop:
                        "mission-trial": ("pokeys_mission_a", [("Base.Bandage", 2)]),
                        "contract-trial": ("pokeys_contract_a", [("Base.Bandage", 2)]),
                        "faction-contract-trial": ("pokeys_faction_contract_a", [("Base.Bandage", 2)])}
-            ownership = self.server_profile == "faction-ownership-trial"
+            paired = {"faction-ownership-trial": "pokeys_ownership_",
+                      "faction-recovery-trial": "pokeys_recovery_"}
+            ownership = self.server_profile in paired
             if (self.server_profile not in targets and not ownership) or not server or server.poll() is not None:
                 raise RuntimeError("V2 supplies require the running isolated supply/mission fixture")
             if ownership:
                 if client not in {"a", "b"}:
                     raise ValueError("Ownership supplies require the explicit a or b fixture account")
-                username, items = f"pokeys_ownership_{client}", [("Base.Bandage", 2)]
+                username, items = paired[self.server_profile] + client, [("Base.Bandage", 2)]
             else:
                 username, items = targets[self.server_profile]
             commands = [f"additem {username} {item} {count}" for item, count in items]
@@ -656,6 +663,16 @@ class Desktop:
             # Verified in installed UI_ServerOptionDesc_TeleportTo; no shell/other target.
             run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
                 "/teleportto 8045,11756,0")
+        elif action == "test_recovery_horde_approach" and scope == "game":
+            server = getattr(self, "server", None)
+            profile = self.profile if client == "main" else self.client_profiles.get(client)
+            if self.server_profile != "faction-recovery-trial" or profile != self.server_profile or \
+                    not server or server.poll() is not None:
+                raise RuntimeError("Recovery approach requires the matching owned recovery fixture")
+            # Native admin teleport, deliberately 510 tiles from the relay so
+            # the one debug-event survivor cannot immediately threaten its users.
+            run("xdotool", "type", "--clearmodifiers", "--delay", "30", "--",
+                "/teleportto 8500,11756,0")
         elif action == "test_alife_contact_approach" and scope == "game":
             server = getattr(self, "server", None)
             profile = self.profile if client == "main" else self.client_profiles.get(client)

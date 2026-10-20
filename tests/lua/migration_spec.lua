@@ -85,6 +85,9 @@ HordeManager.state.NightBudgetSpawned=4
 HordeManager.state.CompletionRecorded=true
 HordeManager.state.HordeNightsSurvived=1
 S.minute(); assert(S.aidBlocked())
-S.repair(); assert(store.disruptedUntil==112)
+assert(S.disruptionHours()==24)
+assert(S.repair()==true); assert(store.disruptedUntil==112 and S.disruptionHours()==12)
+assert(S.repair()==true and S.disruptionHours()==0)
+assert(S.repair()==false) -- no-op is distinct from unavailable state
 HordeManager=nil; assert(not run("state").state.available) -- never synthesize owner
 print("PASS: observer server adapter, spoofed time/challenge, cooldown, restart, real-owner-only")

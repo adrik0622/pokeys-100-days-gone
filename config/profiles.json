@@ -67,5 +67,10 @@
     "workshop_ids": ["3803984183", "3806944055", "3640172314"],
     "local_mod_ids": ["Pokeys100DaysGone"],
     "purpose": "Fresh V2 two-account contract/Jeem/shared-aid ownership fixture; no ambient zombies, competing NPC/horde/drop owner or presentation; not release accepted"
+  },
+  "faction-recovery-trial": {
+    "workshop_ids": ["3782615002", "3803984183", "3806944055", "3640172314"],
+    "local_mod_ids": ["Pokeys100DaysGone"],
+    "purpose": "V2 bounded Horde Nights aftermath + A-Life/Jeem/Mission recovery composition; one debug birth, all drops/Bandits/presentation absent; not release or combat accepted"
   }
 }

@@ -79,7 +79,9 @@ function V.aidAllowed(d, key, hour, near, label, disrupted)
     if not finite(hour) then return false, "clock_unavailable" end
     if d.aidPending then return false, "inspection_required" end
     if not near then return false, "visit_relay_alive" end
-    if not d.grants[key] or d.grants[key].status ~= "applied" then return false, "deliver_first" end
+    local grant = d.grants[key]
+    if grant and grant.status ~= "applied" then return false, "inspection_required" end
+    if not grant then return false, "deliver_first" end
     if label ~= "friendly" and label ~= "allied" then return false, "ems_not_friendly" end
     if disrupted then return false, "relay_disrupted" end
     if d.lastAid and (hour < d.lastAid or hour-d.lastAid < V.aidHours) then return false, "shared_aid_cooldown" end

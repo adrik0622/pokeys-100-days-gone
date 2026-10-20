@@ -1,5 +1,12 @@
 # Progress and significant decisions
 
+## 2026-10-19 — V2 recovery availability fix and bounded aftermath integration prepared
+
+- Advanced companion source to **0.4.1**. Source inspection found the bridge could treat an unavailable observer ledger as an undisrupted relay and report a recovery repair when nothing changed. It now defers credit before side effects when recovery is unavailable, explicitly refuses aid without clearing saved data, reports bridge failures instead of silently dropping aid requests, and distinguishes a real repair from a healthy no-op. Ambiguous grants still stay locked; no HR-010 reconciliation policy was invented.
+- Player-facing relay text now shows remaining recovery hours, the server's assistance reason, delivery consumption/reward and shared cooldown, replacing internal integration claims in normal instructions. Pending/incident credits request inspection rather than another donation. No schema migration, extra payout owner, NPC/horde AI or V3 behavior was added.
+- Added separate `faction-recovery-trial` on 19740/19741: Horde Nights + A-Life + Jeem + The Mission + companion, one debug birth/cap/batch, no drop/presentation/Bandits/randomizer, fixed two ordinary supply accounts and a profile-scoped native admin approach away from the relay. [V2-04 card](V2-04-recovery.md) connects an actual owner completion to partial/full medical recovery and ordinary aid; no runtime result is assumed.
+- Extended actual-adapter mocks for corrupt recovery/deferred credit, explicit corrupt-bridge responses, pending-credit explanations and observer repair/no-op returns. **71 project checks pass**, including Lua 5.1 syntax and the extended rule/adapter harnesses. Manifest validates 12 catalog inputs / 16 profiles; the recovery profile renders the intended owner list. Full hashes for its four selected upstream inputs match existing pins; whitespace check passes. Engine results follow separately; earlier 0.4.0 account evidence stays tied to its actual source.
+
 ## 2026-10-19 — V2 two-account separation/shared aid and fresh-process persistence observed
 
 - Ran the fresh four-mod `faction-ownership-trial` from `e58f715` on Build 42.21.0. A and B completed their own native two-bandage introduction, each receiving Alcohol Wipes and one 1.5625-point Jeem deed. Before delivery B had no inherited completion or standing. A claimed one medical bottle; both its retry and B's eligible request were refused by the shared 48-hour cooldown. Fixture gear was supplied administratively, not earned loot.

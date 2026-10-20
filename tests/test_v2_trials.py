@@ -33,9 +33,12 @@ class V2TrialTests(unittest.TestCase):
                 enabled = (cache / "mods/default.txt").read_text()
                 for mid in spec["mods"]:
                     self.assertIn(f"mod = {mid},", enabled)
-                for mid in ["Bandits", "HordeNights", "Viewpoint", "ProjectALife"]:
-                    if not spec.get("alife_owner"):
-                        self.assertNotIn(mid, enabled)
+                for mid in ["Bandits", "Viewpoint"]:
+                    self.assertNotIn(mid, enabled)
+                if not spec.get("alife_owner"):
+                    self.assertNotIn("ProjectALife", enabled)
+                if name != "faction-recovery-trial":
+                    self.assertNotIn("HordeNights", enabled)
                 if spec.get("project_mod"):
                     self.assertIn("mod = Pokeys100DaysGone,", enabled)
                 else:
@@ -73,14 +76,15 @@ class V2TrialTests(unittest.TestCase):
 
     def test_ownership_supplies_are_fixed_per_named_account_and_world(self):
         d = control.Desktop(); d.server = Mock(); d.server.poll.return_value = None
-        d.server_profile = "faction-ownership-trial"
-        for client in ("a", "b"):
-            with self.subTest(client=client):
+        for profile, prefix in (("faction-ownership-trial", "pokeys_ownership_"),
+                                ("faction-recovery-trial", "pokeys_recovery_")):
+            d.server_profile = profile
+            for client in ("a", "b"):
                 d.server.stdin.write.reset_mock()
                 d.dispatch({"action": "server_v2_supplies", "client": client,
                             "username": "unrelated", "count": 999, "item": "Base.Shotgun"})
                 d.server.stdin.write.assert_called_once_with(
-                    f"additem pokeys_ownership_{client} Base.Bandage 2\n")
+                    f"additem {prefix}{client} Base.Bandage 2\n")
         with self.assertRaises(ValueError):
             d.dispatch({"action": "server_v2_supplies"})
         d.server.poll.return_value = 0
@@ -102,6 +106,27 @@ class V2TrialTests(unittest.TestCase):
         self.assertNotIn("HordeNights", ini)
         self.assertIn("PopulationMultiplier = 0.0", sandbox)
         self.assertIn("EnableMissionReset = false", sandbox)
+
+    def test_recovery_horde_approach_and_single_birth_settings_are_scoped(self):
+        root = Path(__file__).resolve().parents[1]
+        sandbox = (root / "config/server/faction-recovery-trial_SandboxVars.lua").read_text()
+        self.assertIn("BaseZombiesPerPlayer = 1", sandbox)
+        self.assertIn("ActiveHordeCap = 1", sandbox)
+        self.assertIn("SupplyDropsEnabled = false", sandbox)
+        self.assertIn("PopulationMultiplier = 0.0", sandbox)
+        d = control.Desktop(); d.server = Mock(); d.server.poll.return_value = None
+        d.server_profile = "faction-recovery-trial"; d.profile = "faction-ownership-trial"
+        with patch.object(d, "window", return_value="owned-window"), patch.object(control, "run") as run:
+            with self.assertRaises(RuntimeError):
+                d.dispatch({"action": "test_recovery_horde_approach"})
+            run.assert_not_called()
+            d.profile = "faction-recovery-trial"
+            d.dispatch({"action": "test_recovery_horde_approach", "x": 1, "username": "unrelated"})
+            self.assertIn("/teleportto 8500,11756,0", run.call_args.args)
+            run.reset_mock(); d.server.poll.return_value = 0
+            with self.assertRaises(RuntimeError):
+                d.dispatch({"action": "test_recovery_horde_approach"})
+            run.assert_not_called()
 
 
 if __name__ == "__main__": unittest.main()

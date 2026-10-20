@@ -36,6 +36,12 @@ d.lastAid = 60
 assert(not V.aidAllowed(d, "steam:account-1", 59, true, "allied", false)) -- clock rollback fails closed
 assert(not V.aidAllowed(d, "steam:account-1", 107.99, true, "allied", false))
 assert(V.aidAllowed(d, "steam:account-1", 108, true, "allied", false))
+for _, status in ipairs({"pending", "incident"}) do
+    d.grants["steam:account-1"].status = status
+    local allowed, code = V.aidAllowed(d, "steam:account-1", 108, true, "allied", false)
+    assert(not allowed and code == "inspection_required", "an ambiguous completed delivery must not ask for replay")
+end
+d.grants["steam:account-1"].status = "applied"
 
 local reopened = V.open({schema=1, grants={ ["steam:account-1"]={status="applied",hours=12,delta=1.5} },
     revision=2, lastAid=60})

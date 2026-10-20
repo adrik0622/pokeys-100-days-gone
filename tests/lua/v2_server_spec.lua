@@ -43,8 +43,9 @@ ProjectALifeJimmy = {enabled=function(name) return name == "standing" end,
         points=function(key) return effects.standing[key] or 0 end}}
 
 local Observer = require "Pokeys/MigrationServer"
+Observer.init()
 local oldRepair = Observer.repair
-Observer.repair = function() effects.repairs = effects.repairs + 1 end
+Observer.repair = function() effects.repairs = effects.repairs + 1; return oldRepair() end
 local Server = require "Pokeys/V2Server"
 callbacks.OnInitGlobalModData()
 callbacks.OnServerStarted()
@@ -222,6 +223,26 @@ assert(store["Pokeys100DaysGone.V2Bridge"].grants[invalidRate.account].status ==
 assert(effects.standing["account:" .. invalidRate.account] == nil)
 Observer.repair = oldRepair
 
+-- Corrupt recovery state must not be mistaken for a functioning, undisrupted relay.
+local savedRecovery = store["Pokeys100DaysGone.Observer"]
+store["Pokeys100DaysGone.Observer"] = {schema=99}
+Observer.init()
+local deferred = {account="steam:fixture-recovery-unavailable", username="recovery-deferred"}
+history[deferred.account] = {completed={pokeys_medical_relief_01=true}}
+Server.credit(deferred)
+assert(store["Pokeys100DaysGone.V2Bridge"].grants[deferred.account] == nil)
+assert(effects.standing["account:" .. deferred.account] == nil)
+now = now + 600
+Server.command("PokeysV2", "aid", bad, {})
+assert(sent[#sent][4].code == "recovery_unavailable" and not sent[#sent][4].state.available)
+assert(not sent[#sent][4].state.aidEligible and effects.inventory == 3)
+assert(store["Pokeys100DaysGone.Observer"].schema == 99) -- preserve for inspection
+store["Pokeys100DaysGone.Observer"] = savedRecovery
+Observer.init()
+Server.credit(deferred)
+assert(store["Pokeys100DaysGone.V2Bridge"].grants[deferred.account].status == "applied")
+assert(effects.standing["account:" .. deferred.account] == 1.5)
+
 -- The feature is opt-in; malformed saved state stays untouched and cannot grant aid.
 local registered = #TM42.CustomMissionDefs
 SandboxVars.PokeysV2.Enabled = false
@@ -239,8 +260,10 @@ callbacks.OnInitGlobalModData()
 now = now + 600
 Server.command("PokeysV2", "state", player, {})
 assert(sent[#sent][4].state.available == false)
+assert(sent[#sent][4].code == "bridge_unavailable")
 assert(store["Pokeys100DaysGone.V2Bridge"] == malformed)
 now = now + 600
 Server.command("PokeysV2", "aid", player, {})
 assert(effects.inventory == 3 and store["Pokeys100DaysGone.V2Bridge"] == malformed)
+assert(sent[#sent][4].code == "bridge_unavailable" and not sent[#sent][4].state.aidEligible)
 print("PASS: V2 server adapter trusts native history, credits once, and fail-closes partial credit/aid delivery")

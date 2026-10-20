@@ -39,6 +39,7 @@ end
 
 function Server.credit(player)
     if not data or not V.enabled() then return end
+    if Observer.disruptionHours() == nil then return end -- defer before any standing effect
     local key, completed = history(player)
     if not key or not completed or data.grants[key] then return end
     local J, playerKey = standing(player)
@@ -50,11 +51,13 @@ function Server.credit(player)
         local before, after = J.Standing.add(playerKey, V.faction, delta,
             {kind = "pokeys_medical_relief", x = V.x, y = V.y})
         assert(before ~= nil and after ~= nil, "Jeem standing refused")
-        Observer.repair() -- same original observer condition, not a second horde scheduler
+        local repaired = Observer.repair() -- same original condition, not a second scheduler
+        assert(repaired ~= nil, "relay recovery unavailable")
         data.grants[key].status = "applied"
         data.grants[key].delta = delta
         data.revision = data.revision + 1
-        print("[PokeysV2] confirmed native relief -> Jeem delta=" .. delta .. "; recovery repaired")
+        print("[PokeysV2] confirmed native relief -> Jeem delta=" .. delta ..
+            (repaired and "; recovery repaired" or "; recovery unchanged (no active disruption)"))
     end)
     if not ok then
         data.grants[key].status = "incident"
@@ -66,13 +69,22 @@ local function snapshot(player)
     local key, completed = history(player)
     local J, _, label, points = standing(player)
     local grant = data and key and data.grants[key]
-    return {available = data ~= nil, nativeMission = TM42 ~= nil, npcOwner = ProjectALife ~= nil,
+    local recovery = Observer.disruptionHours()
+    local aidEligible, aidReason = false, "bridge_unavailable"
+    if data and recovery == nil then aidReason = "recovery_unavailable"
+    elseif data then
+        aidEligible, aidReason = V.aidAllowed(data, key, hour(), V.near(player), label, recovery > 0)
+        if aidEligible then aidReason = "aid_ready" end
+    end
+    return {available = data ~= nil and recovery ~= nil, nativeMission = TM42 ~= nil, npcOwner = ProjectALife ~= nil,
         standingOwner = J ~= nil, label = label or "unavailable", points = points or 0,
         completed = completed == true, credit = grant and grant.status or "not credited",
         delta = grant and grant.delta or 0, revision = data and data.revision or 0,
         aidPending = data and data.aidPending ~= nil or false,
         aidHours = data and data.lastAid and math.max(0, V.aidHours-(hour()-data.lastAid)) or 0,
-        disrupted = Observer.aidBlocked() == true}
+        disrupted = recovery ~= nil and recovery > 0,
+        recoveryAvailable = recovery ~= nil, disruptionHours = recovery or 0,
+        aidEligible = aidEligible, aidReason = aidReason}
 end
 
 function Server.command(module, command, player, args)
@@ -83,13 +95,16 @@ function Server.command(module, command, player, args)
     if rate[user] and ms-rate[user] < 500 then return end
     rate[user] = ms
     Server.credit(player)
-    local code = "refreshed"
+    local recovery = Observer.disruptionHours()
+    local code = not data and "bridge_unavailable" or
+        (recovery == nil and "recovery_unavailable" or "refreshed")
     if command == "aid" then
-        if not data then return end
-        local key = history(player)
-        local _, _, label = standing(player)
         local allowed
-        allowed, code = V.aidAllowed(data, key, hour(), V.near(player), label, Observer.aidBlocked())
+        if data and recovery ~= nil then
+            local key = history(player)
+            local _, _, label = standing(player)
+            allowed, code = V.aidAllowed(data, key, hour(), V.near(player), label, recovery > 0)
+        end
         if allowed then
             data.aidPending = {hours = hour(), by = user} -- durable fail-closed reservation before effect
             local ok, failure = pcall(function()

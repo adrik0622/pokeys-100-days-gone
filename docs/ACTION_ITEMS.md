@@ -1,5 +1,7 @@
 # User actions and pinned roadblocks
 
+**Latest play lane, SC-006:** public unstable collection `3826875440` and [field guide](UNSTABLE_FIELD_GUIDE.md) are prepared for friends on42.21. The host still needs to choose the actual new world/server, password/access and PvP/safety preference before deployment; no existing world is overwritten. Fresh disposable world is the stated assumption. These choices do not block content assembly, which is complete for this17-item first pass. Public metadata/actual downloads resolve HR-011's old availability concern. Baseline pins/known-bug evidence below remain historical; field inclusion does not erase them.
+
 No immediate credential/MFA, controller restart or second-human-test action is required. User pinned the reported issues as known bugs/limitations, **not immediate blockers to development play or independent v1.0 feature work**, and separately approved [SC-001](SCOPE_CHANGES.md), deferring the leader to v1.1. Detailed classification is in [KNOWN_BUGS](KNOWN_BUGS.md). Neither decision certifies the combined campaign or waives unrelated v1.0 acceptance. Do not contact authors, publish/upload a mod/fork, add a remote or change host services without separate authorization.
 
 | ID | State | User action / why |

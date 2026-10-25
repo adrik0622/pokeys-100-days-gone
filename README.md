@@ -1,5 +1,7 @@
 # Pokeys 100 Days Gone
 
+**Current play lane (2026-10-25): [public unstable collection, 17 items](https://steamcommunity.com/sharedfiles/filedetails/?id=3826875440), Build42.21, friends' field test.** Use the [field guide and content/dependency map](docs/UNSTABLE_FIELD_GUIDE.md), [exact manifest](config/unstable.json) and [fresh-world preset](config/unstable/field.ini). Git branch `unstable` preserves the baseline on `main`; this is SC-006 content adoption, not a declaration that V1/V2 acceptance is finished. The historical development/fixture documentation below remains separate.
+
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 
 Approved [SC-002](docs/SCOPE_CHANGES.md): **v2.0 targets the living-world spirit**—recurring faction needs, meaningful choices, optional active play and consequential encounters. “It's show business” is one tool; choose the simplest effective engineering approach, including custom simulation when justified. [Living-world design and roadmap](docs/V2_LIVING_WORLD.md) · [Dated mod survey and airdrop source findings](docs/V2_MOD_SURVEY.md). These are plans/research, not newly enabled mods or a claim that v1.0 is complete.

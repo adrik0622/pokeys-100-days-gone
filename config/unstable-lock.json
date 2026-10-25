@@ -1,0 +1,225 @@
+{
+  "collection_id": "3826875440",
+  "game_version": "42.21.0",
+  "observed_date": "2026-10-25",
+  "kind": "observation, not immutable Workshop lock",
+  "items": [
+    {
+      "publishedfileid": "3826875440",
+      "title": "Pokeys 100 Days Gone — Unstable",
+      "time_updated": 1792924606,
+      "visibility": 0,
+      "banned": 0
+    },
+    {
+      "publishedfileid": "3619862853",
+      "title": "ZombieBuddy",
+      "time_updated": 1791033976,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "449ea7c851bdef5fe6f76321886bc7ac642aa6e221edc8c945397343afa3ece1",
+      "files": 202,
+      "mod_info": [
+        "mods/ZombieBuddy/41/mod.info",
+        "mods/ZombieBuddy/42/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3809306528",
+      "title": "Project Viewpoint",
+      "time_updated": 1792125660,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "79578cfb04fbe7e44ffe475778b7bcef424055af2c56725a1210a54c1bc2ff8d",
+      "files": 17,
+      "mod_info": [
+        "mods/Viewpoint/common/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3810302175",
+      "title": "6244 3D models for Viewpoint [sour_kisel]",
+      "time_updated": 1791924117,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "d04be5d669517b38b613f2d5955ef3ec4536d3e937d1c370ff7390c8ee9017b3",
+      "files": 35887,
+      "mod_info": [
+        "mods/PZVoxelStudioViewpoint/42.20.4/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3803984183",
+      "title": "Project A-Life [ALIFE NPCS]",
+      "time_updated": 1792779018,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "072d495753dbe3e9f41486e137361fbd82412b4487c7840a5b98b71c39ec5503",
+      "files": 1751,
+      "mod_info": [
+        "mods/ProjectALifeNPCs/42.20/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3806944055",
+      "title": "Project A-Life - Jeem Extension",
+      "time_updated": 1792643212,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "163ddacbc224ebf34c22ba44d8851b99d792d4af6f3d29bc0fc3034c960203ac",
+      "files": 262,
+      "mod_info": [
+        "mods/ProjectALifeJimmy/42/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3782615002",
+      "title": "Horde Nights",
+      "time_updated": 1787816928,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "c77d915197917f02d2ef0a57602b78481280764ca6eda5fd60637075b6751d15",
+      "files": 15,
+      "mod_info": [
+        "mods/HordeNights/42/mod.info",
+        "mods/HordeNights/common/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3694097672",
+      "title": "Tooltiplib - Tooltip Framework for Modders",
+      "time_updated": 1791453156,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "dfc5dff5e8027776f01786c782d3473b6379c42d68edd37e5a931688c4aed282",
+      "files": 21,
+      "mod_info": [
+        "mods/TooltipLib/42/mod.info",
+        "mods/TooltipLib/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3817018338",
+      "title": "Belt Walkie-Talkie",
+      "time_updated": 1792595829,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "efbc4d6a8f11261af016e3353f484e880175e0786b634a4cf855014e5b8fbd07",
+      "files": 40,
+      "mod_info": [
+        "mods/batman_BeltRadio/42.21/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3811010882",
+      "title": "Signal Smoke - Colored Smoke Grenades, Flares & Chemlights",
+      "time_updated": 1792595549,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "27335428f8d23ff936b8628245f23acd1a207cd55d78d4c5244dc37463065255",
+      "files": 108,
+      "mod_info": [
+        "mods/batman_SignalSmoke/42.21/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3811752923",
+      "title": "Military Drop - Radio Supply Airdrops",
+      "time_updated": 1792776113,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "a944d98d400dc2dcf6cdd4c7adf057765736c50feaaa2a22a2af84a1b42cefbb",
+      "files": 190,
+      "mod_info": [
+        "mods/batman_MilitaryDrop/42.21/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3640172314",
+      "title": "The Mission B42.21",
+      "time_updated": 1792550920,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "e8a43c8cdd228ff814a07c5931f97b0c7d5d02cd94c83f70539fe6e47ac95a25",
+      "files": 29,
+      "mod_info": [
+        "mods/TheMission/42/mod.info",
+        "mods/TheMission/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3820580321",
+      "title": "Complete Vanilla Firearms Expansion",
+      "time_updated": 1792626907,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "a8d8e802d9338f5bca80158406d59c37605bf86b5fd86b917f3d0ad90249372b",
+      "files": 1034,
+      "mod_info": [
+        "mods/ExtendedVanillaWeapons/42/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3716934959",
+      "title": "Playable Minigames (Previously Playable Pool)",
+      "time_updated": 1792505593,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "72add4c6c913079cd566bc2e54d433ab0f074dfe092b27f799fff1917191ad9c",
+      "files": 1487,
+      "mod_info": [
+        "mods/playable_pool/42/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3775673766",
+      "title": "Someone called RPG? [B42]",
+      "time_updated": 1791529779,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "3d0955d544644dd9d55c7c3d2aa7ca8a44766b75716833b8221f7666f475ecf0",
+      "files": 20,
+      "mod_info": [
+        "mods/RarityThreads/42/mod.info",
+        "mods/RarityThreads/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "2847184718",
+      "title": "Proximity Inventory B42.20+ | We are so back",
+      "time_updated": 1788105180,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "ed5d470c73f6fb43f3e566eb029ab6b01b7e205eb381fe62e5a5ca5b4ace2668",
+      "files": 57,
+      "mod_info": [
+        "mods/ProximityInventory/42/mod.info",
+        "mods/ProximityInventory/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3808244560",
+      "title": "Special Infected Framework",
+      "time_updated": 1791820840,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "5e391d3b14aff63c001b2f87e4f1fc66d16812f47e4a2a89d0bccb09a5de3f6c",
+      "files": 22,
+      "mod_info": [
+        "mods/CheolsSpecialInfectedFramework/42.20/mod.info"
+      ]
+    },
+    {
+      "publishedfileid": "3808245444",
+      "title": "Special Infected #01 - Bloated",
+      "time_updated": 1792858103,
+      "visibility": 0,
+      "banned": 0,
+      "payload_sha256": "a15d9721b12fa328b8ac026ea13fb878869ad1b758a260d1795f8a4118325d59",
+      "files": 160,
+      "mod_info": [
+        "mods/CheolsSpecialInfected_Bloated/common/mod.info"
+      ]
+    }
+  ]
+}

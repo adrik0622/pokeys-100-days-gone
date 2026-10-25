@@ -1,5 +1,7 @@
 # Pokeys 100 Days Gone — V2 implementation and V3 mod-scene report
 
+**2026-10-25 continuation:** the newer [unstable field guide](UNSTABLE_FIELD_GUIDE.md) supersedes this report's adoption/availability decisions for the SC-006 public content lane. Military Drop, RarityThreads and Cheols framework are publicly available and freshly downloaded; earlier removed/incompatible statements below came from hidden HTML warning templates and are not valid delisting evidence. Current Military Drop requires Signal Smoke. Current Bloated1.0.4 PRETEST uses independent spawning and is included on Easy in unstable. Historical tests remain tied to their original payloads; the baseline roadmap is not retrospectively accepted.
+
 **Research snapshot:** Project Zomboid Build 42.21.0, revision `4a0e9546ec`; installed payloads and Workshop pages rechecked October 19, 2026. **Audience:** project owner / human review. This report documents the current V2 direction, the actual implementation state, and a separate V3 research lane. A V3 candidate is not an adopted feature or a scope change. Steam currently displays “removed/incompatible” banners on [Military Drop](https://steamcommunity.com/sharedfiles/filedetails/?id=3811752923) and [RarityThreads](https://steamcommunity.com/sharedfiles/filedetails/?id=3775673766). This does not erase prior local-payload test evidence, but it makes future subscription/update availability uncertain; see HR-011.
 
 ## Executive read

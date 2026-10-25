@@ -1,5 +1,13 @@
 # Development Workshop collection
 
+## Public unstable collection — 2026-10-25
+
+[Pokeys 100 Days Gone — Unstable](https://steamcommunity.com/sharedfiles/filedetails/?id=3826875440), ID `3826875440`, same owner PokeyFish. Created separately through PZ Workshop→Browse→Collections→Create Collection; reused the project's original cover, saved the content list and clicked Publish. Owner visibility menu shows **Public**; unauthenticated public APIs confirm visibility0, result1, banned0 and the exact **17** members in [config/unstable.json](../config/unstable.json). The owner page displayed a temporary automated content-analysis notice after publishing; that is separate from visibility and not compatibility acceptance. Do not duplicate this collection or convert the old baseline to public.
+
+Field instructions, dependencies, knobs and decisions: [UNSTABLE_FIELD_GUIDE](UNSTABLE_FIELD_GUIDE.md). Description source: [unstable-description.txt](../assets/workshop/unstable-description.txt). Upstream references only; no copied payload uploaded and no local companion Workshop item created. The current field templates are undeployed. Public list verification is repeatable with `python3 scripts/unstable.py verify`; `snapshot` records public metadata and local payload hashes, not a frozen Workshop release. SC-006 authorizes public content assembly and friends' play instead of another automated campaign.
+
+## Retained hidden baseline
+
 [Pokeys 100 Days Gone](https://steamcommunity.com/sharedfiles/filedetails/?id=3822649790)
 
 - ID: `3822649790`; owner: PokeyFish / `76561198039982939`.

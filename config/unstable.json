@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "name": "Pokeys 100 Days Gone — Unstable",
+  "game_version": "42.21.0",
+  "collection_id": "3826875440",
+  "visibility": "public",
+  "status": "friends-field-test; author/source fit, combined gameplay unverified",
+  "world_policy": "fresh disposable world; never overwrite retained fixtures",
+  "companion_enabled": false,
+  "mods": [
+    {"workshop_id":"3619862853","mod_id":"ZombieBuddy","name":"ZombieBuddy","requires":[],"role":"Java loader; follow upstream client/server installation"},
+    {"workshop_id":"3809306528","mod_id":"Viewpoint","name":"Project Viewpoint","requires":["ZombieBuddy"],"role":"first-person presentation and aiming"},
+    {"workshop_id":"3810302175","mod_id":"PZVoxelStudioViewpoint","name":"6244 3D models for Viewpoint","requires":["Viewpoint"],"role":"first-person object models"},
+    {"workshop_id":"3803984183","mod_id":"ProjectALifeNPCs","name":"Project A-Life","requires":[],"role":"sole NPC simulation and faction owner"},
+    {"workshop_id":"3806944055","mod_id":"ProjectALifeJimmy","name":"Project A-Life — Jeem Extension","requires":["ProjectALifeNPCs"],"role":"native reputation, bases, recruitment and relationships"},
+    {"workshop_id":"3782615002","mod_id":"HordeNights","name":"Horde Nights","requires":[],"role":"scheduled horde owner; all its supply drops OFF"},
+    {"workshop_id":"3694097672","mod_id":"TooltipLib","name":"TooltipLib","requires":[],"role":"radio tooltip dependency; optional rarity tooltip integration"},
+    {"workshop_id":"3817018338","mod_id":"batman_BeltRadio","name":"Belt Walkie-Talkie","requires":["TooltipLib"],"role":"wearable radio operation"},
+    {"workshop_id":"3811010882","mod_id":"batman_SignalSmoke","name":"Signal Smoke","requires":[],"role":"signals, flares and current Military Drop dependency"},
+    {"workshop_id":"3811752923","mod_id":"batman_MilitaryDrop","name":"Military Drop","requires":["TooltipLib","batman_BeltRadio","batman_SignalSmoke"],"role":"sole requested supply-drop owner and native military trust"},
+    {"workshop_id":"3640172314","mod_id":"TheMission42","name":"The Mission B42.21","requires":[],"role":"optional gather/travel/survival jobs; kill category disabled for NPC-shell ambiguity"},
+    {"workshop_id":"3820580321","mod_id":"ExtendedVanillaWeapons","name":"Complete Vanilla Firearms Expansion","requires":[],"role":"weapon/attachment variety; replaces other VFE packs"},
+    {"workshop_id":"3716934959","mod_id":"playable_pool","name":"Playable Minigames","requires":[],"role":"optional social games, records and closed virtual-chip casino"},
+    {"workshop_id":"3775673766","mod_id":"RarityThreads","name":"Someone called RPG?","requires":[],"role":"one procedural clothing-rarity owner; combat-stat interaction is experimental"},
+    {"workshop_id":"2847184718","mod_id":"ProximityInventory","name":"Proximity Inventory","requires":[],"role":"nearby container/corpse inventory QOL"},
+    {"workshop_id":"3808244560","mod_id":"CheolsSpecialInfectedFramework","name":"Special Infected Framework","requires":[],"role":"separate special-infected identity/spawn owner; does nothing alone"},
+    {"workshop_id":"3808245444","mod_id":"CheolsSpecialInfected_Bloated","name":"Special Infected #01 — Bloated","requires":["CheolsSpecialInfectedFramework"],"role":"rare independent-spawn boss-like infected; Easy preset; author PRETEST, not accepted"}
+  ],
+  "excluded_mod_ids": ["Bandits2", "RandomZeds", "Pokeys100DaysGone", "VFExpansion1", "PROJECTRVInterior42", "ProjectRVInteriorRebase", "ArcadiaRVInterior_B42_MP"],
+  "notes": [
+    "Workshop collection order is not server load order. Render this dependency-ordered list.",
+    "Upstream updates are live; unstable-lock.json records observations, not a frozen download.",
+    "No automatic Jeem-to-Military-Drop trust conversion, boss/relic targeting or contextual PvP reputation bridge is supplied.",
+    "RV, Fake Survivor and alternative special-infected owners remain proposals. Bloated's current independent-spawn source justified a reversible field inclusion, not exact-stack acceptance."
+  ]
+}

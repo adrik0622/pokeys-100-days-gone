@@ -1,0 +1,22 @@
+[h1]Public unstable field-test collection  Build 42.21[/h1]
+For 4–8 friends exploring a living, consequential survival world. Current 17-item stack:
+[list]
+[*]Project Viewpoint + ZombieBuddy + 6244 object models: first-person presentation.
+[*]Project A-Life + Jeem: persistent NPC factions, relationships, bases and crew life.
+[*]Horde Nights: scheduled horde pressure. Military Drop + Belt Radio + TooltipLib + Signal Smoke: radio supply opportunities and native military trust.
+[*]The Mission: optional goals. Complete Vanilla Firearms Expansion: weapons and attachments.
+[*]Someone called RPG?: procedural clothing loot. Proximity Inventory: easier nearby looting.
+[*]Playable Minigames: pool, darts, cards and board games, including blackjack/hold'em with virtual chips.
+[*]Cheols' Special Infected Framework + Bloated: rare boss-like infected. Current author build is PRETEST; Easy is recommended. Death releases five ordinary zombies on Easy: keep your distance.
+[/list]
+[h1]Installation and field preset[/h1]
+Use a fresh disposable world, matching 42.21 client/server revisions, and the exact Mod IDs/settings in our guide:
+https://github.com/adrik0622/pokeys-100-days-gone/blob/unstable/docs/UNSTABLE_FIELD_GUIDE.md
+ZombieBuddy requires the author's one-time loader installation; subscribing alone is insufficient. The collection does not automatically enable/configure a server. Our unpublished Pokeys companion is NOT included; its custom relay/repair/calibration bridge is a separate development feature.
+
+[h1]Experimental combinations[/h1]
+Author-documented multiplayer/build support and inspected source guide inclusion; the combined stack is being field-tested, not certified. Back up saves and expect changes. Viewpoint/CVFE/rarity combat balance, NPC ownership, Bloated visual sync and remote group performance need play feedback. No guaranteed boss relic, faction loot pursuit or automatic Jeem-to-military trust conversion is supplied.
+
+A-Life is the sole NPC stack: do not co-enable Bandits. Disable all Horde Nights supply/helicopter/Bandits drops so Military Drop owns supply fulfillment. Do not stack other VFE packs, rarity frameworks, RV systems or overlapping pool mods. RV interiors are not included yet.
+
+Consequence means readable choices and responses, not universal punishment for player killing. Warning, agency and recovery should accompany danger; social games are optional and chips have no survival-item redemption. Public collection, separate hidden baseline. Upstream references only: no code/assets reuploaded.

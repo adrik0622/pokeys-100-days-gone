@@ -77,4 +77,25 @@ SandboxVars = {
     -- Author labels current independent-spawn build PRETEST. No fixed relic reward.
     -- Easy: 2x health, regional cap 2, five ordinary zombies released on death.
     CSI_Bloated = { Enabled = true, Difficulty = 1 },
+    CheolsSpecialInfectedFramework = {
+        FakeSurvivorNaturalSpawnEnabled = true,
+        FakeSurvivorNaturalSpawnChancePercent = 10,
+        FakeSurvivorNaturalSpawnCap = 1,
+        FakeSurvivorHealthMultiplier = 1.0,
+        -- Only StartDay is registered in this Night Walker's installed sandbox file.
+        -- Other source-read settings are not invented as working server knobs here.
+        NightWalkerStartDay = 14,
+    },
+    CommonSense = {
+        PryingMechanic = true, PrySafeDoors = false,
+        ReinforcedDoorLevel = 8, PryingChanceMultiplier = 1,
+        GunStats = false, RemoveBulletsByHand = false,
+        RemoveBulletsByHandAnimation = false,
+    },
+    LSHygiene = { HygieneNeedMultiplier = 0, BladderNeedMultiplier = 0 },
+    LSComfort = { ComfortNeedMultiplier = 0, ComfortNoImpact = true },
+    LSArt = { BeautyOutdoors = false, BeautyNeedDecayRate = 1, BeautyNeedStrength = 1 },
+    LSMeditation = { RemoveLevitation = true },
+    LS = { DynamicTraits = false },
+    ImmersiveSnow = { SnowSlowdown = false, SnowWetness = false },
 }

@@ -1,5 +1,7 @@
 # Human review queue
 
+**Current field follow-up:** [30-item expansion](UNSTABLE_EXPANSION.md) is assembled; no live server deployment. User approved the recommendations; no repeated adoption permission is needed. HR-014: friends review the Snow Viewpoint Java hash normally and report renderer/MP fit (author MP untested). HR-015: review delayed Night Walker's native wave feel after play; only StartDay is registered, so richer tuning is not promised. HR-016: Rupturing/Gluttonous remain outside the pack pending readable Viewpoint cues, A-Life recruitment/protection and base/toxic-road policy. All are nonblocking to the current field stack; no immediate answer requested.
+
 **2026-10-25 SC-006 update:** public unstable field collection assembled; [field guide](UNSTABLE_FIELD_GUIDE.md) is the current content/adoption record. Public visibility and42.21 are user decisions already made. Existing-mod field inclusion no longer waits for the old laboratory sequence. Fresh world is the stated assumption, not authorization to overwrite a campaign. Host/platform/access details and PvP/safety preference are deployment choices; no live server has been changed. Combat-stat clothing and Bloated PRETEST are reversible field experiments, not final balance approval. RV remains a separate proposal. Historical queue wording below does not prohibit the SC-006 content lane.
 
 Short queue of choices that change game policy or adoption. These do not block isolated V2 tests.

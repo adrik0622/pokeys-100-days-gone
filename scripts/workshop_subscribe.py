@@ -9,6 +9,7 @@ import argparse
 import io
 import json
 from pathlib import Path
+import re
 import subprocess
 import time
 
@@ -43,7 +44,8 @@ def inspect(wid, phase):
     if image.width != 1720:
         raise RuntimeError("Uninspected Steam layout; use manual control")
     url = ocr(image.crop((65, 62, 1250, 90)).resize((2370, 56)))
-    if f"id={wid}" not in url.replace(" ", ""):
+    item = re.search(r"[?&]id=(\d+)", url.replace(" ", ""))
+    if not item or item.group(1) != wid:
         raise RuntimeError("Expected Workshop URL not confirmed: " + url)
     rows = [y for y in range(700, min(1250, image.height)) if sum(
         1 for x in range(850, 980)

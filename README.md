@@ -1,6 +1,6 @@
 # Pokeys 100 Days Gone
 
-**Current play lane (2026-10-25): [public unstable collection, 17 items](https://steamcommunity.com/sharedfiles/filedetails/?id=3826875440), Build42.21, friends' field test.** Use the [field guide and content/dependency map](docs/UNSTABLE_FIELD_GUIDE.md), [exact manifest](config/unstable.json) and [fresh-world preset](config/unstable/field.ini). Git branch `unstable` preserves the baseline on `main`; this is SC-006 content adoption, not a declaration that V1/V2 acceptance is finished. The historical development/fixture documentation below remains separate.
+**Current play lane (2026-10-25): [public unstable collection, 30 items](https://steamcommunity.com/sharedfiles/filedetails/?id=3826875440), Build42.21, friends' field test.** Use the [field guide](docs/UNSTABLE_FIELD_GUIDE.md), [QOL/content expansion and special-infected comparison](docs/UNSTABLE_EXPANSION.md), [exact manifest](config/unstable.json) and [fresh-world preset](config/unstable/field.ini). Git branch `unstable` preserves the baseline on `main`; this is SC-006 content adoption, not a declaration that V1/V2 acceptance is finished. The historical development/fixture documentation below remains separate.
 
 A small private Project Zomboid survival multiplayer project. Original requirements: [PROJECT_BRIEF.txt](PROJECT_BRIEF.txt). Prior research and continuation notes: [HANDOFF.txt](HANDOFF.txt).
 

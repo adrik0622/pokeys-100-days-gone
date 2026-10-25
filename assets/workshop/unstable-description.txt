@@ -1,5 +1,5 @@
 [h1]Public unstable field-test collection  Build 42.21[/h1]
-For 4–8 friends exploring a living, consequential survival world. Current 17-item stack:
+For 4–8 friends exploring a living, consequential survival world. Current 30-item stack:
 [list]
 [*]Project Viewpoint + ZombieBuddy + 6244 object models: first-person presentation.
 [*]Project A-Life + Jeem: persistent NPC factions, relationships, bases and crew life.
@@ -8,14 +8,20 @@ For 4–8 friends exploring a living, consequential survival world. Current 17-i
 [*]Someone called RPG?: procedural clothing loot. Proximity Inventory: easier nearby looting.
 [*]Playable Minigames: pool, darts, cards and board games, including blackjack/hold'em with virtual chips.
 [*]Cheols' Special Infected Framework + Bloated: rare boss-like infected. Current author build is PRETEST; Easy is recommended. Death releases five ordinary zombies on Easy: keep your distance.
+[*]Fake Survivor: a daytime scavenger and night hunter carrying real stolen loot. Night Walker: a fast window/fence-climbing threat, delayed until day 14 in our preset. Barricade windows and close curtains; fences/upstairs alone are not reliable safety.
+[*]Attachments UI, Has Been Read, Better Sorting, Common Sense Community Fix, Better Animal Care and Map Legend UI: practical information, organization and interaction improvements.
+[*]Lifestyle: Hobbies: music, art and social downtime. Immersive Snow + its Viewpoint addon: seasonal tracks and visual effects. KI5 M998 + cargo trailer + that DAMN Library: an expedition vehicle worth restoring.
 [/list]
 [h1]Installation and field preset[/h1]
 Use a fresh disposable world, matching 42.21 client/server revisions, and the exact Mod IDs/settings in our guide:
 https://github.com/adrik0622/pokeys-100-days-gone/blob/unstable/docs/UNSTABLE_FIELD_GUIDE.md
 ZombieBuddy requires the author's one-time loader installation; subscribing alone is insufficient. The collection does not automatically enable/configure a server. Our unpublished Pokeys companion is NOT included; its custom relay/repair/calibration bridge is a separate development feature.
+Expansion details, special-infected counterplay, settings and next candidates:
+https://github.com/adrik0622/pokeys-100-days-gone/blob/unstable/docs/UNSTABLE_EXPANSION.md
 
 [h1]Experimental combinations[/h1]
 Author-documented multiplayer/build support and inspected source guide inclusion; the combined stack is being field-tested, not certified. Back up saves and expect changes. Viewpoint/CVFE/rarity combat balance, NPC ownership, Bloated visual sync and remote group performance need play feedback. No guaranteed boss relic, faction loot pursuit or automatic Jeem-to-military trust conversion is supplied.
+The Snow Viewpoint addon is a client-visual exception whose author says multiplayer is untested; matching renderer versions and a separate per-hash Java approval are required. Keep the approval policy intact. Common Sense maintainer's engine validation and current M998/Viewpoint fit also remain field questions. Our new-world preset disables extra snow slowdown/wetting and Lifestyle hygiene/bladder drains, and weakens beauty/comfort pressures. Rupturing One and Gluttonous One are research-only, outside this collection.
 
 A-Life is the sole NPC stack: do not co-enable Bandits. Disable all Horde Nights supply/helicopter/Bandits drops so Military Drop owns supply fulfillment. Do not stack other VFE packs, rarity frameworks, RV systems or overlapping pool mods. RV interiors are not included yet.
 

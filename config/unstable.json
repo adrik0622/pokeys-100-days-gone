@@ -24,13 +24,28 @@
     {"workshop_id":"3775673766","mod_id":"RarityThreads","name":"Someone called RPG?","requires":[],"role":"one procedural clothing-rarity owner; combat-stat interaction is experimental"},
     {"workshop_id":"2847184718","mod_id":"ProximityInventory","name":"Proximity Inventory","requires":[],"role":"nearby container/corpse inventory QOL"},
     {"workshop_id":"3808244560","mod_id":"CheolsSpecialInfectedFramework","name":"Special Infected Framework","requires":[],"role":"separate special-infected identity/spawn owner; does nothing alone"},
-    {"workshop_id":"3808245444","mod_id":"CheolsSpecialInfected_Bloated","name":"Special Infected #01 — Bloated","requires":["CheolsSpecialInfectedFramework"],"role":"rare independent-spawn boss-like infected; Easy preset; author PRETEST, not accepted"}
+    {"workshop_id":"3808245444","mod_id":"CheolsSpecialInfected_Bloated","name":"Special Infected #01 — Bloated","requires":["CheolsSpecialInfectedFramework"],"role":"rare independent-spawn boss-like infected; Easy preset; author PRETEST, not accepted"},
+    {"workshop_id":"3816324722","mod_id":"AttachmentsUI","name":"Attachments UI","requires":[],"integrates_with":["ExtendedVanillaWeapons"],"role":"visual weapon attachment management; selected CVFE integration"},
+    {"workshop_id":"2544353492","mod_id":"P4HasBeenRead","name":"Has Been Read","requires":[],"role":"per-character book/media learning and collection marks"},
+    {"workshop_id":"2313387159","mod_id":"BetterSortCC","name":"Better Sorting","requires":[],"role":"meaningful inventory categories"},
+    {"workshop_id":"3717968421","mod_id":"BB_CommonSenseFix","name":"Common Sense B42.21 — Community Compatibility Fix","requires":[],"role":"one Common Sense owner; practical tools/entry/utility actions"},
+    {"workshop_id":"3582024827","mod_id":"EURY_ANIMALCARE","name":"Better Animal Care","requires":[],"role":"livestock needs and animal-zone QOL"},
+    {"workshop_id":"2710167561","mod_id":"MapLegendUI","name":"Map Legend UI","requires":[],"role":"readable building-color map legend"},
+    {"workshop_id":"3403870858","mod_id":"LifestyleHobbies","name":"Lifestyle: Hobbies","requires":[],"role":"music, art, dancing and homestead social activities; mandatory need drains reduced"},
+    {"workshop_id":"3810071828","mod_id":"ImmersiveSnow","name":"Immersive Snow","requires":[],"role":"footprints, tracks and seasonal visual cause/effect; extra movement penalty OFF"},
+    {"workshop_id":"3816586790","mod_id":"ImmersiveSnowViewpoint","name":"Immersive Snow — Viewpoint","requires":["ZombieBuddy","Viewpoint","ImmersiveSnow"],"role":"version-guarded 3D snow rendering; client Java approval required; author MP untested"},
+    {"workshop_id":"3171167894","mod_id":"damnlib","name":"that DAMN Library","requires":[],"role":"KI5 vehicle dependency"},
+    {"workshop_id":"2642541073","mod_id":"92amgeneralM998","name":"'92 AM General M998 + M101A3 Cargo trailer","requires":["damnlib"],"role":"valuable expedition vehicle and cargo trailer; exact Viewpoint fit unverified"},
+    {"workshop_id":"3810118747","mod_id":"CheolsFakeSurvivor","name":"Special Infected #02 — Fake Survivor","requires":["CheolsSpecialInfectedFramework"],"role":"one persistent daytime scavenger/night hunter with real recoverable inventory"},
+    {"workshop_id":"3814935581","mod_id":"CheolsSpecialInfected_NightWalker","name":"Special Infected #03 — Night Walker","requires":["CheolsSpecialInfectedFramework"],"role":"mobile infected with window/fence counterplay; first appearance delayed to day 14"}
   ],
-  "excluded_mod_ids": ["Bandits2", "RandomZeds", "Pokeys100DaysGone", "VFExpansion1", "PROJECTRVInterior42", "ProjectRVInteriorRebase", "ArcadiaRVInterior_B42_MP"],
+  "excluded_mod_ids": ["Bandits2", "RandomZeds", "Pokeys100DaysGone", "VFExpansion1", "PROJECTRVInterior42", "ProjectRVInteriorRebase", "ArcadiaRVInterior_B42_MP", "CheolsSpecialInfected_RupturingOne", "CSI_RupturingOne_ZombieBuddy", "CheolsSpecialInfected_GluttonousOne"],
   "notes": [
     "Workshop collection order is not server load order. Render this dependency-ordered list.",
     "Upstream updates are live; unstable-lock.json records observations, not a frozen download.",
     "No automatic Jeem-to-Military-Drop trust conversion, boss/relic targeting or contextual PvP reputation bridge is supplied.",
-    "RV, Fake Survivor and alternative special-infected owners remain proposals. Bloated's current independent-spawn source justified a reversible field inclusion, not exact-stack acceptance."
+    "RV, Rupturing One, Gluttonous One and alternative special-infected frameworks remain outside this main field stack.",
+    "The Snow Viewpoint Java addon is an explicitly disclosed author-MP-untested visual exception, not gameplay acceptance; preserve per-hash approval.",
+    "AttachmentsUI's CVFE ordering is a selected integration relationship, not an upstream hard dependency."
   ]
 }

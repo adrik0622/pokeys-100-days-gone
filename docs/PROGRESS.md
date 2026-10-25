@@ -1,5 +1,11 @@
 # Progress and significant decisions
 
+## 2026-10-25 — Expansion subscriptions; accidental unsubscribe corrected
+
+- User authorized the nine recommended QOL/content additions and their dependencies, followed by further community-supported content/special-infected research. Working only on `unstable`; retained baseline/live saves unchanged.
+- Initial UI batch incorrectly used green button color as subscription-state evidence. User noticed an unsubscribe. Audited every saved pre-click screenshot: **Better Animal Care3582024827** was the only already-subscribed item clicked; all other pre-click buttons read Subscribe. Restored Animal Care immediately; Steam visibly confirmed addition to Subscriptions. Preserve the incident rather than treating the earlier click as successful adoption.
+- Added a bounded Steam subscription helper that checks the exact item URL and OCR button label, skips Subscribed/Unsubscribe, clicks only exact Subscribe and requires post-click confirmation. Existing Animal Care was checked and left untouched. Ambiguous OCR URL whitespace initially refused a new subscription without clicking; normalized spaces only. No credential/cookie extraction, Java approval, game enable flags or live server changes. Collection/preset expansion and source review continue next.
+
 ## 2026-10-25 — Public unstable content pack assembled for friends' field play
 
 - Created/published separate collection **3826875440**, Public checked in the owner menu, **17 exact upstream references** verified through unauthenticated Steam APIs (result1/visibility0/banned0). Owner page still shows temporary automated content analysis; not proof moderation is finished. Original hidden3822649790, `main`, retained saves and live host settings unchanged. No third-party code/assets or companion payload reuploaded.

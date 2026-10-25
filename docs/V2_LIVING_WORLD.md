@@ -1,6 +1,6 @@
 # v2.0 — the living-world expansion
 
-Design baseline: 2026-10-18, approved direction [SC-002](SCOPE_CHANGES.md); player-experience clarification updated 2026-10-19 under SC-005. This is a concept and staged implementation plan, not delivered gameplay or a selected dependency stack. See [current implementation and unfinished v1 acceptance](STATUS.md). Mod evidence and specific integration gaps: [V2_MOD_SURVEY](V2_MOD_SURVEY.md).
+Design baseline: 2026-10-18, approved direction [SC-002](SCOPE_CHANGES.md); player-experience clarification updated 2026-10-19 under SC-005. This remains the concept/acceptance plan, **not a claim that the whole loop is delivered**. SC-004 selected A-Life + Jeem; subsequent isolated implementation has progressed beyond the original task proposals below. Use the [V2 completion checklist](V2_COMPLETION.md) and [current implementation / unfinished V1 acceptance](STATUS.md) for exact done/open boundaries. Mod evidence and specific integration gaps: [V2_MOD_SURVEY](V2_MOD_SURVEY.md).
 
 ## The corrected guiding principle
 
@@ -140,9 +140,11 @@ Card: ~10–15 minutes per scenario—below-threshold refusal/no cost; eligible 
 
 Acceptance: one owner, one fulfillment, trustworthy claimant/delivery evidence, bounded actors and persistent consequence. If a hook is missing, record the smallest original adapter/patch and choose based on lifetime cost. Rollback: stop disposable world, retain evidence; revert only new profile/add-on commit. No overwrite of Avery/Riley or published collection mutation.
 
-### V2-03 — author one consequential contract, then implement only the gaps (design ready)
+### V2-03 — author one consequential contract, then implement only the gaps (narrow delivery/recovery slice observed)
 
 Outcome: one shortage → player choice → supply mission → changed faction service loop; not a generic quest platform.
+
+Implementation update: the native introduction, separate-account Jeem credit/shared aid and actual event-aftermath repair survived clean restarts ([V2-03 ownership](V2-03-ownership.md), [V2-04 recovery](V2-04-recovery.md)). [V2-05](V2-05-recurring-relief.md) adds a small opt-in event-bound recurring action after source inspection found no durable repeatable-gather completion token. These slices do not complete contested shipments, contextual violence attribution or the ordinary survival/physical multiplayer gates below.
 
 Approach: inspect/configure The Mission; write small project rules/adapters only where missing. Prerequisites: V2-01/02 owner decisions for physical adapters; pure policy tests and mission-source inspection can start independently.
 

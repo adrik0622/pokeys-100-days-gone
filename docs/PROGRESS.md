@@ -1,5 +1,10 @@
 # Progress and significant decisions
 
+## 2026-10-25 — Public unstable content lane authorized
+
+- User changed priority to an existing-mod content survey/assembly for a friends' field stress test, explicitly confirmed **42.21** and **public unstable collection**. Recorded SC-006. Created Git branch `unstable` from `47a7856`; `main` and the old hidden three-reference collection remain unchanged. Earlier uncommitted continuation notes/screenshots are preserved as carryover, not silently promoted to completed acceptance.
+- Focus is documented MP/build fit and complementary content, not an automated testing campaign or new custom feature framework. Prepare a fresh-world field preset, exact upstream references/dependencies and a concise explanation of unsupported combinations/remaining custom-only ideas. No old save, security policy or host service is changed by this scope decision.
+
 ## 2026-10-19 — Recurring event-bound relief implemented behind an isolated opt-in
 
 - Closed the source-level once-only recovery gap with [V2-05](V2-05-recurring-relief.md), companion **0.4.2**: an introduced, living player at the relay can donate two clean/non-favorite/unequipped main-inventory Bandages during a verified disruption, once per native account/event. It repairs up to 12 world hours and awards one modest native Jeem deed, with no item/XP reward. Healthy relays refuse supplies; waiting remains valid. The Mission introduction and legacy ledgers stay unchanged.

@@ -1,5 +1,16 @@
 # Approved scope changes
 
+## SC-006 — 2026-10-25: public unstable content / friends' field-test lane
+
+**User direction:** build an unstable branch/collection focused on existing content additions across the project's current and future vision. Survey available mods, check documented multiplayer support, and assemble useful combinations for active stress-testing with friends rather than waiting for the prior laboratory acceptance sequence. User explicitly confirmed **Build 42.21** and **public** visibility for the unstable collection.
+
+**Authorized lane:** Git branch `unstable`; a separate public Workshop collection named **Pokeys 100 Days Gone — Unstable**; original manifest/configuration/installation notes referencing upstream items. Existing-mod V3/depth and stretch candidates may now be evaluated and included here when their version/MP support and conflicts are documented. Combine complementary selected owners for the field test; the earlier isolated-only sequencing does not gate this unstable lane. Prefer upstream content/configuration over new custom systems or an extended automated test campaign.
+
+**Still preserved:** the existing hidden baseline collection, `main`, historical evidence and retained worlds are not overwritten or reclassified as accepted. Author-documented MP support is not our exact-stack runtime certification; unknowns are disclosed for the field test. Avoid known competing NPC/firearm/horde/loot owners, copied upstream payloads, invented faction/relic connections, real-money stakes and unapproved host/security changes. No custom V3 feature implementation, public companion-payload upload, author contact or live-server replacement is implied. Friends are now available; the old no-second-tester assumption does not block this lane.
+
+**World assumption:** prepare a new disposable world unless the user specifies an existing save. Map/interior additions are not silently inserted into retained worlds. Publication permission applies to this new collection of references, not to redistributing third-party code/assets.
+
+
 The original [PROJECT_BRIEF.txt](../PROJECT_BRIEF.txt) is preserved unchanged. This dated record overrides only the specific requirements listed below; it does not retroactively change test evidence or waive unrelated quality requirements.
 
 ## SC-005 — 2026-10-19: positive player experience, foreshadowing and stretch ideas

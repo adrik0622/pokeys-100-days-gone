@@ -10,6 +10,21 @@ Keep that introduction unchanged. Add one explicit **Donate 2 Bandages for recov
 
 ## Ownership and recovery boundaries
 
+```mermaid
+flowchart LR
+  H[Horde Nights successful completion] --> O[Observer: disruption ID + remaining time]
+  N[Native Mission: account introduction completed] --> C[Server validates real account / location / need / supplies]
+  O --> C
+  C --> L[Reserve account + event receipt]
+  L --> I[Consume 2 eligible Bandages]
+  I --> J[Jeem: one native-scaled deed]
+  J --> R[Observer: repair up to 12 h]
+  R --> A[Mark receipt applied]
+  I -. ambiguous effect .-> X[Latch incident; no replay or guessed refund]
+  J -. ambiguous effect .-> X
+  R -. ambiguous effect .-> X
+```
+
 - Horde Nights remains the horde owner; the existing observer remains the only disruption/repair owner. Record a `disruptionEvent` only when the observer actually accepts a spawned, successfully completed event. An abort/baseline must not relabel an earlier incident. Older observer data without this optional field is **not** backfilled from `lastEvent`; active recurring relief waits for the next known successful event. No standing/save reset or inferred history migration.
 - The Mission owns the unchanged introductory gather/reward; Jeem owns all faction standing. This action is an original world-condition interaction, not a second copy of the native contract/payout or a reputation mirror.
 - Separate `Pokeys100DaysGone.V2Relief` schema-1 receipts, capped at 4,096 contributions without pruning, protect account + event identity. Reserve globally before the first removal, record consumption/phase, and keep an incident/pending latch after any ambiguous partial effect. Reopen refuses malformed state and never resets it. A full ledger refuses new donations rather than erasing replay protection.
@@ -30,4 +45,16 @@ Companion source **0.4.2**; **73 project checks pass**, including Lua 5.1 syntax
 
 Pinned native Jeem inspection confirmed two important API contracts before runtime: `Standing.rate` returns a multiplier (the new action uses one base point), while `Standing.add` returns **before/after labels**, not numeric points. Receipts validate/store those labels; total points are still read from Jeem. No upstream source was copied or edited. Main-inventory/unequipped checks and removal notification use native APIs already present in the game/project.
 
-The recovery fixture now explicitly enables the option in source. Its existing cached server config must be changed only while stopped, after the retained 0.4.1 offline checkpoints. Runtime observation is pending; do not reinterpret the earlier introduction test as a recurring-action pass.
+The recovery fixture explicitly enables the option in source. Its existing cached server option was changed while stopped, after the retained 0.4.1 offline checkpoints. Earlier introduction evidence remains tied to 0.4.1.
+
+## Engine observation — in progress
+
+Native Build 42.21.0, source **`47a7856` / 0.4.2**. Server **703647**, native admin client **703716**: the same Relay Controller rejoined at the saved event site, away from the relay, without a new NPC spawn or world reset. Exactly one further Force/Complete sequence produced event **2 SOUTHEAST**, native budget/cap/birth **1**, route **1**, kills **0**, survivor **1**, drops false; observer recorded a new 24 h disruption. Earlier event-1 survivor was not removed. These bounded births are not a global-survivor-cap or fought-horde result. Admin exited 0.
+
+Fresh ordinary A **705330** rejoined the existing **Alpha Recovery**, first introduction still completed/applied, native points **1.56**, shared aid cooldown **47.3 h**. New event 2 / **23.7 h** recovery was visible. A first recurring click without Bandages was explicitly refused, with no visible standing/item change or applied-contribution log. One new fixed two-Bandage fixture was then supplied for this distinct action; visible inventory showed `Bandage (2)` and only the old Alcohol Wipes. One Donate click consumed both, carry weight **1.70→1.50**, increased native points to **3.12** (actual deed **1.5625**) and reduced recovery to **11.6 h**. Native log: one `recurring relief applied event=horde:2 by=pokeys_recovery_a`. A repeat click said already helped this event; weight/standing remained unchanged and the old aid cooldown continued at **47.1 h**. No new native Mission completion, introduction deed, wipes or aid bottle was issued.
+
+Ordinary A then began and cancelled the optional observer calibration. The panel showed **Calibration cancelled; baseline warning remains available**, retaining the 4-world-hour baseline window (**87.84–91.84 h** in that refresh). This is cancellation evidence in the selected five-mod composition, not movement/death interruption. A and server exited 0 / zero players / no listener. Preserved the partial contribution offline before restart.
+
+Fresh server **707226** loaded the saved observer/bridge/relief receipts normally. Fresh A client **707293** rejoined Alpha without creation, supplies or Mission claims. The relay retained points **3.12**, event **2**, **11.3 h** recovery and **46.8 h** aid cooldown. A recurring click was refused as already helped this event; weight stayed **1.50**, no extra contribution/standing log. This directly checks the event/account key through actual engine serialization and clean processes, not merely a mocked reopen.
+
+On that fresh process the existing screenshot/OCR-only `scripts/calibration_smoke.py` completed the displayed channels in **17.47 s**, reporting **Signal locked**. Visible forecast **89.27–89.77 world hours** was calibrated (0.5 h width); no supplies/item/deed were required or awarded. The earlier cancellation's transient session/cooldown was not revived by restart. A exited 0; server stayed running/pauses when empty for B's separate session. Shared benefit and B's independent repair remain in progress.
